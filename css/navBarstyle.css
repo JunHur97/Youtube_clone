@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 200px;
+    width: 240px;
     height: 100vh;
     overflow-y: auto;
     margin-top: 50px;
@@ -21,22 +21,8 @@
     font-size: 14px;
 }
 
-/* 스크롤바 평소에 안보이게 하기 */
-.navBar::-webkit-scrollbar {
-    width: 0px;
-}
-/* hover하면 스크롤 보이게*/
-.navBar:hover::-webkit-scrollbar {
-    width: 5px;
-}
-/* 스크롤 자체 색상 및 설정 (움직이는 애)*/
-.navBar:hover::-webkit-scrollbar-thumb {
-    background-color: gray;
-    border-radius: 3px;
-}
-/* 스크롤바 배경*/
-.navBar:hover::-webkit-scrollbar-track {
-    background: transparent;
+section {
+    width: 100%;
 }
 
 .navItem {
@@ -60,6 +46,67 @@
     width: 20px;
     height: auto;
 }
+
+@media (max-width: 1260px) {
+    .navBar {
+        width: 72px;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .navItem {
+        display: flex;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        font-size: 6px;
+        padding: 12px 0;
+        gap: 4px;
+    }
+    
+    .navItem img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .navItem p {
+        display: block;
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: white
+    }
+
+    .caption,.divider, section:not(:first-of-type) {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .navBar {
+        display: none;
+    }
+}
+
+/* 스크롤바 평소에 안보이게 하기 */
+.navBar::-webkit-scrollbar {
+    width: 0px;
+}
+/* hover하면 스크롤 보이게*/
+.navBar:hover::-webkit-scrollbar {
+    width: 5px;
+}
+/* 스크롤 자체 색상 및 설정 (움직이는 애)*/
+.navBar:hover::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 3px;
+}
+/* 스크롤바 배경*/
+.navBar:hover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 /* 선 나눠달라고 말하기*/
 .divider {
     width: 100%;
