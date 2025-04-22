@@ -1,68 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Clone</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Clone</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    header.top-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      header button {
+        background-color: #212121;
+        border: none;
+      }
 
-    .nav-left,
-    .nav-center,
-    .nav-right {
-      display: flex;
-      align-items: center;
-    }
+      header.top-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #212121;
+        padding: 15px 20px;
+      }
 
-    .nav-center {
-      flex: 1;
-      justify-content: center;
-    }
+      .nav-left,
+      .nav-center,
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-    .search-form {
-      display: flex;
-    }
+      .nav-left button[aria-label="Menu"] {
+        border: none;
+      }
 
-    .logo {
-      height: 24px;
-    }
+      .nav-center {
+        display: flex;
+        gap: 0;
+        flex: 1;
+        justify-content: center;
+      }
 
-    .profile-img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-    }
-  </style>
-</head>
-<body>
+      .search-form {
+        display: flex;
+        justify-content: center;
+        background-color: #303030;
+        margin-right: 0;
+      }
 
-  <header class="top-nav">
-    <div class="nav-left">
-      <button aria-label="Menu">☰</button>
-      <img src="youtube-logo.png" alt="YouTube Logo" class="logo" />
-    </div>
+      .search-form input {
+        padding: 10px;
+        font-size: 15px;
+        background-color: #121212;
+        border: 1px solid #2a2a2a;
+        border-radius: 3px 0 0 3px;
+        width: 362px;
+        color: #979797;
+      }
 
-    <div class="nav-center">
-      <form class="search-form">
-        <input type="text" placeholder="Search" />
-        <button type="submit">🔍</button>
-      </form>
-    </div>
+      .search-form button[type="submit"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 36px;
+        border-radius: 0 3px 3px 0;
+        background-color: #303030;
+        margin-left: 1px;
+        text-align: center;
+      }
 
-    <div class="nav-right">
-      <button aria-label="Upload">📹</button>
-      <button aria-label="Notifications">🔔</button>
-      <img src="profile.jpg" alt="Profile" class="profile-img" />
-    </div>
-  </header>
+      button[aria-label="Mic"] {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        background-color: #000;
+        margin-left: 3px;
+      }
 
-</body>
+      .logo {
+        height: 24px;
+      }
+
+      .profile-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-nav">
+      <div class="nav-left">
+        <button aria-label="Menu">
+          <img src="/assets/img/header/hamburger.svg" alt="hamburgerIcon" />
+        </button>
+        <img
+          src="/assets/img/header/Youtube-Logo.svg"
+          alt="YouTube Logo"
+          class="logo"
+        />
+      </div>
+
+      <div class="nav-center">
+        <form class="search-form">
+          <input type="text" placeholder="Search" />
+          <button type="submit">
+            <img src="/assets/img/header/search.svg" alt="searchIcon" />
+          </button>
+        </form>
+        <button aria-label="Mic">
+          <img src="/assets/img/header/mic.svg" alt="micIcon" />
+        </button>
+      </div>
+
+      <div class="nav-right">
+        <button aria-label="Upload">
+          <img src="/assets/img/header/upload.svg" alt="uploadIcon" />
+        </button>
+
+        <button aria-label="Apps">
+          <img src="/assets/img/header/apps.svg" alt="appsIcon" />
+        </button>
+        <button aria-label="Notifications">
+          <img
+            src="/assets/img/header/notifications.svg"
+            alt="notificationsIcon"
+          />
+        </button>
+        <img
+          src="/assets/img/navBar/subUserIcon1.svg"
+          alt="Profile"
+          class="profile-img"
+        />
+      </div>
+    </header>
+  </body>
 </html>
