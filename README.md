@@ -4,7 +4,13 @@
 
 ---
 ## 팀원
-- 김예은
-- 신동규
-- 이수완
-- 허준
+- 김예은 ([yeeunkim7](https://github.com/yeeunkim7))
+- 신동규 ([renetdevp](https://github.com/renetdevp))
+- 이수완 ([SooowanLee](https://github.com/SooowanLee))
+- 허준 ([JunHur97](https://github.com/JunHur97))
+
+---
+## 진행사항
+|일자|김예은|신동규|이수완|허준|
+|---|---|---|---|---|
+|2025-04-22|상단바 html 개발 (html/상단바3개.html)|nav바 html 개발 (html/navBar.html)|상단바 css 개발 (html/상단바3개.html)|nav바 css 개발 (css/navBarStyle.css)|
