@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YouTube Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    header.top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-left,
+    .nav-center,
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-center {
+      flex: 1;
+      justify-content: center;
+    }
+
+    .search-form {
+      display: flex;
+    }
+
+    .logo {
+      height: 24px;
+    }
+
+    .profile-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-nav">
+    <div class="nav-left">
+      <button aria-label="Menu">☰</button>
+      <img src="youtube-logo.png" alt="YouTube Logo" class="logo" />
+    </div>
+
+    <div class="nav-center">
+      <form class="search-form">
+        <input type="text" placeholder="Search" />
+        <button type="submit">🔍</button>
+      </form>
+    </div>
+
+    <div class="nav-right">
+      <button aria-label="Upload">📹</button>
+      <button aria-label="Notifications">🔔</button>
+      <img src="profile.jpg" alt="Profile" class="profile-img" />
+    </div>
+  </header>
+
+</body>
+</html>
