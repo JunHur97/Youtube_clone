@@ -1,0 +1,136 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  header button {
+    background-color: #212121;
+    border: none;
+  }
+
+  header.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #212121;
+    padding: 12px 20px;
+  }
+
+  .nav-left,
+  .nav-center,
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-left img:hover {
+    cursor: pointer;
+  }
+
+  .nav-left button[aria-label="Menu"] {
+    width: 45px;
+    height: 45px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .nav-left button[aria-label="Menu"]:hover {
+    border: none;
+    cursor: pointer;
+    background-color: #3d3d3d;
+    border-radius: 100%;
+  }
+
+  .nav-center {
+    display: flex;
+    gap: 0;
+    flex: 1;
+    justify-content: center;
+    margin: 0 20px 0 20px;
+  }
+
+  .search-form {
+    display: flex;
+    justify-content: center;
+    background-color: #303030;
+  }
+
+  .search-form input {
+    padding: 10px;
+    font-size: 15px;
+    background-color: #121212;
+    border: 1px solid #2a2a2a;
+    border-radius: 3px 0 0 3px;
+    width: 362px;
+    color: #979797;
+  }
+
+  .search-form input[type="text"]:focus {
+    border: 1px solid #1c62b9;
+    outline: none;
+  }
+
+  .search-form button[type="submit"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 36px;
+    border-radius: 0 3px 3px 0;
+    background-color: #303030;
+    margin-left: 1px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  button[aria-label="Mic"] {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-color: #303030;
+    margin-left: 10px;
+  }
+
+  button[aria-label="Mic"]:hover {
+    background-color: #3d3d3d;
+  }
+
+  button[aria-label="Mic"]:active {
+    background-color: #515151;
+  }
+
+  .nav-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .nav-right button {
+    width: 45px;
+    height: 45px;
+  }
+
+  .nav-right button:hover {
+    background-color: #3d3d3d;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+
+  .logo {
+    height: 24px;
+  }
+
+  .profile-img {
+    width: 32px;
+    height: 32px;
+    margin-left: 5px;
+    border-radius: 50%;
+  }
+
+  .profile-img:hover {
+    cursor: pointer;
+  }
