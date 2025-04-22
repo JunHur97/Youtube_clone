@@ -18,6 +18,7 @@
     background-color: #212121;
     color: #ffffff;
     padding: 10px;
+    font-size: 14px;
 }
 
 /* 스크롤바 평소에 안보이게 하기 */
@@ -70,7 +71,7 @@
 }
 
 .caption {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     padding: 10px 15px 10px 15px;
     color: gray;
