@@ -1,0 +1,76 @@
+/*navBar CSS 스타일*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.navBar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 200px;
+    height: 100vh;
+    overflow-y: auto;
+    margin-top: 50px;
+    background-color: #212121;
+    color: #ffffff;
+    padding: 10px;
+}
+
+/* 스크롤바 평소에 안보이게 하기 */
+.navBar::-webkit-scrollbar {
+    width: 0px;
+}
+/* hover하면 스크롤 보이게*/
+.navBar:hover::-webkit-scrollbar {
+    width: 5px;
+}
+/* 스크롤 자체 색상 및 설정 (움직이는 애)*/
+.navBar:hover::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 3px;
+}
+/* 스크롤바 배경*/
+.navBar:hover::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.navItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 15px;
+    width: 100%;
+    background-color: #212121;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.navItem:hover {
+    background-color: gray;
+}
+
+.navBar img {
+    width: 20px;
+    height: auto;
+}
+/* 선 나눠달라고 말하기*/
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    opacity: 0.3;
+    margin: 10px 0;
+}
+
+.caption {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 10px 15px 10px 15px;
+    color: gray;
+}
