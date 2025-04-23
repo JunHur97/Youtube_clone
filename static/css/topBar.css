@@ -43,6 +43,13 @@ header.top-nav {
   border-radius: 100%;
 }
 
+.nav-left button[aria-label="Menu"]:active {
+  border: none;
+  cursor: pointer;
+  background-color: #515151;
+  border-radius: 100%;
+}
+
 .nav-center {
   display: flex;
   max-width: 500px;
@@ -104,10 +111,12 @@ button[aria-label="Mic"] {
 }
 
 button[aria-label="Mic"]:hover {
+  cursor: pointer;
   background-color: #3d3d3d;
 }
 
 button[aria-label="Mic"]:active {
+  cursor: pointer;
   background-color: #515151;
 }
 
@@ -127,6 +136,12 @@ button[aria-label="Mic"]:active {
   background-color: #3d3d3d;
   border-radius: 100%;
   cursor: pointer;
+}
+
+.nav-right button:active {
+  cursor: pointer;
+  background-color: #515151;
+  border-radius: 100%;
 }
 
 .logo {
