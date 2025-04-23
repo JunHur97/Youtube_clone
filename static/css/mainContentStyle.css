@@ -113,7 +113,6 @@ body {
 
 .video-section {
   display: grid;
-  /* 최소 250px, 공간 여유 있을 때 자동으로 더 많은 카드가 들어감 */
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
@@ -127,11 +126,26 @@ body {
   flex: 1 0 auto;
 }
 
+.video-box {
+  position: relative;
+}
+
 .video-content video {
+  position: relative;
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
   border: 1px solid #fff;
+}
+
+.video-content .video-box .running-time {
+  position: absolute;
+  right: 10px;
+  bottom: 15px;
+  padding: 5px;
+  border-radius: 7%;
+  background-color: #303030;
+  color: #fff;
 }
 
 .video-details {
