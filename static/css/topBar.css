@@ -14,7 +14,7 @@ header.top-nav {
   justify-content: space-between;
   align-items: center;
   background-color: #212121;
-  padding: 12px 20px;
+  padding: 12px 15px;
 }
 
 .nav-left,
@@ -47,7 +47,7 @@ header.top-nav {
   display: flex;
   max-width: 500px;
   gap: 0;
-  flex-grow: 1;
+  flex-grow: 2;
   justify-content: center;
   margin: 0 20px;
 }
@@ -67,7 +67,6 @@ header.top-nav {
   border: 1px solid #2a2a2a;
   border-radius: 3px 0 0 3px;
   width: 100%;
-  max-width: 500px;
   height: 36px;
   color: #979797;
 }

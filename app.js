@@ -1,15 +1,17 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-const path = require('node:path');
+const path = require("node:path");
 
-app.set('view engine', 'ejs');
-app.use('/public', express.static(path.join(__dirname, 'static')));
+app.set("view engine", "ejs");
+app.use("/public", express.static(path.join(__dirname, "static")));
 
-app.get('/', (req, res) => {
-    res.render('main');
+app.get("/", (req, res) => {
+  res.render("main");
 });
 
 app.listen(3000, () => {
-    console.log('hos server opened');
+  console.log("hos server opened");
 });
+
+app.set("view cache", false);
