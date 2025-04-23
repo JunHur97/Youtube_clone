@@ -1,0 +1,67 @@
+.videoNav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 40%;
+    padding: 10px;
+    color: #fff;
+}
+
+.videoNav > * {
+    width: 100%;
+}
+
+.videoNav > .recommendFilter {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.recommendFilter > .filterOpt {
+    padding: 5px 10px;
+    background-color: #333;
+    border: solid 1px #aaa;
+    border-radius: 10px;
+}
+
+.filterOpt[selected] {
+    background-color: #fff;
+    color: #000;
+}
+
+.rVideo {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.rVideo img {
+    width: auto;
+    height: 100px;
+}
+
+.rVideoInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+.rVideoInfo > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.rVideoInfo > a:hover {
+    color: #aaa;
+    transition: .25s linear;
+}
+
+.rVideoBottom {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: #aaa;
+    font-size: .8rem;
+}
