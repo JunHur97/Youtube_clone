@@ -1,9 +1,7 @@
 
-<link rel="stylesheet" href="/public/css/channel.css">
-
 <main class="channel">
   <div class="content-wrapper">
-
+   <!-- 섹션 1 -->
     <section class="channel-banner">
       <div class="channel-cover">
         <img src="/public/img/channel/banner.svg" alt="Channel Banner">
@@ -15,9 +13,9 @@
           <h1 class="channel-name">Marcus Levin</h1>
           <p class="channel-subscribers">1.2M subscribers</p>
         </div>
-        <button class="subscribe-button">Subscribe</button>
+        <button class="subscribe-button">Subscribes</button>
       </div>
-
+      <!-- 채널 버튼들 -->
       <div class="channel-toolbar">
         <div class="toolbar-menu">
           <a href="" class="active">HOME</a>
@@ -30,19 +28,18 @@
         </div>       
       </div>
     </section>
-
+      <!-- 섹션 2 메인 비디오 -->  
     <section class="smal-video">
       <video controls src="../assets/video/sample.mp4"></video>
       <div class="video-description">
         <div class="video-title">Blind Woodturner: Turning passion into fine art</div>
         <div class="video-meta">567,969 views · 3 weeks ago</div>
-        <div class="description">
-           비디오 설명
-        </div>
+        <div class="description">비디오 설명</div>
       </div>
     </section>
-
-    <section class="play-lists">
+      <!-- 섹션 3  -->
+    <section class="play-lists"> 
+      <!-- playlist 1  -->
       <div class="playlist">
         <div class="playlist-header">
           <h3 class="playlist-date">Search on '21</h3>          
@@ -52,49 +49,19 @@
           </button>
         </div>
         <div class="playlist-videos">
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 0.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
+          <% for(let i=0; i < 5; i++) { %>
+            <div class="video-card">
+              <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
+              <div class="video-info">
+                <h3 class="video-title">Lorem Ipsum dolar sit amet, consecte...</h3>
+                <p class="channel-name">Marcus Levin</p>
+                <p class="video-meta">320k views · 1 month ago </p>
+              </div>
             </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 1.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 2.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 3.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 4.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
+          <%} %>
         </div>
-      </div>
-    
+        </div>
+        <!-- playlist 2  -->
       <div class="playlist">
         <div class="playlist-header">
           <h3 class="playlist-date">Search on '21</h3>          
@@ -104,47 +71,19 @@
           </button>
         </div>
         <div class="playlist-videos">
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 5.svg" alt="Video Thumbnail">
+          <% for(let i =5; i < 10; i++) { %>
+           <div class="video-card">
+            <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
             <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
+              <h3 class="video-title">Lorem ipsum dolar sit amet, consecte...</h3>
               <p class="channel-name">Marcus Levin</p>
               <p class="video-meta">320K views · 1 month ago</p>
             </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 6.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 7.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 8.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
-          <div class="video-card">
-            <img src="/public/img/channel/Thumbnail 9.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolor sit amet, concete...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-          </div>
+           </div>
+          <%} %>
         </div>
       </div>
+      <!-- playlist 추가가능  -->
     </section>
+  </div>
 </main>
