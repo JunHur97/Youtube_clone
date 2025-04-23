@@ -1,0 +1,228 @@
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #f3f3f3;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .channel {
+        position: absolute;
+        top: 60px;
+        left: 240px;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #212121;
+      min-height: 100vh;
+    }
+    .navBar {
+        position: sticky;
+        z-index: 1;
+        min-height: calc(100vh -69px);
+    }
+    .content-wrapper {
+        position: absolute;
+        width: 100%;
+      max-width: 1200px;
+      min-height: calc(100vh -69px);
+      margin: 0 auto;
+    }
+    .channel-cover img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .channel-title {
+      display: flex;
+      align-items: center;
+      padding: 20px 30px 10px;
+    }
+    .channel-profile {
+      width: 104px;
+      height: 180px;
+      border-radius: 50%;
+    }
+    .channel-details {
+      margin-left: 20px;
+      flex-grow: 1;
+    }
+    .channel-name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .channel-subscribers {
+      font-size: 14px;
+      color: #aaa;
+      margin-top: 5px;
+    }
+    .subscribe-button {
+      width: 116px;
+      height: 36px;
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .channel-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      margin-top: 10px;
+    }
+    .toolbar-menu {
+      display: flex;
+      gap: 55px;
+    }
+    .toolbar-menu a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .toolbar-menu a.active { 
+      color: white;
+      font-weight: bold;
+    }
+    .smal-video {
+      display: flex;
+      padding: 30px;
+      border-bottom: 1px solid #333;
+      gap: 20px;
+    }
+    .smal-video video {
+      width: 448px;
+      height: 238px;
+      background-color: black;
+      border-radius: 10px;
+    }
+    .video-description {
+      width: 400px;
+      height: 238px;
+    }
+    .video-description .video-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .video-description .video-meta {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+    .video-description .description {
+      font-size: 14px;
+      color: #ccc;
+    }
+    .play-lists {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+    }
+
+    .playlist {
+      background: #212121;
+      width: 1200px;
+      height: 288px;
+      padding: 3px;
+      margin: 0px auto;
+      border-bottom: 1px solid #555;
+    }
+
+    .playlist:last-child {
+        border-bottom: none; 
+    }
+
+    .playlist-header {
+      display: flex;
+      align-items: center;
+      width: 1070px;
+      height: 44px;
+      gap: 2px;
+      margin: 0px
+    }
+
+    .playlist-date {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .play-button {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .play-button-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .play-button-text {
+      font-size: 16px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .playlist-videos {
+      display: grid;
+      width: 1070px;
+      height: 242px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      padding: 10px 0;
+    } 
+    .video-card {
+      width: 214px;
+      height: 194px;
+      background-color: #222;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .video-card:hover {
+      transform: scale(1.02);
+    }
+    .video-card img {
+      box-sizing: border-box;
+      width: 210px;
+      height: 118px;
+      object-fit: cover;
+    }
+    .video-info {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin-top: 3px;
+        gap: 2px; 
+      }
+      
+      .video-info .video-title {
+        width: 186px;
+        height: 48px;
+        font-size: 14px;
+        margin: 0; 
+        padding: 0;
+      }
+      
+      .video-info .channel-name,
+      .video-info .video-meta {
+        width: 186px;
+        height: 14px;
+        font-size: 12px;
+        color: #aaa;
+        margin: 0; 
+        padding: 0;
+      }
