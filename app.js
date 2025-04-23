@@ -10,6 +10,10 @@ app.get("/", (req, res) => {
   res.render("main");
 });
 
+app.get('/video', (req, res) => {
+    res.render('videoPage');
+});
+
 app.listen(3000, () => {
   console.log("hos server opened");
 });
