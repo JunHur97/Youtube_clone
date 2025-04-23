@@ -52,74 +52,39 @@
                 <p>SORT BY</p>
             </div>
         </div>
-        <div class="comment">
-            <img src="/public/img/navBar/subUserIcon1.svg">
-            <div class="commentTop">
-                <div class="commentInfo">
-                    <div class="commentAuthor">James Gouse</div>
-                    <div class="commentCreatedAt">8 hours ago</div>
-                </div>
-                <div class="commentContent">Wow, world is full of different skills</div>
-            </div>
-            <div class="commentBottom">
-                <div class="commentLike">
-                    <img src="/public/img/videoPage/likeIcon.svg" alt="">
-                    <p>3</p>
-                </div>
-                <div class="commentDislike">
-                    <img src="/public/img/videoPage/dislikeIcon.svg" alt="">
-                    <p></p>
-                </div>
-                <div class="commentReply">
-                    REPLY
-                </div>
-            </div>
-        </div>
-        <div class="comment">
-            <img src="/public/img/navBar/subUserIcon2.svg">
-            <div class="commentTop">
-                <div class="commentInfo">
-                    <div class="commentAuthor">Alan Cooper</div>
-                    <div class="commentCreatedAt">4 days ago</div>
-                </div>
-                <div class="commentContent">Can you provide?</div>
-            </div>
-            <div class="commentBottom">
-                <div class="commentLike">
-                    <img src="/public/img/videoPage/likeIcon.svg" alt="">
-                    <p>3</p>
-                </div>
-                <div class="commentDislike">
-                    <img src="/public/img/videoPage/dislikeIcon.svg" alt="">
-                    <p></p>
-                </div>
-                <div class="commentReply">
-                    REPLY
-                </div>
-            </div>
-        </div>
-        <div class="comment">
-            <img src="/public/img/navBar/subUserIcon3.svg">
-            <div class="commentTop">
-                <div class="commentInfo">
-                    <div class="commentAuthor">James Gouse</div>
-                    <div class="commentCreatedAt">8 hours ago</div>
-                </div>
-                <div class="commentContent">Wow, world is full of different skills</div>
-            </div>
-            <div class="commentBottom">
-                <div class="commentLike">
-                    <img src="/public/img/videoPage/likeIcon.svg" alt="">
-                    <p>3</p>
-                </div>
-                <div class="commentDislike">
-                    <img src="/public/img/videoPage/dislikeIcon.svg" alt="">
-                    <p></p>
-                </div>
-                <div class="commentReply">
-                    REPLY
-                </div>
-            </div>
-        </div>
+        <%
+            const comments = [{
+                commenterImg: '/public/img/navBar/subUserIcon1.svg',
+                authorName: 'James Gouse',
+                createdAt: '8 hours ago',
+                comment: 'Wow, world is full of different skills',
+            }, {
+                commenterImg: '/public/img/navBar/subUserIcon2.svg',
+                authorName: 'Alan Cooper',
+                createdAt: '4 days ago',
+                comment: 'Can you provide?',
+            }, {
+                commenterImg: '/public/img/navBar/subUserIcon3.svg',
+                authorName: 'Heroes of the Storm',
+                createdAt: '8 hours ago',
+                comment: 'HotS still alive',
+            }, {
+                commenterImg: '/public/img/navBar/subUserIcon4.svg',
+                authorName: 'Kim Kimkim',
+                createdAt: '8 days ago',
+                comment: 'asdf',
+            }];
+
+            comments.map((v) => {
+        %>
+        <%- include('videoComment', {
+            commenterImg: v.commenterImg,
+            authorName: v.authorName,
+            createdAt: v.createdAt,
+            comment: v.comment,
+        }) %>
+        <%
+            });
+        %>
     </div>
 </div>
