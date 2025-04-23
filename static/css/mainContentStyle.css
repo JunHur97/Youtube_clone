@@ -107,6 +107,7 @@ body {
 
 .video-wrap {
   width: 100%;
+  height: 100vh;
   padding: 20px;
   background-color: #000;
 }
@@ -135,13 +136,16 @@ body {
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
-  border: 1px solid #fff;
+}
+
+.video-content video:hover {
+  cursor: pointer;
 }
 
 .video-content .video-box .running-time {
   position: absolute;
-  right: 10px;
-  bottom: 15px;
+  right: 5px;
+  bottom: 10px;
   padding: 5px;
   border-radius: 7%;
   background-color: #303030;
@@ -154,6 +158,10 @@ body {
   gap: 15px;
   margin-top: 10px;
   line-height: 1.1;
+}
+
+.video-details:hover {
+  cursor: pointer;
 }
 
 .video-details img {
@@ -174,6 +182,10 @@ body {
 .video-details .video-meta .username {
   color: #aaa;
   margin-top: 10px;
+}
+
+.video-details .video-meta .username:hover {
+  color: #e6e6e6;
 }
 
 .video-details .video-meta .views {

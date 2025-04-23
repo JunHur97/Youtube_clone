@@ -5,54 +5,12 @@
       <button class="scroll-btn left" onclick="scrollCategory('left')">
         <
       </button>
+      <% mainPageButton.forEach(itemBtn => { %>
       <article class="content">
-        <div>All</div>
+        <div><%=itemBtn.content %></div>
       </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
-      <article class="content">
-        <div>Item</div>
-      </article>
+      <% }); %>
+
       <button class="scroll-btn right" onclick="scrollCategory('right')">
         >
       </button>
@@ -60,222 +18,27 @@
   </div>
   <div class="video-wrap">
     <section class="video-section">
+      <% videoList.forEach(video => { %>
       <article class="video-grid">
         <div class="video-content">
           <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
+            <video
+              src="<%= video.videoSrc %>"
+              poster="<%= video.poster %>"
+            ></video>
+            <span class="running-time"><%= video.runningTime %></span>
           </div>
           <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
+            <img src="<%= video.userProfile %>" alt="userProfile" />
             <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
+              <h3 class="video-description"><%= video.description %></h3>
+              <div class="username"><%= video.username %></div>
+              <div class="views"><%= video.views %></div>
             </div>
           </div>
         </div>
       </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
-      <article class="video-grid">
-        <div class="video-content">
-          <div class="video-box">
-            <video src="/video"></video>
-            <span class="running-time">23:45</span>
-          </div>
-          <div class="video-details">
-            <img src="/public/img/navBar/subUserIcon2.svg" alt="userProfile" />
-            <div class="video-meta">
-              <h3 class="video-description">
-                Lorem ipsum dolor sit amet, consecte adipiscing elit.
-              </h3>
-              <div class="username">James Gouse</div>
-              <div class="views">15K views 1 week ago</div>
-            </div>
-          </div>
-        </div>
-      </article>
+      <% }); %>
     </section>
   </div>
 </div>
