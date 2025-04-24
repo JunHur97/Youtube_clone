@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/public/css/mainContent.css" />
+<div class="content-area">
+  <!-- 메인페이지 버튼 부분 -->
+  <% 
+  const mainPageButton=[]; 
+  for (let i=0; i < 20; i++) { 
+    mainPageButton.push({ content: i===0 ? "All" : "Item" });
+  }
+  %>
+
+  <div class="content-categories-wrap">
+    <section class="content-categories" id="category-scroll">
+      <button class="scroll-btn left" onclick="scrollCategory('left')">&lt;</button>
+      <% mainPageButton.forEach((v)=> { %>
+        <%- include('mainPageButton', { content: v.content }) %>
+          <% }); %>
+
+            <button class="scroll-btn right" onclick="scrollCategory('right')">&gt;</button>
+    </section>
+  </div>
+  
+  <!-- 메인 페이지 카드 (비디오) -->
+  <div class="video-wrap">
+    <section class="video-section">
+      <% videoList.forEach(video=> { %>
+        <article class="video-grid">
+          <div class="video-content">
+            <div class="video-box">
+              <video src="<%= video.videoSrc %>" 
+                class="video-player"
+                poster="<%= video.poster %>">
+              </video>
+              <span class="running-time"> <%= video.runningTime %> </span>
+            </div>
+            <div class="video-details">
+              <img src="<%= video.userProfile %>" alt="userProfile" />
+              <div class="video-meta">
+                <h3 class="video-description">
+                  <%= video.description %>
+                </h3>
+                <div class="username">
+                  <%= video.username %>
+                </div>
+                <div class="views">
+                  <%= video.views %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <% }); %>
+    </section>
+  </div>
+</div>

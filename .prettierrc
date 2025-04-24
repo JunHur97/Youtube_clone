@@ -1,0 +1,19 @@
+// EJS 코드 깨짐 방지 프리티어 설정
+{
+  "semi": true,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 120,
+  "htmlWhitespaceSensitivity": "ignore",
+  "plugins": ["prettier-plugin-ejs"],
+  "overrides": [
+    {
+      "files": "*.ejs",
+      "options": {
+        "parser": "html"
+      }
+    }
+  ]
+}
