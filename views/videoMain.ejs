@@ -1,22 +1,25 @@
 <link rel="stylesheet" href="/public/css/videoMain.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <div class="videoMain">
     <div class="videoPlayer"></div>
     <div class="videoInfo">
         <div class="videoMetadata">
-            <div class="title">Blind Woodturner: Turning passion into fine art</div>
+            <div class="title"></div>
             <div class="videoMetadataLeft">
-                <div class="views">576,969 views</div>
-                <div class="uploadDate">Oct 8, 2021</div>
+                <div class="views"></div>
+                <div class="uploadDate"></div>
             </div>
             <div class="videoMetadataRight">
                 <div class="likes">
                     <img src="/public/img/videoPage/likeIcon.svg">
-                    <p>1.7K</p>
+                    <p></p>
                 </div>
                 <div class="dislikes">
                     <img src="/public/img/videoPage/dislikeIcon.svg">
-                    <p>632</p>
+                    <p></p>
                 </div>
                 <div class="shareBtn">
                     <img src="/public/img/videoPage/shareIcon.svg">
@@ -88,3 +91,50 @@
         %>
     </div>
 </div>
+
+<script>
+    const getUser = async (videoId) => {
+        if (!/[0-9]*/.test(videoId)){
+            console.error('Invalid videoId');
+            return;
+        }
+
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    };
+
+    const getVideoId = (urlSearch) => {
+        const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
+        return hos[0].split('=')[1];
+    };
+
+    (async () => {
+        const hos = getVideoId(window.location.search);
+
+        try {
+            // const res = await getUser(hos);
+            const res = {
+                "channel_id": 1,
+                "created_dt": "Wed, 23 Apr 2025 07:11:35 GMT",
+                "dislikes": 3,
+                "id": 1,
+                "likes": 102,
+                "tags": [
+                    "동물",
+                    "복제",
+                    "멸종",
+                    "과학"
+                ],
+                "title": "#동물 #복제 #체세포복제  SCNT #동물 #멸종동물 #animal #복제 #야생동물",
+                "views": 1529
+            };
+
+            $('.videoMetadata .title')[0].textContent = res.title;
+            $('.videoMetadata .uploadDate')[0].textContent = moment(res.created_dt).format('MMM D, YYYY');
+            $('.videoMetadata .views')[0].textContent = `${res.views} views`;
+            $('.videoMetadata .dislikes p')[0].innerText = res.dislikes
+            $('.videoMetadata .likes p')[0].innerText = res.likes;
+        }catch (e){
+            console.error(e);
+        }
+    })();
+</script>
