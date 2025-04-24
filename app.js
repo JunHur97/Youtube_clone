@@ -37,6 +37,10 @@ app.get('/video', (req, res) => {
     res.render('videoPage');
 });
 
+app.get('/channel', (req, res) => {
+    res.render('channelpage');
+});
+
 app.listen(3000, () => {
     console.log('hos server opened');
 });
