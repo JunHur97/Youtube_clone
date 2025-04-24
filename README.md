@@ -20,3 +20,23 @@
 | ---------- | -------------------------------------- | ---------------------------------- | ------------------------------------- | ------------------------------------ |
 | 2025-04-22 | 상단바 html 개발 (html/상단바3개.html) | nav바 html 개발 (html/navBar.html) | 상단바 css 개발 (css/headerStyle.css) | nav바 css 개발 (css/navBarStyle.css) |
 |2025-04-23|video 페이지 개발중|video page 개발중 (videoMain / videoNav / videoPage / videoComment / recommendedVideo.ejs)|main page 개발중 (main/mainContent.ejs)|channel page 개발중|
+
+## 실행
+
+### 개발 환경 설정
+```
+npm i
+node app
+```
+### 메인 페이지
+```
+localhost:3000
+```
+![Main page](./static/img/README/mainPage.png)
+
+### 영상 페이지
+```
+id: Number
+http://localhost:3000/video?video_id={id}
+```
+![Video page](./static/img/README/videoPage.png)
