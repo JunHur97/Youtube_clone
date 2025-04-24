@@ -8,17 +8,19 @@
 }
 
 .navBar {
+    position: sticky;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 240px;
     /* 100vh에서 topbar의 height를 뺀 높이 */
     height: calc(100vh - 69px);
-    overflow-y: auto;
+    overflow-y: scroll;
     background-color: #212121;
     color: #ffffff;
     padding: 10px;
     font-size: 14px;
+    z-index: 1;
 }
 
 section {
