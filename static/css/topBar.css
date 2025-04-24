@@ -54,7 +54,7 @@ header.top-nav {
   display: flex;
   max-width: 700px;
   gap: 0;
-  flex-grow: 2;
+  flex-grow: 1;
   justify-content: center;
   margin: 0 20px;
 }

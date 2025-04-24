@@ -144,7 +144,7 @@ body {
   position: relative;
 }
 
-.video-content video {
+.video-content .video-player {
   position: relative;
   width: 100%;
   height: auto;
@@ -152,7 +152,7 @@ body {
   object-fit: cover;
 }
 
-.video-content video:hover {
+.video-content .video-player:hover {
   cursor: pointer;
 }
 
