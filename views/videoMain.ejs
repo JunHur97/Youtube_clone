@@ -99,6 +99,15 @@
             return;
         }
 
+        // const axiosOpt = {
+        //     headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         'Accept': '*/*',
+        //         'Origin': 'http://localhost:3000',
+        //     },
+        // };
+
+        // return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`, axiosOpt);
         return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
     };
 
@@ -111,22 +120,7 @@
         const hos = getVideoId(window.location.search);
 
         try {
-            // const res = await getUser(hos);
-            const res = {
-                "channel_id": 1,
-                "created_dt": "Wed, 23 Apr 2025 07:11:35 GMT",
-                "dislikes": 3,
-                "id": 1,
-                "likes": 102,
-                "tags": [
-                    "동물",
-                    "복제",
-                    "멸종",
-                    "과학"
-                ],
-                "title": "#동물 #복제 #체세포복제  SCNT #동물 #멸종동물 #animal #복제 #야생동물",
-                "views": 1529
-            };
+            const { data: res } = await getUser(hos);
 
             $('.videoPlayer')[0].src = `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`;
             // const video = $('<video>', { src: `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`, controls: true, });
