@@ -43,8 +43,8 @@ body {
   scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
 }
 
-.content-categories::-webkit-scrollbar {
-  display: none;
+#category-scroll {
+  scrollbar-width: none;
 }
 
 .content {

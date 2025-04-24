@@ -24,14 +24,8 @@ const videoList = Array.from({ length: 16 }, () => ({
   runningTime: '23:45',
 }));
 
-
-const mainPageButton = [];
-for (let i = 0; i < 20; i++) {
-  mainPageButton.push({ content: i === 0 ? 'All' : 'Item' });
-}
-
-app.get('/', (req, res) => {
-    res.render('main', { videoList, mainPageButton });
+app.get("/", (req, res) => {
+  res.render("main", { videoList});
 });
 
 app.get('/video', (req, res) => {
@@ -45,4 +39,3 @@ app.get('/channel', (req, res) => {
 app.listen(3000, () => {
     console.log('hos server opened');
 });
-
