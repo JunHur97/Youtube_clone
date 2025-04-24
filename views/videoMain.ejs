@@ -94,7 +94,7 @@
 
 <script>
     const getUser = async (videoId) => {
-        if (!/[0-9]*/.test(videoId)){
+        if (!/^[0-9]+$/.test(videoId)){
             console.error('Invalid videoId');
             return;
         }
@@ -111,25 +111,46 @@
         return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
     };
 
+    const getChannel = async (channelId) => {
+        if (!/^[0-9]+$/.test(channelId)){
+            console.error('Invalid channelId');
+            return;
+        }
+
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    };
+
     const getVideoId = (urlSearch) => {
         const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
         return hos[0].split('=')[1];
     };
 
+    const setVideoInfo = (videoInfo) => {
+        $('.videoPlayer')[0].src = `https://storage.googleapis.com/youtube-clone-video/${videoInfo.id}.mp4`;
+        // const video = $('<video>', { src: `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`, controls: true, });
+        // video.appendTo($('.videoPlayer'));
+        $('.videoMetadata .title')[0].textContent = videoInfo.title;
+        $('.videoMetadata .uploadDate')[0].textContent = moment(videoInfo.created_dt).format('MMM D, YYYY');
+        $('.videoMetadata .views')[0].textContent = `${videoInfo.views} views`;
+        $('.videoMetadata .dislikes p')[0].innerText = videoInfo.dislikes
+        $('.videoMetadata .likes p')[0].innerText = videoInfo.likes;
+    };
+
+    const setChannelInfo = (channelInfo) => {
+        $('.videoUploader img')[0].src = channelInfo.channel_profile;
+        $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+        $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${channelInfo.subscribers} subscribers`;
+    };
+
     (async () => {
-        const hos = getVideoId(window.location.search);
+        const videoId = getVideoId(window.location.search);
 
         try {
-            const { data: res } = await getUser(hos);
+            const { data: res } = await getUser(videoId);
+            const { data: channelRes } = await getChannel(res.channel_id);
 
-            $('.videoPlayer')[0].src = `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`;
-            // const video = $('<video>', { src: `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`, controls: true, });
-            // video.appendTo($('.videoPlayer'));
-            $('.videoMetadata .title')[0].textContent = res.title;
-            $('.videoMetadata .uploadDate')[0].textContent = moment(res.created_dt).format('MMM D, YYYY');
-            $('.videoMetadata .views')[0].textContent = `${res.views} views`;
-            $('.videoMetadata .dislikes p')[0].innerText = res.dislikes
-            $('.videoMetadata .likes p')[0].innerText = res.likes;
+            setVideoInfo(res);
+            setChannelInfo(channelRes);
         }catch (e){
             console.error(e);
         }
