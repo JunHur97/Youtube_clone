@@ -119,7 +119,6 @@
 
         return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
     };
-
     const getVideoId = (urlSearch) => {
         const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
         return hos[0].split('=')[1];
