@@ -1,0 +1,63 @@
+<section style="flex: 2.5;">
+  <img src="/public/images/Youtube player.jpg" alt="Youtube player"
+    style="width: 640px; height: 360px; object-fit: cover; border-radius: 8px;" />
+
+  <h2 style="margin: 15px 0;">Blind Woodturner: Turning passion into fine art</h2>
+  <p>576,969 views • Oct 8, 2021</p>
+
+  <!-- 버튼들 -->
+  <div style="display: flex; gap: 20px; margin: 16px 0; font-size: 14px; align-items: center;">
+    <% const icons = [
+      { src: '/img/navBar/likedVideoIcon.svg', text: '1.7K' },
+      { src: '/public/img/videoPage/dislikeIcon.svg', text: '632' },
+      { src: '/public/img/videoPage/shareIcon.svg', text: 'SHARE' },
+      { src: '/public/img/videoPage/saveIcon.svg', text: 'SAVE' },
+      { src: '/public/img/videoPage/moreOptIcon.svg', text: '' }
+    ]; %>
+    <% icons.forEach(icon => { %>
+      <div style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+        <img src="<%= icon.src %>" /><span><%= icon.text %></span>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- 작성자 및 설명 -->
+  <div style="background-color: #181818; padding: 20px;">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+      <img src="/public/img/navBar/subUserIcon3.svg" alt="Marcus Levin" style="width: 48px; height: 48px; border-radius: 50%;" />
+      <div>
+        <strong style="font-size: 16px;">Marcus Levin</strong>
+        <div style="color: gray; font-size: 14px;">1.2M subscribers</div>
+      </div>
+      <button style="margin-left: auto; padding: 10px 16px; background-color: red; color: white; border: none; border-radius: 4px; font-weight: bold;">
+        SUBSCRIBE
+      </button>
+    </div>
+
+    <div style="margin-left: 60px; font-size: 14px; line-height: 1.5; margin-bottom: 24px;">
+      Chris Fisher, also known as the Blind Woodturner, learned his craft by listening to hundreds of hours of YouTube videos...
+      <div style="color: #aaa; margin-top: 5px; cursor: pointer;">SHOW MORE</div>
+    </div>
+
+    <!-- 댓글 -->
+    <div style="border-top: 1px solid #333; padding-top: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; margin-bottom: 20px;">
+        <span>286 Comments</span>
+        <span style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+          <i class="fa-solid fa-sort" style="font-size: 16px;"></i>
+          <strong>SORT BY</strong>
+        </span>
+      </div>
+
+      <!-- 댓글 입력 -->
+      <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px;">
+        <img src="/public/img/videoPage/rVideo1.png" alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;" />
+        <input type="text" placeholder="Add a public comment..."
+          style="flex: 1; background: transparent; border: none; border-bottom: 1px solid gray; color: white; padding: 8px 4px;" />
+      </div>
+
+      <!-- 댓글 리스트 -->
+      <%- include('videoComments.ejs') %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video Page</title>
+
+  <!-- 스타일 -->
+  <link rel="stylesheet" href="/public/css/topBar.css" />
+  <link rel="stylesheet" href="/public/css/sidebar.css" />
+  <link rel="stylesheet" href="/public/css/videoPage.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body style="margin: 0; font-family: Arial, sans-serif; background-color: #181818; color: white;">
+
+  <!-- 상단바 -->
+  <%- include('topBar.ejs') %>
+
+  <!-- 메인 화면 -->
+  <main style="display: flex; padding: 20px 12px; gap: 20px;">
+
+    <!-- 메인 영상 및 댓글 영역 -->
+    <%- include('videoMain.ejs') %>
+
+    <!-- 추천 영상 사이드바 -->
+    <%- include('videoNav.ejs') %>
+
+  </main>
+</body>
+</html>
