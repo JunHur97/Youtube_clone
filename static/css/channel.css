@@ -324,7 +324,7 @@
       
         .playlist-videos {
           grid-template-columns: repeat(4, 1fr);
-          min-width: 0;
+          min-width: 0px;
         }
       }
       
