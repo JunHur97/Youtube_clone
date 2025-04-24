@@ -131,16 +131,32 @@
         // video.appendTo($('.videoPlayer'));
         $('.videoMetadata .title')[0].textContent = videoInfo.title;
         $('.videoMetadata .uploadDate')[0].textContent = moment(videoInfo.created_dt).format('MMM D, YYYY');
-        $('.videoMetadata .views')[0].textContent = `${videoInfo.views} views`;
-        $('.videoMetadata .dislikes p')[0].innerText = videoInfo.dislikes
-        $('.videoMetadata .likes p')[0].innerText = videoInfo.likes;
+        $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
+        $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
+        $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
     };
 
     const setChannelInfo = (channelInfo) => {
         $('.videoUploader img')[0].src = channelInfo.channel_profile;
         $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
-        $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${channelInfo.subscribers} subscribers`;
+        $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
     };
+
+    // https://stackoverflow.com/a/9462382
+    function nFormatter(num, digits) {
+        const lookup = [
+            { value: 1, symbol: "" },
+            { value: 1e3, symbol: "k" },
+            { value: 1e6, symbol: "M" },
+            { value: 1e9, symbol: "G" },
+            { value: 1e12, symbol: "T" },
+            { value: 1e15, symbol: "P" },
+            { value: 1e18, symbol: "E" }
+        ];
+        const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+        const item = lookup.slice().reverse().find(item => num >= item.value);
+        return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
+    }
 
     (async () => {
         const videoId = getVideoId(window.location.search);
