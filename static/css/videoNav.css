@@ -37,8 +37,8 @@
 }
 
 .rVideo img {
-    width: auto;
-    height: 100px;
+    width: 200px;
+    object-fit: cover;
 }
 
 .rVideoInfo {
@@ -64,4 +64,10 @@
     gap: 10px;
     color: #aaa;
     font-size: .8rem;
+}
+
+@media (max-width: 1280px){
+    .videoNav {
+        display: none;
+    }
 }
