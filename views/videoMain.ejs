@@ -93,8 +93,9 @@
 </div>
 
 <script>
+
     const getUser = async (videoId) => {
-        if (!/[0-9]*/.test(videoId)){
+        if (!/^[0-9]+$/.test(videoId)){
             console.error('Invalid videoId');
             return;
         }
@@ -110,6 +111,15 @@
         // return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`, axiosOpt);
         return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
     };
+
+    const getChannel = async (channelId) => {
+        if (!/^[0-9]+$/.test(channelId)){
+            console.error('Invalid videoId');
+            return;
+        }
+
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?video_id=${parseInt(channelId, 10)}`);
+    }
 
     const getVideoId = (urlSearch) => {
         const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
