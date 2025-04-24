@@ -11,6 +11,14 @@ app.get('/channel', (req, res) => {
     res.render('channelpage');
 });
 
+app.get('/', (req, res) => {
+    res.render('main', { videoList, mainPageButton });
+});
+
+app.get('/video', (req, res) => {
+    res.render('videoPage');
+});
+
 app.listen(3000, () => {
     console.log('hos server opened');
 });
