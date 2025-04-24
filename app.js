@@ -6,116 +6,18 @@ const path = require("node:path");
 app.set("view engine", "ejs");
 app.use("/public", express.static(path.join(__dirname, "static")));
 
-const videoList = [
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo1.png",
-    userProfile: "/public/img/navBar/subUserIcon1.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo2.png",
-    userProfile: "/public/img/navBar/subUserIcon2.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo3.png",
-    userProfile: "/public/img/navBar/subUserIcon3.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo4.png",
-    userProfile: "/public/img/navBar/subUserIcon4.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo5.png",
-    userProfile: "/public/img/navBar/subUserIcon5.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo6.png",
-    userProfile: "/public/img/navBar/subUserIcon6.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo7.png",
-    userProfile: "/public/img/navBar/subUserIcon7.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo8.png",
-    userProfile: "/public/img/navBar/subUserIcon1.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo5.png",
-    userProfile: "/public/img/navBar/subUserIcon4.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo6.png",
-    userProfile: "/public/img/navBar/subUserIcon3.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo7.png",
-    userProfile: "/public/img/navBar/subUserIcon2.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-  {
-    videoSrc: "/videos/sample1.mp4",
-    poster: " /public/img/videoPage/rVideo8.png",
-    userProfile: "/public/img/navBar/subUserIcon1.svg",
-    description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
-    username: "James Gouse",
-    views: "15K views 1 week ago",
-    runningTime: "23:45",
-  },
-];
+const contentNumbers = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const videoList = Array.from({ length: 16 }, () => ({
+  videoSrc: "/videos/sample1.mp4",
+  poster: ` /public/img/videoPage/rVideo${contentNumbers(1, 8)}.png`,
+  userProfile: `/public/img/navBar/subUserIcon${contentNumbers(1, 7)}.svg`,
+  description: "Lorem ipsum dolor sit amet, consecte adipiscing elit.",
+  username: "James Gouse",
+  views: "15K views 1 week ago",
+  runningTime: "23:45",
+}));
 
 const mainPageButton = [];
 for (let i = 0; i < 20; i++) {
