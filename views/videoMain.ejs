@@ -1,22 +1,25 @@
 <link rel="stylesheet" href="/public/css/videoMain.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <div class="videoMain">
-    <div class="videoPlayer"></div>
+    <video src="" class="videoPlayer" type="video/mp4" controls="true"></video>
     <div class="videoInfo">
         <div class="videoMetadata">
-            <div class="title">Blind Woodturner: Turning passion into fine art</div>
+            <div class="title"></div>
             <div class="videoMetadataLeft">
-                <div class="views">576,969 views</div>
-                <div class="uploadDate">Oct 8, 2021</div>
+                <div class="views"></div>
+                <div class="uploadDate"></div>
             </div>
             <div class="videoMetadataRight">
                 <div class="likes">
                     <img src="/public/img/videoPage/likeIcon.svg">
-                    <p>1.7K</p>
+                    <p></p>
                 </div>
                 <div class="dislikes">
                     <img src="/public/img/videoPage/dislikeIcon.svg">
-                    <p>632</p>
+                    <p></p>
                 </div>
                 <div class="shareBtn">
                     <img src="/public/img/videoPage/shareIcon.svg">
@@ -88,3 +91,83 @@
         %>
     </div>
 </div>
+
+<script>
+    const getUser = async (videoId) => {
+        if (!/^[0-9]+$/.test(videoId)){
+            console.error('Invalid videoId');
+            return;
+        }
+
+        // const axiosOpt = {
+        //     headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         'Accept': '*/*',
+        //         'Origin': 'http://localhost:3000',
+        //     },
+        // };
+
+        // return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`, axiosOpt);
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    };
+
+    const getChannel = async (channelId) => {
+        if (!/^[0-9]+$/.test(channelId)){
+            console.error('Invalid channelId');
+            return;
+        }
+
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    };
+    const getVideoId = (urlSearch) => {
+        const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
+        return hos[0].split('=')[1];
+    };
+
+    const setVideoInfo = (videoInfo) => {
+        $('.videoPlayer')[0].src = `https://storage.googleapis.com/youtube-clone-video/${videoInfo.id}.mp4`;
+        // const video = $('<video>', { src: `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`, controls: true, });
+        // video.appendTo($('.videoPlayer'));
+        $('.videoMetadata .title')[0].textContent = videoInfo.title;
+        $('.videoMetadata .uploadDate')[0].textContent = moment(videoInfo.created_dt).format('MMM D, YYYY');
+        $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
+        $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
+        $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
+    };
+
+    const setChannelInfo = (channelInfo) => {
+        $('.videoUploader img')[0].src = channelInfo.channel_profile;
+        $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+        $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
+    };
+
+    // https://stackoverflow.com/a/9462382
+    function nFormatter(num, digits) {
+        const lookup = [
+            { value: 1, symbol: "" },
+            { value: 1e3, symbol: "k" },
+            { value: 1e6, symbol: "M" },
+            { value: 1e9, symbol: "G" },
+            { value: 1e12, symbol: "T" },
+            { value: 1e15, symbol: "P" },
+            { value: 1e18, symbol: "E" }
+        ];
+        const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
+        const item = lookup.slice().reverse().find(item => num >= item.value);
+        return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
+    }
+
+    (async () => {
+        const videoId = getVideoId(window.location.search);
+
+        try {
+            const { data: res } = await getUser(videoId);
+            const { data: channelRes } = await getChannel(res.channel_id);
+
+            setVideoInfo(res);
+            setChannelInfo(channelRes);
+        }catch (e){
+            console.error(e);
+        }
+    })();
+</script>
