@@ -30,7 +30,7 @@ node app
 ```
 ### 메인 페이지
 ```
-localhost:3000
+http://localhost:3000
 ```
 ![Main page](./static/img/README/mainPage.png)
 

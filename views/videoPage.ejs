@@ -24,7 +24,28 @@
         }
 
         .navBar {
-            visibility: hidden;
+            display: none !important;
+            /* visibility: hidden; */
+        }
+
+        @media (min-width: 1281px){
+            main {
+                flex-direction: row;
+            }
+        }
+
+        @media (max-width: 1280px){
+            main {
+                flex-direction: column;
+                align-items: center;
+            }
+            .videoMain {
+                width: 80vw;
+                align-items: center;
+            }
+            /* .videoNav {
+                display: none !important;
+            } */
         }
     </style>
 </head>
