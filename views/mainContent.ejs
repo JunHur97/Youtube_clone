@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/public/css/mainContent.css" />
+<div class="content-area">
+  <div class="content-categories-wrap">
+    <section class="content-categories" id="category-scroll">
+      <button class="scroll-btn left" onclick="scrollCategory('left')">
+        <
+      </button>
+      <% mainPageButton.forEach(itemBtn => { %>
+      <article class="content">
+        <div><%=itemBtn.content %></div>
+      </article>
+      <% }); %>
+
+      <button class="scroll-btn right" onclick="scrollCategory('right')">
+        >
+      </button>
+    </section>
+  </div>
+  <div class="video-wrap">
+    <section class="video-section">
+      <% videoList.forEach(video => { %>
+      <article class="video-grid">
+        <div class="video-content">
+          <div class="video-box">
+            <video
+              src="<%= video.videoSrc %>"
+              poster="<%= video.poster %>"
+            ></video>
+            <span class="running-time"><%= video.runningTime %></span>
+          </div>
+          <div class="video-details">
+            <img src="<%= video.userProfile %>" alt="userProfile" />
+            <div class="video-meta">
+              <h3 class="video-description"><%= video.description %></h3>
+              <div class="username"><%= video.username %></div>
+              <div class="views"><%= video.views %></div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <% }); %>
+    </section>
+  </div>
+</div>

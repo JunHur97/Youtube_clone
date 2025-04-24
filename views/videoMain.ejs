@@ -1,0 +1,158 @@
+<link rel="stylesheet" href="/public/css/videoMain.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="videoMain">
+    <video src="" class="videoPlayer" type="video/mp4" controls="true"></video>
+    <div class="videoInfo">
+        <div class="videoMetadata">
+            <div class="title"></div>
+            <div class="videoMetadataLeft">
+                <div class="views"></div>
+                <div class="uploadDate"></div>
+            </div>
+            <div class="videoMetadataRight">
+                <div class="likes">
+                    <img src="/public/img/videoPage/likeIcon.svg">
+                    <p></p>
+                </div>
+                <div class="dislikes">
+                    <img src="/public/img/videoPage/dislikeIcon.svg">
+                    <p></p>
+                </div>
+                <div class="shareBtn">
+                    <img src="/public/img/videoPage/shareIcon.svg">
+                    <p>SHARE</p>
+                </div>
+                <div class="saveBtn">
+                    <img src="/public/img/videoPage/saveIcon.svg">
+                    <p>SAVE</p>
+                </div>
+                <div class="moreOptBtn">
+                    <img src="/public/img/videoPage/moreOptIcon.svg" width="100%">
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="videoDescription">
+            <div class="videoUploader">
+                <img src="/public/img/navBar/subUserIcon3.svg">
+                <div class="uploaderInfo">
+                    <a href="#" class="uploaderName">Marcus Levin</a>
+                    <p class="uploaderSubscribers">1.2M subscribers</p>
+                </div>
+                <button>SUBSCRIBES</button>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </div>
+    <div class="comments">
+        <div class="commentInfo">
+            <p>286 comments</p>
+            <div class="sortBtn">
+                <img src="/public/img/videoPage/sortIcon.svg">
+                <p>SORT BY</p>
+            </div>
+        </div>
+        <%
+            const comments = [{
+                commenterImg: '/public/img/navBar/subUserIcon1.svg',
+                authorName: 'James Gouse',
+                createdAt: '8 hours ago',
+                comment: 'Wow, world is full of different skills',
+            }, {
+                commenterImg: '/public/img/navBar/subUserIcon2.svg',
+                authorName: 'Alan Cooper',
+                createdAt: '4 days ago',
+                comment: 'Can you provide?',
+            }, {
+                commenterImg: '/public/img/navBar/subUserIcon3.svg',
+                authorName: 'Heroes of the Storm',
+                createdAt: '8 hours ago',
+                comment: 'HotS still alive',
+            }, {
+                commenterImg: '/public/img/navBar/subUserIcon4.svg',
+                authorName: 'Kim Kimkim',
+                createdAt: '8 days ago',
+                comment: 'asdf',
+            }];
+
+            comments.map((v) => {
+        %>
+        <%- include('videoComment', {
+            commenterImg: v.commenterImg,
+            authorName: v.authorName,
+            createdAt: v.createdAt,
+            comment: v.comment,
+        }) %>
+        <%
+            });
+        %>
+    </div>
+</div>
+
+<script>
+    const getUser = async (videoId) => {
+        if (!/^[0-9]+$/.test(videoId)){
+            console.error('Invalid videoId');
+            return;
+        }
+
+        // const axiosOpt = {
+        //     headers: {
+        //         "Access-Control-Allow-Origin": "*",
+        //         'Accept': '*/*',
+        //         'Origin': 'http://localhost:3000',
+        //     },
+        // };
+
+        // return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`, axiosOpt);
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    };
+
+    const getChannel = async (channelId) => {
+        if (!/^[0-9]+$/.test(channelId)){
+            console.error('Invalid channelId');
+            return;
+        }
+
+        return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    };
+
+    const getVideoId = (urlSearch) => {
+        const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
+        return hos[0].split('=')[1];
+    };
+
+    const setVideoInfo = (videoInfo) => {
+        $('.videoPlayer')[0].src = `https://storage.googleapis.com/youtube-clone-video/${videoInfo.id}.mp4`;
+        // const video = $('<video>', { src: `https://storage.googleapis.com/youtube-clone-video/${hos}.mp4`, controls: true, });
+        // video.appendTo($('.videoPlayer'));
+        $('.videoMetadata .title')[0].textContent = videoInfo.title;
+        $('.videoMetadata .uploadDate')[0].textContent = moment(videoInfo.created_dt).format('MMM D, YYYY');
+        $('.videoMetadata .views')[0].textContent = `${videoInfo.views} views`;
+        $('.videoMetadata .dislikes p')[0].innerText = videoInfo.dislikes
+        $('.videoMetadata .likes p')[0].innerText = videoInfo.likes;
+    };
+
+    const setChannelInfo = (channelInfo) => {
+        $('.videoUploader img')[0].src = channelInfo.channel_profile;
+        $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+        $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${channelInfo.subscribers} subscribers`;
+    };
+
+    (async () => {
+        const videoId = getVideoId(window.location.search);
+
+        try {
+            const { data: res } = await getUser(videoId);
+            const { data: channelRes } = await getChannel(res.channel_id);
+
+            setVideoInfo(res);
+            setChannelInfo(channelRes);
+        }catch (e){
+            console.error(e);
+        }
+    })();
+</script>
