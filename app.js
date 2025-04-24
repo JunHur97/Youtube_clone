@@ -29,6 +29,11 @@ for (let i = 0; i < 20; i++) {
   mainPageButton.push({ content: i === 0 ? 'All' : 'Item' });
 }
 
+
+app.get('/channel', (req, res) => {
+    res.render('channelpage');
+});
+
 app.get('/', (req, res) => {
     res.render('main', { videoList, mainPageButton });
 });
