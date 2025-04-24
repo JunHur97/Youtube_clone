@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Channel Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/channel.css">
+
+    <style>
+    main {
+        width: 100%;
+        height: calc(100vh - 69px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 69px 0 0 0;
+    }
+    </style>
 </head>
 <body>
     <%- include('template.ejs') %>
+<main>
     <%- include('channel.ejs') %>
+</main>
 </body>
 </html>
