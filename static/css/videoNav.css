@@ -65,3 +65,9 @@
     color: #aaa;
     font-size: .8rem;
 }
+
+@media (max-width: 1280px){
+    .videoNav {
+        display: none;
+    }
+}
