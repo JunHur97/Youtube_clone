@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/video', (req, res) => {
+  res.render('yeeunkim7/videoPage');
     res.render('videos/videoPage');
 });
 

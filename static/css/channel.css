@@ -21,8 +21,8 @@
         scrollbar-color: gray #181818;
     }
     
-    /*.navBar {
-         position: fixed;
+    .navBar {
+        /* position: fixed;
         top: 69px; 
         left: 0;
         width: 240px;
@@ -324,7 +324,7 @@
       
         .playlist-videos {
           grid-template-columns: repeat(4, 1fr);
-          min-width: 0px;
+          min-width: 0;
         }
       }
       
@@ -359,4 +359,4 @@
       }
         .video-thumbnail {
             margin-left: 0;
-        }
+        }}
