@@ -8,6 +8,7 @@
   "printWidth": 120,
   "htmlWhitespaceSensitivity": "ignore",
   "plugins": ["prettier-plugin-ejs"],
+  "prettier.disableLanguages": ["ejs"],
   "overrides": [
     {
       "files": "*.ejs",

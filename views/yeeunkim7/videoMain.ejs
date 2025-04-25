@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/public/css/videoMain.css">
+<link rel="stylesheet" href="/public/css/yeeunkim7/videoMain.css">
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -79,7 +79,7 @@
 
             comments.map((v) => {
         %>
-        <%- include('videoComment', {
+        <%- include('videoComments', {
             commenterImg: v.commenterImg,
             authorName: v.authorName,
             createdAt: v.createdAt,
