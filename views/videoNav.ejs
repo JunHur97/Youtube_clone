@@ -5,67 +5,10 @@
         <div class="filterOpt" selected>All</div>
         <div class="filterOpt">From Marcus Levin</div>
     </div>
-    <%
-        const rVideos = [{
-            thumbnailSrc: '/public/img/videoPage/rVideo1.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo2.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo3.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo4.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo5.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo6.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo7.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }, {
-            thumbnailSrc: '/public/img/videoPage/rVideo8.png',
-            videoTitle: 'EP 6: Living to Serve | SEARCH ON',
-            uploaderName: 'James Gouse',
-            videoViews: '1M views',
-            createdAt: '3 years ago',
-        }];
-
-        rVideos.forEach((v) => {
-    %>
-    <%- include('recommendedVideo', {
-        thumbnailSrc: v.thumbnailSrc,
-        videoTitle: v.videoTitle,
-        uploaderName: v.uploaderName,
-        videoViews: v.videoViews,
-        createdAt: v.createdAt,
-    }) %>
-    <%
-        });
-    %>
 </div>
+
+<script>
+    (async () => {
+        await setVideoNav();
+    })();
+</script>

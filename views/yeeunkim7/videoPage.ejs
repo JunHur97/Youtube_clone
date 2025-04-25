@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: auto;
+        }
+
+        main {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 69px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 69px 0 0 0;
+            padding: 10px 0;
+            background-color: #181818;
+            overflow-y: scroll;
+            scrollbar-color: gray #181818;
+        }
+
+        .navBar {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body style="display: inline-block; width: 100%;">
+    <%- include('template.ejs') %>
+    <main>
+        <%- include('videoMain.ejs') %>
+        <%- include('videoNav.ejs') %>
+    </main>
+    <script src="/js/func.js"></script>
+</body>
+</html>

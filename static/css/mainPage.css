@@ -43,8 +43,8 @@ body {
   scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
 }
 
-.content-categories::-webkit-scrollbar {
-  display: none;
+#category-scroll {
+  scrollbar-width: none;
 }
 
 .content {
@@ -144,7 +144,7 @@ body {
   position: relative;
 }
 
-.video-content video {
+.video-content .video-player {
   position: relative;
   width: 100%;
   height: auto;
@@ -152,7 +152,7 @@ body {
   object-fit: cover;
 }
 
-.video-content video:hover {
+.video-content .video-player:hover {
   cursor: pointer;
 }
 
@@ -202,7 +202,8 @@ body {
   color: #e6e6e6;
 }
 
-.video-details .video-meta .views {
+.video-details .video-meta .views.time-ago{
+  display: inline-block;
   color: #aaa;
 }
 
