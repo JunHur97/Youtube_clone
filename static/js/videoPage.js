@@ -88,3 +88,13 @@ async function setVideoNav(){
         console.error(e);
     }
 }
+
+window.addEventListener('load', (e) => {
+    $('.navBar')[0].style.display = 'none';
+
+    const menuBtn = $('button[aria-label="Menu"]');
+
+    menuBtn[0].addEventListener('click', (e) => {
+        $('.navBar')[0].style.display = 'flex';
+    });
+});
