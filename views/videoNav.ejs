@@ -8,38 +8,35 @@
 </div>
 
 <script>
-    const getVideos = async () => {
-        return await axios.get('http://techfree-oreumi-api.kro.kr:5000/video/getVideoList');
-    };
-
-    const setRVideos = () => {
-
-    };
+    // const getVideos = async () => {
+    //     return await axios.get('http://techfree-oreumi-api.kro.kr:5000/video/getVideoList');
+    // };
 
     (async () => {
-        try {
-            const { data: res } = await getVideos();
-            const parser = new DOMParser();
+        // try {
+        //     const { data: res } = await getVideos();
+        //     const parser = new DOMParser();
 
-            res.forEach((v) => {
-                const comment = `
-                <div class="rVideo">
-                    <a href="/video?video_id=${v.id}">
-                        <img src="${v.thumbnail}">
-                    </a>
-                    <div class="rVideoInfo">
-                        <a class="rVideoTitle" href="#">${v.title}</a>
-                        <a class="rVideoUploader" href="#">uploaderName</a>
-                        <div class="rVideoBottom">
-                            <p>${nFormatter(v.views, 1)}</p>
-                            <p>${moment(v.created_dt).fromNow()}</p>
-                        </div>
-                    </div>
-                </div>`;
-                $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
-            });
-        }catch (e){
-            console.error(e);
-        }
+        //     res.forEach((v) => {
+        //         const comment = `
+        //         <div class="rVideo">
+        //             <a href="/video?video_id=${v.id}">
+        //                 <img src="${v.thumbnail}">
+        //             </a>
+        //             <div class="rVideoInfo">
+        //                 <a class="rVideoTitle" href="#">${v.title}</a>
+        //                 <a class="rVideoUploader" href="#">uploaderName</a>
+        //                 <div class="rVideoBottom">
+        //                     <p>${nFormatter(v.views, 1)}</p>
+        //                     <p>${moment(v.created_dt).fromNow()}</p>
+        //                 </div>
+        //             </div>
+        //         </div>`;
+        //         $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
+        //     });
+        // }catch (e){
+        //     console.error(e);
+        // }
+        await setVideoNav();
     })();
 </script>
