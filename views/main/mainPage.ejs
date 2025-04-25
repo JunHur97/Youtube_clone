@@ -14,17 +14,17 @@
   %>
 
   <div class="content-categories-wrap">
+    <button class="scroll-btn left" onclick="scrollCategory('left')">&lt;</button>
     <section class="content-categories" id="category-scroll">
-      <button class="scroll-btn left" onclick="scrollCategory('left')">&lt;</button>
       <% mainPageButton.forEach((v)=> { %>
         <%- include('mainPageButton', { content: v.content }) %>
-          <% }); %>
+      <% }); %>
 
-            <button class="scroll-btn right" onclick="scrollCategory('right')">&gt;</button>
     </section>
+    <button class="scroll-btn right" onclick="scrollCategory('right')">&gt;</button>
     </div>
 
-     <!-- 메인 페이지 카드 (비디오) -->
+    <!-- 메인 페이지 카드 (비디오) -->
     <%- include('mainPageCard') %>
   </div>
   
