@@ -1,17 +1,23 @@
-<div style="display: flex; gap: 12px; margin-bottom: 20px;">
-    <img src="/public/img/navBar/subUserIcon1.svg" alt="James" style="width: 40px; height: 40px; border-radius: 50%;" />
-    <div>
-      <strong style="font-size: 14px;">James Gouse</strong> <span style="color: gray;">8 hours ago</span>
-      <div style="margin-top: 4px;">Wow, world is full of different skills</div>
-      <div style="color: gray; font-size: 13px; margin-top: 6px;"><i class="fa-regular fa-thumbs-up"></i> 3 &nbsp; REPLY</div>
-    </div>
+<div class="comment">
+  <img src=<%= commenterImg %> >
+  <div class="commentTop">
+      <div class="commentInfo">
+          <div class="commentAuthor"><%= authorName %></div>
+          <div class="commentCreatedAt"><%= createdAt %></div>
+      </div>
+      <div class="commentContent"><%= comment %></div>
   </div>
-  
-  <div style="display: flex; gap: 12px;">
-    <img src="/public/img/navBar/subUserIcon2.svg" alt="Alan" style="width: 40px; height: 40px; border-radius: 50%;" />
-    <div>
-      <strong style="font-size: 14px;">Alan Cooper</strong> <span style="color: gray;">4 days ago</span>
-      <div style="margin-top: 4px;">Can you provide?</div>
-      <div style="color: gray; font-size: 13px; margin-top: 6px;">On January 2, 2022</div>
-    </div>
+  <div class="commentBottom">
+      <div class="commentLike">
+          <img src="/public/img/videoPage/likeIcon.svg" alt="">
+          <p>3</p>
+      </div>
+      <div class="commentDislike">
+          <img src="/public/img/videoPage/dislikeIcon.svg" alt="">
+          <p></p>
+      </div>
+      <div class="commentReply">
+          REPLY
+      </div>
   </div>
+</div>
