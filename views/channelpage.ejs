@@ -23,9 +23,12 @@
     </style>
 </head>
 <body>
-    <%- include('template.ejs') %>
-<main>
-    <%- include('channel.ejs') %>
-</main>
+    <%- include('topBar.ejs') %>
+    <main>
+        <div class="main-layout">
+        <%- include('navBar.ejs') %>
+        <%- include('channel.ejs') %>
+        </div>
+    </main>
 </body>
 </html>
