@@ -19,7 +19,7 @@
 | 일자       | 김예은                                 | 신동규                             | 이수완                                | 허준                                 |
 | ---------- | -------------------------------------- | ---------------------------------- | ------------------------------------- | ------------------------------------ |
 | 2025-04-22 | 상단바 html 개발 (html/상단바3개.html) | nav바 html 개발 (html/navBar.html) | 상단바 css 개발 (css/headerStyle.css) | nav바 css 개발 (css/navBarStyle.css) |
-|2025-04-23|video 페이지 개발중|video page 개발중 (videoMain / videoNav / videoPage / videoComment / recommendedVideo.ejs)|main page 개발중 (main/mainContent.ejs)|channel page 개발중|
+|2025-04-23|video 페이지 개발중 (views/yeeunkim7/*)|video page 개발중 (videoMain / videoNav / videoPage / videoComment / recommendedVideo.ejs)|main page 개발중 (main/mainContent.ejs)|channel page 개발중(channel/channelpage.ejs)|
 
 ## 실행
 
