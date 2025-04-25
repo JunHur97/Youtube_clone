@@ -8,6 +8,7 @@
   </section>
 </div>
 
+<!-- 조회수 단위 공통 js -->
 <script src="/public/js/utils.js"></script>
 <script>
   dayjs.extend(dayjs_plugin_relativeTime); // 경과시간 계산을 위한 플러그인 활성화
@@ -34,7 +35,7 @@
     if (link) {
       e.preventDefault();
       const videoId = link.dataset.videoId;
-      window.location.href = `/video?video_id=${videoId}`;
+      window.location.href = `/videos?video_id=${videoId}`;
     }
   });
 
