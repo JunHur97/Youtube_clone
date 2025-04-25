@@ -10,6 +10,8 @@
 
 <!-- 조회수 단위 공통 js -->
 <script src="/public/js/utils.js"></script>
+
+
 <script>
   dayjs.extend(dayjs_plugin_relativeTime); // 경과시간 계산을 위한 플러그인 활성화
 
@@ -39,6 +41,24 @@
     }
   });
 
+  function registerHoverEvents() {
+    document.querySelectorAll(".video-player").forEach((video) => {
+
+      video.addEventListener("mouseenter", () => {
+        video.setAttribute("controls", ""); // 컨트롤러 보이기
+        video.play();
+      });
+
+      video.addEventListener("mouseleave", () => {
+        video.pause();
+        video.currentTime = 0; // 비디오 초기화
+        video.removeAttribute("controls"); // 컨트롤러 감추기
+        video.load(); // 포스터 이미지 다시 보여주기
+      })
+    })
+  }
+
+  // 실제 video 데이터 처리
   (async () => {
     try {
       const { data: res } = await getVideoList();
@@ -55,7 +75,7 @@
             <a class="move-channel" href="#" data-video-id="${video.id}">
                 <div class="video-content">
                   <div class="video-box">
-                    <video class="video-player" poster="${video.thumbnail}" ></video>
+                    <video class="video-player" src="https://storage.googleapis.com/youtube-clone-video/${video.id}.mp4" muted preload="metadata" poster="${video.thumbnail}" ></video>
                     <span class="running-time">23:45</span>
                   </div>
             </a>
@@ -78,8 +98,13 @@
           `;
         section.insertAdjacentHTML("beforeend", html);
       };
+
+        registerHoverEvents();
+
     } catch (error) {
       console.error("영상 목록을 불러오는 데 실패했습니다:", error);
     }
   })();
+
+  
 </script>
