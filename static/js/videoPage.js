@@ -67,11 +67,11 @@ async function setVideoNav(){
             const { data: chRes } = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
-                <a href="/video?video_id=${v.id}">
+                <a href="/videos?video_id=${v.id}">
                     <img src="${v.thumbnail}">
                 </a>
                 <div class="rVideoInfo">
-                    <a class="rVideoTitle" href="/video?video_id=${v.id}">${v.title}</a>
+                    <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
                     <a class="rVideoUploader" href="#">${chRes.channel_name}</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>
