@@ -12,10 +12,6 @@
         return await axios.get('http://techfree-oreumi-api.kro.kr:5000/video/getVideoList');
     };
 
-    const setRVideos = () => {
-
-    };
-
     (async () => {
         try {
             const { data: res } = await getVideos();
