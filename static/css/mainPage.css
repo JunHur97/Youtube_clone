@@ -193,12 +193,12 @@ body {
   width: 100%;
 }
 
-.video-details .video-meta .username {
+.video-details .video-meta .channel-name {
   color: #aaa;
   margin-top: 10px;
 }
 
-.video-details .video-meta .username:hover {
+.video-details .video-meta .channel-name:hover {
   color: #e6e6e6;
 }
 
