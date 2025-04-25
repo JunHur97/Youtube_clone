@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: auto;
+        }
 
-  <!-- 스타일 -->
-  <link rel="stylesheet" href="/public/css/topBar.css" />
-  <link rel="stylesheet" href="/public/css/sidebar.css" />
-  <link rel="stylesheet" href="/public/css/videoPage.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+        main {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 69px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 69px 0 0 0;
+            padding: 10px 0;
+            background-color: #181818;
+            overflow-y: scroll;
+            scrollbar-color: gray #181818;
+        }
+
+        .navBar {
+            visibility: hidden;
+        }
+    </style>
 </head>
-<body style="margin: 0; font-family: Arial, sans-serif; background-color: #181818; color: white;">
-
-  <!-- 상단바 -->
-  <%- include('topBar.ejs') %>
-
-  <!-- 메인 화면 -->
-  <main style="display: flex; padding: 20px 12px; gap: 20px;">
-
-    <!-- 메인 영상 및 댓글 영역 -->
-    <%- include('videoMain.ejs') %>
-
-    <!-- 추천 영상 사이드바 -->
-    <%- include('videoNav.ejs') %>
-
-  </main>
+<body style="display: inline-block; width: 100%;">
+    <%- include('template.ejs') %>
+    <main>
+        <%- include('videoMain.ejs') %>
+        <%- include('videoNav.ejs') %>
+    </main>
+    <script src="/js/func.js"></script>
 </body>
 </html>
