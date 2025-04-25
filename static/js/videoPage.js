@@ -70,7 +70,7 @@ async function setVideoNav(){
                     <img src="${v.thumbnail}">
                 </a>
                 <div class="rVideoInfo">
-                    <a class="rVideoTitle" href="#">${v.title}</a>
+                    <a class="rVideoTitle" href="/video?video_id=${v.id}">${v.title}</a>
                     <a class="rVideoUploader" href="#">uploaderName</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>
