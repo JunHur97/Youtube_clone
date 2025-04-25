@@ -3,7 +3,6 @@
 <!-- Axios 사용을 위한 cdn -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
 <div class="content-area">
   <!-- 메인페이지 버튼 부분 -->
   <% 
@@ -14,19 +13,15 @@
   %>
 
   <div class="content-categories-wrap">
-    <button class="scroll-btn left" onclick="scrollCategory('left')">&lt;</button>
     <section class="content-categories" id="category-scroll">
+      <button class="scroll-btn left" onclick="scrollCategory('left')">&lt;</button>
       <% mainPageButton.forEach((v)=> { %>
         <%- include('mainPageButton', { content: v.content }) %>
-      <% }); %>
+          <% }); %>
 
+            <button class="scroll-btn right" onclick="scrollCategory('right')">&gt;</button>
     </section>
-    <button class="scroll-btn right" onclick="scrollCategory('right')">&gt;</button>
-    </div>
-
-    <!-- 메인 페이지 카드 (비디오) -->
-    <%- include('mainPageCard') %>
   </div>
   
-
-  
+  <!-- 메인 페이지 카드 (비디오) -->
+  <%- include('mainPageCard', ) %>

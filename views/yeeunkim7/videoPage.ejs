@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="/public/css/videoMain.css">
-  <link rel="stylesheet" href="/public/css/videoNav.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yeeunversion</title>
+    <title>Document</title>
     <style>
         body {
             height: auto;
@@ -31,10 +29,10 @@
     </style>
 </head>
 <body style="display: inline-block; width: 100%;">
-    <%- include('../template.ejs') %>
+    <%- include('template.ejs') %>
     <main>
-      <%- include('videoMain') %>
-      <%- include('videoNav') %>
+        <%- include('videoMain.ejs') %>
+        <%- include('videoNav.ejs') %>
     </main>
     <script src="/js/func.js"></script>
 </body>
