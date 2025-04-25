@@ -1,3 +1,17 @@
-<article class="content">
-  <div><%= content%></div>
+<article class="content">    
+  <div><%= content%></div>   
 </article>
+
+<!-- mainPageButton 스크롤 기능 -->
+<script>
+  function scrollCategory(direction) {
+    const container = document.getElementById("category-scroll");
+    const scrollAmount = 300; // 한 번에 스크롤할 px
+
+    if (direction === "right") {
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    } else if (direction === "left") {
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    }
+  }
+</script>
