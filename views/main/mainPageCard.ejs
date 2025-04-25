@@ -11,10 +11,6 @@
 <script>
     dayjs.extend(dayjs_plugin_relativeTime); // 경과시간 계산을 위한 플러그인 활성화
 
-    // 프로필 사진 출력을 위한 1~7까지 랜덤한 수 생성
-   const contentNumbers = (min, max) => 
-   Math.floor(Math.random() * (max - min + 1) + min);
-
    const getVideoList = async () => {
     return await axios.get("http://techfree-oreumi-api.kro.kr:5000/video/getVideoList");
    }
