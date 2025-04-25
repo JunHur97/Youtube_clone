@@ -9,7 +9,7 @@
 }
 
 .videoNav > * {
-    width: 100%;
+    width: 80%;
 }
 
 .videoNav > .recommendFilter {
@@ -38,24 +38,44 @@
 
 .rVideo img {
     width: 200px;
+    height: 110px;
     object-fit: cover;
 }
 
 .rVideoInfo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px 0;
+    gap: 5px;
+    max-width: calc(100% - 210px);
 }
 
 .rVideoInfo > a {
-    color: #fff;
+    color: #aaa;
     text-decoration: none;
 }
 
 .rVideoInfo > a:hover {
-    color: #aaa;
+    color: #fff;
     transition: .25s linear;
+}
+
+.rVideoInfo > .rVideoTitle {
+    max-height: 50px;
+    margin-bottom: 4px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+}
+
+.rVideoInfo > .rVideoTitle:hover {
+    color: #aaa;
+    transition: .25 linear;
 }
 
 .rVideoBottom {
