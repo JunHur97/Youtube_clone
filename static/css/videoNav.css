@@ -66,6 +66,17 @@
     font-size: .8rem;
 }
 
+.video-duration {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 12px;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
 @media (max-width: 1280px){
     .videoNav {
         display: none;
