@@ -74,13 +74,11 @@
 .videoUploader {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
     gap: 10px;
 }
 
 .videoUploader > img {
-    width: 40px;
-    height: 40px;
+    width: 50px;
     border-radius: 50%;
 }
 
@@ -170,9 +168,23 @@
     color: #aaa;
 }
 
-@media (max-width: 1280px) {
-    .videoMain {
-        align-items: center;
-        width: 80%;
+@media (max-width: 768px) {
+    main {
+      flex-direction: column;
+      height: auto;
+      margin-top: 60px;
     }
-}
+  
+    .videoMain {
+      width: 100%;
+    }
+  
+    .videoNav {
+      width: 100%;
+      margin-top: 20px;
+    }
+  
+    body {
+      font-size: 14px;
+    }
+  }
