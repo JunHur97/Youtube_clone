@@ -161,9 +161,13 @@ body {
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  border-radius: 5%;
+  transition: .3s ease-in-out;
 }
 
 .video-content .video-player:hover {
+  transform: transition ;
+  border-radius: 0;
   cursor: pointer;
 }
 
