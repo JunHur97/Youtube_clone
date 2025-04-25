@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/video', (req, res) => {
-    res.render('videoPage');
+    res.render('videos/videoPage');
 });
 
 app.get('/channel', (req, res) => {
