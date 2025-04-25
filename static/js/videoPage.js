@@ -65,6 +65,7 @@ async function setVideoNav(){
 
         res.forEach(async (v) => {
             if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
+
             const { data: chRes } = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
@@ -80,6 +81,7 @@ async function setVideoNav(){
                     </div>
                 </div>
             </div>`;
+
             $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
         });
     }catch (e){
