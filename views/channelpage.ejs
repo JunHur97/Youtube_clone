@@ -6,26 +6,29 @@
     <title>Channel Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
-      main {
+      body {
+        margin: 0;
+        padding: 0;
         display: flex;
         flex-direction: column;
-        /* min-height: 100vh; */
+        height: 100vh;
+    }
+      .main-layout {
+        display: flex;
         width: 100%;
         height: calc(100vh - 69px);
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin: 69px 0 0 0;
-        overflow-y: scroll;
-        scrollbar-color: gray #181818;
-    }
+        background-color: black;
+      }
        
     </style>
 </head>
 <body>
-    <%- include('template.ejs') %>
+    <%- include('topBar.ejs') %>
     <main>
+        <div class="main-layout">
+        <%- include('navBar.ejs') %>
         <%- include('channel.ejs') %>
+        </div>
     </main>
 </body>
 </html>
