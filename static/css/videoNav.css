@@ -78,6 +78,10 @@
     transition: .25 linear;
 }
 
+.rVideoInfo > .rVideoUploader {
+    font-size: .8rem;
+}
+
 .rVideoBottom {
     display: flex;
     flex-direction: row;
