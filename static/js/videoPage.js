@@ -40,6 +40,10 @@ function setChannelInfo(channelInfo){
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
 };
 
+function setDocumentTitle(title){
+    document.title = title;
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
@@ -49,6 +53,7 @@ async function setVideoMain(){
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
+        setDocumentTitle(res.title);
     }catch (e){
         console.error(e);
     }
@@ -68,7 +73,7 @@ async function setVideoNav(){
                     <a class="rVideoTitle" href="#">${v.title}</a>
                     <a class="rVideoUploader" href="#">uploaderName</a>
                     <div class="rVideoBottom">
-                        <p>${nFormatter(v.views, 1)}</p>
+                        <p>${nFormatter(v.views, 1)} views</p>
                         <p>${moment(v.created_dt).fromNow()}</p>
                     </div>
                 </div>
