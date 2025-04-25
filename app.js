@@ -18,11 +18,8 @@ app.get("/", (req, res) => {
 
 // ✅ 수정: videoPage 경로를 yeeunkim7 폴더 내부로!
 app.get('/video', (req, res) => {
-<<<<<<< HEAD
   res.render('yeeunkim7/videoPage');
-=======
     res.render('videos/videoPage');
->>>>>>> 42cc8a4dbf9c08662671686d4033db1ef49c7632
 });
 
 // 채널 페이지

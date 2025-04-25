@@ -1,5 +1,4 @@
-
-<main class="channel">
+<link rel="stylesheet" href="/public/css/channel.css" />
   <div class="content-wrapper">
    <!-- 섹션 1 -->
     <section class="channel-banner">
@@ -17,16 +16,15 @@
       </div>
       <!-- 채널 버튼들 -->
       <div class="channel-toolbar">
-        <div class="toolbar-menu">
-          <a href="" class="active">HOME</a>
-          <a href="">VIDEOS</a>
-          <a href="">PLAYLISTS</a>
-          <a href="">COMMUNITY</a>
-          <a href="">CHANNELS</a>
-          <a href="">ABOUT</a>
-          <img src="/public/img/channel/search.svg" alt="Search Icon">
+        <div class="toolbar-menu">HOME</div>
+        <div class="toolbar-menu">VIDEOS</div>
+        <div class="toolbar-menu">PLAYLISTS</div>
+        <div class="toolbar-menu">COMMUNITY</div>
+        <div class="toolbar-menu">CHANNELS</div>
+        <div class="toolbar-menu">ABOUT</div>
+        <img src="/public/img/channel/search.svg" alt="Search Icon" class="toolbar-search">
         </div>       
-      </div>
+
     </section>
       <!-- 섹션 2 메인 비디오 -->  
     
@@ -53,8 +51,9 @@
     </section>
       <!-- 섹션 3  -->
     
-      <section class="play-lists"> 
-      <!-- playlist 1  -->
+      <section class="play-lists">
+        <!-- 플레이리스트 추가 가능  -->
+      <% for(let section = 0; section < 2; section++) { %>
       <div class="playlist">
         <div class="playlist-header">
           <h3 class="playlist-date">Search on '21</h3>          
@@ -66,7 +65,10 @@
         <div class="playlist-videos">
           <% for(let i=0; i < 5; i++) { %>
             <div class="video-card">
-              <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
+              <div class="video-img">
+              <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail" class="video thumbnail">
+              <span class="running-time">23:45</span>
+              </div>
               <div class="video-info">
                 <h3 class="video-title">Lorem Ipsum dolar sit amet, consecte...</h3>
                 <p class="channel-name">Marcus Levin</p>
@@ -76,29 +78,7 @@
           <%} %>
         </div>
         </div>
-        <!-- playlist 2  -->
-      <div class="playlist">
-        <div class="playlist-header">
-          <h3 class="playlist-date">Search on '21</h3>          
-          <button class="play-button">
-            <img src="/public/img/channel/playbutton.svg" alt="Play Button" class="play-button-icon">
-            <span class="play-button-text">PLAY ALL</span>
-          </button>
-        </div>
-        <div class="playlist-videos">
-          <% for(let i =5; i < 10; i++) { %>
-           <div class="video-card">
-            <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolar sit amet, consecte...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
-            </div>
-           </div>
-          <%} %>
-        </div>
-      </div>
+        <% } %>
       <!-- playlist 추가가능  -->
     </section>
   </div>
-</main>
