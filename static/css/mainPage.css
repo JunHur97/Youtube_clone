@@ -184,13 +184,17 @@ body {
   border-radius: 50%;
 }
 
+.video-meta {
+  width: 100%;
+}
+
 .video-meta h3 {
   font-size: 16px;
   color: #fff;
 }
 
-.video-meta {
-  width: 100%;
+.video-meta .move-channel {
+  text-decoration: none;
 }
 
 .video-details .video-meta .channel-name {
