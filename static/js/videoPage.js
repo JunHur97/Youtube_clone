@@ -21,6 +21,9 @@ function getVideoId(urlSearch){
     return hos[0].split('=')[1];
 }
 
+async function getVideos(){
+    return await axios.get('http://techfree-oreumi-api.kro.kr:5000/video/getVideoList');
+}
 
 function setVideoInfo(videoInfo){
     $('.videoPlayer')[0].src = `https://storage.googleapis.com/youtube-clone-video/${videoInfo.id}.mp4`;
@@ -37,7 +40,7 @@ function setChannelInfo(channelInfo){
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
 };
 
-async function setVideoPage(){
+async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
@@ -46,6 +49,32 @@ async function setVideoPage(){
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
+    }catch (e){
+        console.error(e);
+    }
+}
+
+async function setVideoNav(){
+    try {
+        const { data: res } = await getVideos();
+
+        res.forEach((v) => {
+            const comment = `
+            <div class="rVideo">
+                <a href="/video?video_id=${v.id}">
+                    <img src="${v.thumbnail}">
+                </a>
+                <div class="rVideoInfo">
+                    <a class="rVideoTitle" href="#">${v.title}</a>
+                    <a class="rVideoUploader" href="#">uploaderName</a>
+                    <div class="rVideoBottom">
+                        <p>${nFormatter(v.views, 1)}</p>
+                        <p>${moment(v.created_dt).fromNow()}</p>
+                    </div>
+                </div>
+            </div>`;
+            $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
+        });
     }catch (e){
         console.error(e);
     }
