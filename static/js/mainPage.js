@@ -15,17 +15,26 @@
     return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
   }
 
-  document.addEventListener("click", (e) => {
-    // 가장 가까운 조상 요소(자기 자신 포함) 중에서 특정 셀렉터와 일치하는 요소 찾는 메서드
-    const link = e.target.closest(".move-channel");
+  function moveTargetLink() {
+    document.addEventListener("click", (e) => {
+      // 가장 가까운 조상 요소(자기 자신 포함) 중에서 특정 셀렉터와 일치하는 요소 찾는 메서드
+      const videoLink = e.target.closest(".move-video");
+      const channelLink  = e.target.closest(".move-channel");
+  
+      // 클릭된 a태그의 dataset의 값을 가져온 뒤 해당 videoId를 사용해서 URL로 이동
+      if (videoLink) {
+        e.preventDefault();
+        const videoId = videoLink.dataset.videoId;
+        window.location.href = `/videos?video_id=${videoId}`;
+      }
 
-    // 클릭된 a태그의 dataset의 값을 가져온 뒤 해당 videoId를 사용해서 URL로 이동
-    if (link) {
-      e.preventDefault();
-      const videoId = link.dataset.videoId;
-      window.location.href = `/videos?video_id=${videoId}`;
-    }
-  });
+      if (channelLink) {
+        e.preventDefault();
+        const channelId = channelLink.dataset.channelId;
+        window.location.href = `/channel?channel_id=${channelId}`;
+      }
+      });
+  }
 
   // 비디오 재생
   function handleMouseEnter(video) {
@@ -64,7 +73,7 @@
 
         const html = `
           <article class="video-grid">
-            <a class="move-channel" href="#" data-video-id="${video.id}">
+            <a class="move-video" href="#" data-video-id="${video.id} ">
                 <div class="video-content">
                   <div class="video-box">
                     <video class="video-player" src="https://storage.googleapis.com/youtube-clone-video/${video.id}.mp4" muted preload="metadata" poster="${video.thumbnail}" ></video>
@@ -72,12 +81,16 @@
                   </div>
             </a>
               <div class="video-details">
-                <img class="channel_profile" src="${channelRes.channel_profile}" alt="userProfile" />
+              <a class="move-channel" href="#" data-channel-id=${video.channel_id}>
+                <img class="channel_profile " src="${channelRes.channel_profile}" alt="userProfile" />
+              </a>
                 <div class="video-meta">
-                  <a class="move-channel" href="#" data-channel-id="${video.id}">
+                  <a class="move-video" href="#" data-video-id="${video.id}">
                     <h3 class="video-title">${video.title}</h3>
                   </a>
-                  <div class="channel-name">${channelRes.channel_name}</div>
+                  <a class="move-channel" href="#" data-channel-id=${video.channel_id}>
+                    <div class="channel-name ">${channelRes.channel_name}</div>
+                  </a>
                   <div class="video-info">
                     <div class="views">${nFormatter(video.views, 1)} views </div>
                     <div class="time-ago"> ${timeAgo} </div>
@@ -92,7 +105,8 @@
       };
 
         registerHoverEvents();
-
+        moveTargetLink();
+        
     } catch (error) {
       console.error("영상 목록을 불러오는 데 실패했습니다:", error);
     }
