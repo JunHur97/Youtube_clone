@@ -31,7 +31,7 @@
       if (channelLink) {
         e.preventDefault();
         const channelId = channelLink.dataset.channelId;
-        window.location.href = `/channel?channel_id=${channelId}`;
+        window.location.href = `/channels?ch_id=${channelId}`;
       }
       });
   }
