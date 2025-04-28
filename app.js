@@ -30,6 +30,10 @@ app.get('/channel', (req, res) => {
   res.render('channelpage');
 });
 
+app.get('/channels', (req, res) => {
+    res.render('channels/channelpage');
+});
+
 // 서버 시작
 app.listen(3000, () => {
     console.log('hos server opened');

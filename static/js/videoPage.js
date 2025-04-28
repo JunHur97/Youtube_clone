@@ -1,4 +1,4 @@
-async function getUser(videoId){
+async function getVideo(videoId){
     if (!/^[0-9]+$/.test(videoId)){
         console.error('Invalid videoId');
         return;
@@ -32,11 +32,14 @@ function setVideoInfo(videoInfo){
     $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
     $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
     $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
+    $('.videoDescription .videoDescText')[0].innerText = videoInfo.description;
 };
 
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
+    $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+    $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
 };
 
@@ -44,16 +47,29 @@ function setDocumentTitle(title){
     document.title = title;
 }
 
+function setVideoKeyControl(){
+    $(document).keypress((e) => {
+        e.preventDefault();
+
+        if (e.key === ' '){
+            const video = $('.videoMain > .videoPlayer')[0];
+
+            video.paused ? video.play() : video.pause();
+        }
+    });
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getUser(videoId);
+        const { data: res } = await getVideo(videoId);
         const { data: channelRes } = await getChannel(res.channel_id);
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
+        setVideoKeyControl();
     }catch (e){
         console.error(e);
     }

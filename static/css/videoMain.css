@@ -15,8 +15,6 @@
 .videoPlayer {
     height: 24vw;
     min-height: 400px;
-    /* background-color: #202020; */
-    /* border: solid 1px #fff; */
 }
 
 .videoInfo {
@@ -78,7 +76,7 @@
     gap: 10px;
 }
 
-.videoUploader > img {
+.videoUploader img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -98,14 +96,26 @@
     margin: auto 0;
 }
 
-.uploaderInfo > a {
+.uploaderInfo > .uploaderName {
     color: #fff;
     text-decoration: none;
+    font-weight: 500;
+}
+
+.uploaderInfo > .uploaderName:hover {
+    color: #aaa;
+    transition: .2s linear;
 }
 
 .uploaderInfo > .uploaderSubscribers {
     color: #aaa;
     font-size: .8rem;
+}
+
+.videoDescription .videoDescText {
+    margin-left: 50px;  /* uploader img (40px) + gap (10px) */
+    padding: 20px 5px 5px 0;
+    font-size: .9rem;
 }
 
 .comments {
