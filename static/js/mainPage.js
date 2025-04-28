@@ -27,19 +27,19 @@
     }
   });
 
+  // 비디오 재생
   function handleMouseEnter(video) {
     video.setAttribute("controls", ""); // 컨트롤러 보이기
     video.play();
   }
-  
 
+  // 비디오 멈춤
   function handleMouseLeave(video){
     video.pause();
     video.currentTime = 0; // 비디오 초기화
     video.removeAttribute("controls"); // 컨트롤러 감추기
     video.load(); // 포스터 이미지 다시 보여주기
   }
-   
 
   function registerHoverEvents() {
     const videos = document.querySelectorAll(".video-player");
@@ -78,8 +78,8 @@
                     <h3 class="video-title">${video.title}</h3>
                   </a>
                   <div class="channel-name">${channelRes.channel_name}</div>
-                  <div class="views time-ago">
-                    <div class="views">${nFormatter(video.views, 1)} views</div>
+                  <div class="video-info">
+                    <div class="views">${nFormatter(video.views, 1)} views </div>
                     <div class="time-ago"> ${timeAgo} </div>
                   </div>
                 </div>
