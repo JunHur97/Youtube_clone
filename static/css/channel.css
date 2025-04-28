@@ -23,16 +23,16 @@
         scrollbar-color: gray #181818;
     }
     
-    .navBar {
-        /* position: fixed;
+     /*.navBar {
+         position: fixed;
         top: 69px; 
         left: 0;
         width: 240px;
         bottom: 0;
         background-color: #222;
-        z-index: 1; */
-    }
-    
+        z-index: 1; 
+    */
+   
     .topBar {
         position: fixed;
         top: 0;
