@@ -27,21 +27,27 @@
     }
   });
 
+  function handleMouseEnter(video) {
+    video.setAttribute("controls", ""); // 컨트롤러 보이기
+    video.play();
+  }
+  
+
+  function handleMouseLeave(video){
+    video.pause();
+    video.currentTime = 0; // 비디오 초기화
+    video.removeAttribute("controls"); // 컨트롤러 감추기
+    video.load(); // 포스터 이미지 다시 보여주기
+  }
+   
+
   function registerHoverEvents() {
-    document.querySelectorAll(".video-player").forEach((video) => {
+    const videos = document.querySelectorAll(".video-player");
 
-      video.addEventListener("mouseenter", () => {
-        video.setAttribute("controls", ""); // 컨트롤러 보이기
-        video.play();
-      });
-
-      video.addEventListener("mouseleave", () => {
-        video.pause();
-        video.currentTime = 0; // 비디오 초기화
-        video.removeAttribute("controls"); // 컨트롤러 감추기
-        video.load(); // 포스터 이미지 다시 보여주기
-      })
-    })
+    videos.forEach((video) => {
+      video.addEventListener("mouseenter", ()=> handleMouseEnter(video));
+      video.addEventListener("mouseleave", () => handleMouseLeave(video));
+    });
   }
 
   // 실제 video 데이터 처리
