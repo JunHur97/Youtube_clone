@@ -32,6 +32,7 @@ function setVideoInfo(videoInfo){
     $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
     $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
     $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
+    $('.videoDescription .videoDescText')[0].innerText = videoInfo.description;
 };
 
 function setChannelInfo(channelInfo){
@@ -44,6 +45,18 @@ function setDocumentTitle(title){
     document.title = title;
 }
 
+function setVideoKeyControl(){
+    $(document).keypress((e) => {
+        e.preventDefault();
+
+        if (e.key === ' '){
+            const video = $('.videoMain > .videoPlayer')[0];
+
+            video.paused ? video.play() : video.pause();
+        }
+    });
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
@@ -54,6 +67,7 @@ async function setVideoMain(){
         setVideoInfo(res);
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
+        setVideoKeyControl();
     }catch (e){
         console.error(e);
     }
