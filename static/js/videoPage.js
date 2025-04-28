@@ -88,3 +88,13 @@ async function setVideoNav(){
         console.error(e);
     }
 }
+
+function setVideoPageTopbar(){
+    window.addEventListener('load', (e) => {
+        $('.navBar')[0].style.display = 'none';
+
+        $('button[aria-label="Menu"]').click((e) => {
+            $('.navBar').animate({ width: 'toggle' }, 200);
+        })
+    });
+}
