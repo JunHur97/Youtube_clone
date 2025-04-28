@@ -32,6 +32,7 @@ function setVideoInfo(videoInfo){
     $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
     $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
     $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
+    $('.videoDescription .videoDescText')[0].innerText = videoInfo.description;
 };
 
 function setChannelInfo(channelInfo){

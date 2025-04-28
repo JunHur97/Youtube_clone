@@ -108,6 +108,12 @@
     font-size: .8rem;
 }
 
+.videoDescription .videoDescText {
+    margin-left: 50px;  /* uploader img (40px) + gap (10px) */
+    padding: 20px 5px 5px 0;
+    font-weight: 400;
+}
+
 .comments {
     display: flex;
     flex-direction: column;
