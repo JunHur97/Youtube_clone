@@ -78,8 +78,8 @@
                     <h3 class="video-title">${video.title}</h3>
                   </a>
                   <div class="channel-name">${channelRes.channel_name}</div>
-                  <div class="views time-ago">
-                    <div class="views">${nFormatter(video.views, 1)} views</div>
+                  <div class="video-info">
+                    <div class="views">${nFormatter(video.views, 1)} views </div>
                     <div class="time-ago"> ${timeAgo} </div>
                   </div>
                 </div>
