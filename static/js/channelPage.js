@@ -28,14 +28,14 @@ function setChannelInfo(chInfo){
     $('.channel-subscribers')[0].innerText = `${nFormatter(chInfo.subscribers, 1)} views`;
 }
 
-function setChannelVideos(chVideos){
+function setChannelVideos(chVideos, chName){
     chVideos.forEach((v) => {
         const video = `
             <div class="video-card">
                 <img src="${v.thumbnail}" alt="Video Thumbnail">
                 <div class="video-info">
                     <h3 class="video-title">${v.title}</h3>
-                    <p class="channel-name">Marcus Levin</p>
+                    <p class="channel-name">${chName}</p>
                     <p class="video-meta">${nFormatter(v.views, 1)} views · ${moment(v.created_dt).fromNow()}</p>
                 </div>
             </div>`;
@@ -54,7 +54,7 @@ async function setChannelPage(){
 
         setChannelInfo(res);
         // 일단 playlist에 5개만 보여주기 위함
-        setChannelVideos(videosRes.slice(0, 5));
+        setChannelVideos(videosRes.slice(0, 5), res.channel_name);
     }catch (e){
         console.error(e);
     }
