@@ -221,9 +221,14 @@ body {
   color: #e6e6e6;
 }
 
-.video-details .video-meta .views.time-ago{
-  display: inline-block;
+.video-details .video-meta .video-info{
+  display: flex;
+  flex: 1 1 auto;
   color: #aaa;
+}
+
+.video-details .video-meta .time-ago::before {
+  content: "ㆍ";
 }
 
 @media (max-width: 1260px) {
