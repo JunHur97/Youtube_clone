@@ -12,8 +12,8 @@
   </div>
 
   <div class="nav-center">
-    <form class="search-form">
-      <input type="text" placeholder="Search" />
+    <form class="search-form" action="/search" method="GET"> <!--검색어 기능 추가-->
+      <input type="text" name="query" placeholder="Search" />
       <button type="submit">
         <img src="/public/img/header/search.svg" alt="searchIcon" />
       </button>

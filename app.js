@@ -34,6 +34,12 @@ app.get('/channels', (req, res) => {
     res.render('channels/channelpage');
 });
 
+// 검색어 기능
+app.get('/search', (req, res) => {
+  const searchQuery = req.query.query;
+  res.render('searchResult', { searchQuery });
+});
+
 // 서버 시작
 app.listen(3000, () => {
     console.log('hos server opened');
