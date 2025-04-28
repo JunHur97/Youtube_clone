@@ -241,12 +241,12 @@ body {
 @media (max-width: 2000px) {
   .content-area {
     width: 100%;
-    max-width: calc(100%-72px);
+    max-width: calc(100%-240px);
   }
   .content-categories-wrap {
     width: 100%;
-    max-width: calc(100%-72px);
-    margin-left: 72px;
+    max-width: calc(100%-240px);
+    margin-left: 240px;
   }
 
   .video-section {
