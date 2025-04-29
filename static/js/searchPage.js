@@ -49,12 +49,20 @@ $(document).ready(function() {
 
     results.forEach(video => {
       const safeTags = Array.isArray(video.tags) ? video.tags.join(', ') : '';  // 추가
+      // const videoItem = $(`
+      //   <div style="margin-bottom: 20px; color: white;">
+      //     <img src="${video.thumbnail}" alt="썸네일" style="width: 300px;">
+      //     <h3>${video.title}</h3>
+      //     <p>${video.views} views</p>
+      //     <p>Tags: ${tags}</p>
+      //   </div>
+      // `);
       const videoItem = $(`
         <div style="margin-bottom: 20px; color: white;">
           <img src="${video.thumbnail}" alt="썸네일" style="width: 300px;">
           <h3>${video.title}</h3>
           <p>${video.views} views</p>
-          <p>Tags: ${tags}</p>
+          <p>Tags: ${safeTags}</p>
         </div>
       `);
       videoList.append(videoItem);
