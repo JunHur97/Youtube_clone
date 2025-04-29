@@ -3,59 +3,118 @@ function getChannelId(urlSearch){
     return hos[0].split('=')[1];
 }
 
-async function getChannel(chId){
-    if (!/^[0-9]+$/.test(chId)){
+async function getChannel(chId) {
+    if (!/^[0-9]+$/.test(chId)) {
         console.error('Invalid channelId');
         return;
     }
-
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
-}
-
-async function getChannelVideos(chId){
-    if (!/^[0-9]+$/.test(chId)){
-        console.error('Invalid channelId');
-        return;
-    }
-
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getChannelVideoList?channel_id=${parseInt(chId, 10)}`);
-}
-
-function setChannelInfo(chInfo){
-    $('.channel-cover img')[0].src = chInfo.channel_banner;
-    $('.channel-name')[0].innerText = chInfo.channel_name;
-    $('.channel-profile')[0].src = chInfo.channel_profile;
-    $('.channel-subscribers')[0].innerText = `${nFormatter(chInfo.subscribers, 1)} views`;
-}
-
-function setChannelVideos(chVideos, chName){
-    chVideos.forEach((v) => {
-        const video = `
-            <div class="video-card">
-                <img src="${v.thumbnail}" alt="Video Thumbnail">
-                <div class="video-info">
-                    <h3 class="video-title">${v.title}</h3>
-                    <p class="channel-name">${chName}</p>
-                    <p class="video-meta">${nFormatter(v.views, 1)} views · ${moment(v.created_dt).fromNow()}</p>
-                </div>
-            </div>`;
-
-        // 현재 playlist 1, 2가 같은 className을 공유하고 있는데, 추후 기능에 따른 분류 필요
-        $('.playlist-videos')[0].insertAdjacentHTML('beforeend', video);
-    });
-}
-
-async function setChannelPage(){
-    const chId = getChannelId(window.location.search);
 
     try {
-        const { data: res } = await getChannel(chId);
-        const { data: videosRes } = await getChannelVideos(chId);
+        const response = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to fetch channel info:', error);
+    }
+}
 
-        setChannelInfo(res);
-        // 일단 playlist에 5개만 보여주기 위함
-        setChannelVideos(videosRes.slice(0, 5), res.channel_name);
-    }catch (e){
-        console.error(e);
+async function getChannelVideos(chId) {
+    if (!/^[0-9]+$/.test(chId)) {
+        console.error('Invalid channelId');
+        return;
+    }
+
+    try {
+        const response = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getChannelVideoList?channel_id=${parseInt(chId, 10)}`);
+        return response.data;
+    } catch (error) {
+        console.error('Failed to fetch channel videos:', error);
+    }
+}
+
+function setChannelInfo(chInfo) {
+    if (!chInfo) return;
+
+    $('.channel-cover img').attr('src', chInfo.channel_banner);
+    $('.channel-name').text(chInfo.channel_name);
+    $('.channel-profile').attr('src', chInfo.channel_profile);
+    $('.channel-subscribers').text(`${nFormatter(chInfo.subscribers, 1)} subscribers`);
+}
+
+//메인 비디오 섹션 2
+function setMainVideo(video) {
+    const videoSection = document.querySelector('.smal-video');
+
+    const html = `
+        <div class="video-img">
+            <img src="${video.thumbnail}" alt="video thumbnail" class="video-thumbnail">
+            <div class="videotitle">${video.title}</div>
+            <img src="/public/img/channel/video controls.svg" alt="Video Controls" class="video-controls">
+        </div>
+
+        <div class="video-description">
+            <div class="video-title">${video.title}</div>
+            <div class="video-meta">${nFormatter(video.views, 1)} views · ${moment(video.created_dt).fromNow()}</div>
+            <div class="description">${video.description}</div>
+        </div>
+    `;
+
+    videoSection.innerHTML = html;
+}
+
+//섹션 3 플레이리스트
+function setChannelVideos(chVideos, chName) {
+    if (!chVideos || chVideos.length === 0) return;
+
+    const videos1 = chVideos.slice(0, 5);   // 플레이리스트 2
+    const videos2 = chVideos.slice(5, 10);  // 플레이리스트 2
+
+    const renderVideos = (videoList, containerSelector) => {
+        const container = document.querySelector(containerSelector);
+        if (!container) {
+            console.error(`Container ${containerSelector} not found.`);
+            return;
+        }
+
+        container.innerHTML = ''; 
+
+        videoList.forEach(video => {
+            const videoHTML = `
+                <div class="video-card">
+                    <img src="${video.thumbnail}" alt="Video Thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="channel-name">${chName}</p>
+                        <p class="video-meta">${nFormatter(video.views, 1)} views · ${moment(video.created_dt).fromNow()}</p>
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', videoHTML);
+        });
+    };
+
+    renderVideos(videos1, '.playlist1-videos');
+    renderVideos(videos2, '.playlist2-videos');
+}
+
+async function setChannelPage() {
+    const chId = getChannelId(window.location.search);
+
+    if (!chId) {
+        console.error('Channel Id not found in URL.');
+        return;
+    }
+
+    try {
+        const channelInfo = await getChannel(chId);
+        const channelVideos = await getChannelVideos(chId);
+
+        setChannelInfo(channelInfo);
+
+        if (channelVideos.length > 0) {
+            setMainVideo(channelVideos[0]);
+        }
+        
+        setChannelVideos(channelVideos, channelInfo.channel_name);
+    } catch (error) {
+        console.error('Error setting channel page:', error);
     }
 }
