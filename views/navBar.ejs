@@ -1,4 +1,13 @@
-<link rel="stylesheet" href="/public/css/navBar.css" />
+<link rel="stylesheet" href="/public/css/navBar.css">
+<script src="/public/js/subscribe.js"></script>
+<script src="/public/js/navBar.js"></script>
+<script>
+    $(document).ready(() => {
+        // navBar.js/insertNavbarSub()
+        JSON.parse(localStorage.getItem('subList')).forEach(v => { insertNavbarSub(v) });
+    });
+</script>
+
 <nav class="navBar">
   <section>
     <div class="navItem">
@@ -44,38 +53,6 @@
   <div class="divider"></div>
   <section class="subscription">
     <div class="caption">SUBSCRIPTIONS</div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon1.svg" />
-      <p>James Gouse</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon2.svg" />
-      <p>Alan Cooper</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon3.svg" />
-      <p>Marcus Levin</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon4.svg" />
-      <p>Alexis Sears</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon5.svg" />
-      <p>Jesica Lambert</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon6.svg" />
-      <p>Anna White</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/subUserIcon7.svg" />
-      <p>Skylar Dias</p>
-    </div>
-    <div class="navItem">
-      <img src="/public/img/navBar/showMoreIcon.svg" />
-      <p>Show 13 more</p>
-    </div>
   </section>
   <div class="divider"></div>
   <section class="moreInfo">
