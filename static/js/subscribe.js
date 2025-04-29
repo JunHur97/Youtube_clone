@@ -1,20 +1,20 @@
 function subscribe(chId){
-    const subList = JSON.parse(localStorage.getItem('subList'));
+    const subList = JSON.parse(sessionStorage.getItem('subList'));
     if (subList.includes(chId)) return unsubscribe(chId);
 
     subList.push(chId);
-    localStorage.setItem('subList', JSON.stringify(subList));
+    sessionStorage.setItem('subList', JSON.stringify(subList));
 
     // navBar.js/insertNavbarSub()
     insertNavbarSub(chId);
 }
 
 function unsubscribe(chId){
-    let subList = JSON.parse(localStorage.getItem('subList'));
+    let subList = JSON.parse(sessionStorage.getItem('subList'));
     if (!subList.includes(chId)) return subscribe(chId);
 
     subList = subList.filter(v => v !== chId);
-    localStorage.setItem('subList', JSON.stringify(subList));
+    sessionStorage.setItem('subList', JSON.stringify(subList));
 
     // navBar.js/removeNavbarSub()
     removeNavbarSub(chId);
@@ -35,11 +35,11 @@ function onSubBtnClick(e){
     }
 }
 
-// localStorage.subList init
+// sessionStorage.subList init
 $(document).ready(() => {
-    if (!localStorage.getItem('subList')){
-        // localStorage.clear();
-        localStorage.setItem('subList', JSON.stringify([]));
+    if (!sessionStorage.getItem('subList')){
+        // sessionStorage.clear();
+        sessionStorage.setItem('subList', JSON.stringify([]));
     
         subscribe(1);
         // subscribe(2);
