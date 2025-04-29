@@ -1,10 +1,16 @@
-async function getUser(videoId){
+async function getVideo(videoId){
     if (!/^[0-9]+$/.test(videoId)){
         console.error('Invalid videoId');
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    const cachedData = getDataFromCache(`video_${videoId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    if (!!data) insertDataInCache(`video_${videoId}`, JSON.stringify(data));
+
+    return data;
 }
 
 async function getChannel(channelId){
@@ -13,7 +19,13 @@ async function getChannel(channelId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    const cachedData = getDataFromCache(`channel_${channelId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    if (!!data) insertDataInCache(`channel_${channelId}`, JSON.stringify(data));
+
+    return data;
 }
 
 function getVideoId(urlSearch){
@@ -32,28 +44,66 @@ function setVideoInfo(videoInfo){
     $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
     $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
     $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
+    $('.videoDescription .videoDescText')[0].innerText = videoInfo.description;
 };
 
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
+    $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
+    $('.videoUploader > button')[0].setAttribute('chId', channelInfo.id);
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+    $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
+
+    setSubBtn(channelInfo.id);
 };
 
 function setDocumentTitle(title){
     document.title = title;
 }
 
+function setVideoKeyControl(){
+    $(document).keypress((e) => {
+        e.preventDefault();
+
+        if (e.key === ' '){
+            const video = $('.videoMain > .videoPlayer')[0];
+
+            video.paused ? video.play() : video.pause();
+        }
+    });
+}
+
+function setSubBtn(chId){
+    const subList = JSON.parse(getDataFromCache('subList'));
+
+    if (subList.includes(chId)){
+        const uploaderBtn = $('.videoUploader > button')[0];
+
+        uploaderBtn.setAttribute('subscribed', '');
+        uploaderBtn.innerText = 'SUBSCRIBED';
+    }
+}
+
+function setSubBtnOnClick(){
+    const subBtn = $('.videoUploader > button')[0];
+
+    // subscribe.js/onSubBtnClick()
+    subBtn.addEventListener('click', onSubBtnClick);
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getUser(videoId);
-        const { data: channelRes } = await getChannel(res.channel_id);
+        const res = await getVideo(videoId);
+        const channelRes = await getChannel(res.channel_id);
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
+        setVideoKeyControl();
+        setSubBtnOnClick();
     }catch (e){
         console.error(e);
     }
@@ -63,24 +113,38 @@ async function setVideoNav(){
     try {
         const { data: res } = await getVideos();
 
-        res.forEach((v) => {
+        res.forEach(async (v) => {
+            if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
+
+            const chRes = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
-                <a href="/video?video_id=${v.id}">
+                <a href="/videos?video_id=${v.id}">
                     <img src="${v.thumbnail}">
                 </a>
                 <div class="rVideoInfo">
-                    <a class="rVideoTitle" href="/video?video_id=${v.id}">${v.title}</a>
-                    <a class="rVideoUploader" href="#">uploaderName</a>
+                    <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
+                    <a class="rVideoUploader" href="/channels?ch_id=${v.channel_id}">${chRes.channel_name}</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>
                         <p>${moment(v.created_dt).fromNow()}</p>
                     </div>
                 </div>
             </div>`;
+
             $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
         });
     }catch (e){
         console.error(e);
     }
+}
+
+function setVideoPageTopbar(){
+    window.addEventListener('load', (e) => {
+        $('.navBar')[0].style.display = 'none';
+
+        $('button[aria-label="Menu"]').click((e) => {
+            $('.navBar').animate({ width: 'toggle' }, 200);
+        })
+    });
 }

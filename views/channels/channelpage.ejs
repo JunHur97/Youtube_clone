@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Channel Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/channel.css">
+    <link rel="stylesheet" href="/public/css/channelSub.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment-with-locales.min.js" integrity="sha512-4F1cxYdMiAW98oomSLaygEwmCnIP38pb4Kx70yQYqRwLVCs3DbRumfBq82T08g/4LJ/smbFGFpmeFlQgoDccgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/public/js/utils.js"></script>
+    <script src="/public/js/channelPage.js"></script>
+    <script src="/public/js/localCache.js"></script>
+    <script src="/public/js/subscribe.js"></script>
+    <style>
+        .channel-profile {
+            width: 75px;
+            height: 75px;
+        }
+
+        .video-info > h3.video-title {
+            max-height: 40px;
+            margin-bottom: 4px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            white-space: normal;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../template.ejs') %>
+    <%- include('channel.ejs') %>
+</body>
+</html>

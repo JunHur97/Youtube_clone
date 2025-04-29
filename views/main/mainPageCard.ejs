@@ -1,73 +1,10 @@
 <!-- 등록일 기준 +days 기능을 위한 cdn  -->
 <script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dayjs/plugin/relativeTime.js"></script>
+<script type="module" src="/public/js/mainPage.js"></script>
 
+<!-- 비디오 출력 페이지 -->
 <div class="video-wrap">
-    <section class="video-section">
-    </section>
-  </div>
+  <section class="video-section">
+  </section>
 </div>
-
-<script>
-    dayjs.extend(dayjs_plugin_relativeTime); // 경과시간 계산을 위한 플러그인 활성화
-
-    function nFormatter(num, digits) {
-        const lookup = [
-            { value: 1, symbol: "" },
-            { value: 1e3, symbol: "k" },
-            { value: 1e6, symbol: "M" },
-            { value: 1e9, symbol: "G" },
-            { value: 1e12, symbol: "T" },
-            { value: 1e15, symbol: "P" },
-            { value: 1e18, symbol: "E" }
-        ];
-        const regexp = /\.0+$|(?<=\.[0-9]*[1-9])0+$/;
-        const item = lookup.slice().reverse().find(item => num >= item.value);
-        return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
-    }
-
-    // 프로필 사진 출력을 위한 1~7까지 랜덤한 수 생성
-   const contentNumbers = (min, max) => 
-   Math.floor(Math.random() * (max - min + 1) + min);
-
-    const getVideoList = async () => {
-      try {
-        const res = await axios.get("http://techfree-oreumi-api.kro.kr:5000/video/getVideoList");
-        const videoList = res.data;
-        const section = document.querySelector(".video-section");
-
-        section.innerHTML = ""; // section 태그 초기화
-  
-        videoList.forEach((video) => {
-          const timeAgo = dayjs(video.created_dt).fromNow();
-
-          const html = `
-          <article class="video-grid">
-            <div class="video-content">
-              <div class="video-box">
-                <video class="video-player" poster="${video.thumbnail}" ></video>
-                <span class="running-time">23:45</span>
-              </div>
-              <div class="video-details">
-                <img class="userProfile" src="/public/img/navBar/subUserIcon${contentNumbers(1,7)}.svg" alt="userProfile" />
-                <div class="video-meta">
-                  <h3 class="video-title">${video.title}</h3>
-                  <div class="username">James Gouse</div>
-                  <div class="views time-ago">
-                    <div class="views">${nFormatter(video.views, 1)} views</div>
-                    <div class="time-ago"> ${timeAgo} </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-          `;
-          section.insertAdjacentHTML("beforeend", html);
-        });
-      } catch (error) {
-        console.error("영상 목록을 불러오는 데 실패했습니다:", error);
-      }
-    };
-  
-    document.addEventListener("DOMContentLoaded", getVideoList);
-  </script>

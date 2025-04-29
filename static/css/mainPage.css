@@ -26,25 +26,33 @@ body {
 }
 
 .content-area .content-categories-wrap {
-  width: 100%;
+  z-index: 10;
+  width: inherit;
   height: 56px;
   padding-inline: 16px;
-  position: relative; /* 화살표 버튼 위치를 위한 설정 */
+  position: fixed;
+  background-color: #212121;
 }
 
 .content-categories {
+  position: relative;
   display: flex;
   justify-content: flex-start;
-  overflow-x: scroll;
-  white-space: nowrap;
   width: 100%;
   padding: 10px 50px;
   gap: 10px;
-  scroll-behavior: smooth; /* 부드러운 스크롤 동작 */
+}
+
+/* 크롬 스크롤바  */
+#category-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 #category-scroll {
   scrollbar-width: none;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
 .content {
@@ -82,6 +90,7 @@ body {
 }
 
 .scroll-btn {
+  z-index: 10;
   position: absolute;
   margin: 0 5px 0 5px;
   top: 15%;
@@ -93,10 +102,11 @@ body {
   opacity: 0.8;
   cursor: pointer;
   color: #fff;
+  
 }
 
 .scroll-btn.left {
-  left: 0;
+  left: 2;
 }
 .scroll-btn.left:active {
   background-color: #515151;
@@ -119,6 +129,7 @@ body {
   height: 100%;
   min-height: fit-content;
   padding: 20px;
+  margin-top: 56px;
   background-color: #000;
 }
 
@@ -150,9 +161,13 @@ body {
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  border-radius: 5%;
+  transition: .3s ease-in-out;
 }
 
 .video-content .video-player:hover {
+  transform: transition ;
+  border-radius: 0;
   cursor: pointer;
 }
 
@@ -184,31 +199,68 @@ body {
   border-radius: 50%;
 }
 
-.video-meta h3 {
-  font-size: 16px;
-  color: #fff;
-}
-
 .video-meta {
   width: 100%;
 }
 
-.video-details .video-meta .username {
+.video-meta .video-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 최대 줄 수 */
+  -webkit-box-orient: vertical;
+  overflow: hidden; /* 최대 줄수 넘어가면 안보임 */
+  text-overflow: ellipsis; /* 2줄이 넘어가면 생략 부호 */
+  word-break: break-word; /* 단어가 길어도 줄바꿈 */
+  font-size: 16px;
+  color: #fff;
+}
+
+.video-meta .move-video,
+.video-meta .move-channel {
+  text-decoration: none;
+}
+
+.video-meta .channel-name {
   color: #aaa;
   margin-top: 10px;
 }
 
-.video-details .video-meta .username:hover {
+.video-meta .channel-name:hover {
   color: #e6e6e6;
 }
 
-.video-details .video-meta .views.time-ago{
-  display: inline-block;
+.video-meta .video-info{
+  display: flex;
+  flex: 1 1 auto;
   color: #aaa;
+}
+
+.video-meta .time-ago::before {
+  content: "ㆍ";
+}
+
+@media (max-width: 2000px) {
+  .content-area {
+    width: 100%;
+    max-width: calc(100%-240px);
+  }
+  .content-categories-wrap {
+    width: 100%;
+    max-width: calc(100%-240px);
+    margin-left: 240px;
+  }
+
+  .video-section {
+    grid-template-columns: repeat(3, 1fr); /* 태블릿 */
+  }
 }
 
 @media (max-width: 1260px) {
   .content-area {
+    width: 100%;
+    max-width: calc(100%-72px);
+    margin-left: 72px;
+  }
+  .content-categories-wrap {
     width: 100%;
     max-width: calc(100%-72px);
     margin-left: 72px;
@@ -219,15 +271,36 @@ body {
   }
 }
 
+@media (max-width: 960px) {
+  .content-area {
+    width: 100%;
+    max-width: calc(100%-72px);
+    margin-left: 72px;
+  }
+  .content-categories-wrap {
+    width: 100%;
+    max-width: calc(100%-72px);
+    margin-left: 72px;
+  }
+
+  .video-section {
+    grid-template-columns: repeat(2, 1fr); /* 태블릿 */
+  }
+}
+
 @media (max-width: 800px) {
   .content-area {
+    width: 100%;
+  }
+
+  .content-categories-wrap {
     width: 100%;
   }
 
   .video-section {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 }
@@ -236,6 +309,11 @@ body {
   .content-area {
     margin-left: 0;
     width: 100%;
+  }
+
+  .content-categories-wrap {
+    width: 100%;
+    margin-left: 0;
   }
 
   .video-section {

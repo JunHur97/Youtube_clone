@@ -1,3 +1,10 @@
-<article class="content">
-  <div><%= content%></div>
-</article>
+<!-- mainPageButton 기능 -->
+<script type="module" src="/public/js/mainPageButton.js"></script>
+
+<div class="content-categories-wrap">
+  <button class="scroll-btn left" onclick="scrollCategory('left')">&lt;</button>
+  <section class="content-categories" id="category-scroll">
+    <!-- article 콘텐츠 자리 -->
+  </section>
+  <button class="scroll-btn right" onclick="scrollCategory('right')">&gt;</button>
+</div>

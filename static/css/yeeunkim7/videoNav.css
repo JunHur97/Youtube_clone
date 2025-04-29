@@ -32,8 +32,10 @@
 
 .rVideo {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /*추가_옆으로 배치*/
     gap: 10px;
+    position: relative; /*추가*/
+    align-items: flex-start; /*추가*/
 }
 
 .rVideo img {
@@ -89,16 +91,20 @@
     color: #aaa;
     font-size: .8rem;
 }
+/* 추가 */
+.thumbnailWrapper {
+    position: relative;
+    width: 168px;
+    height: 94px;
+    flex-shrink: 0;
+}
 
-.video-duration {
-    position: absolute;
-    bottom: 4px;
-    right: 4px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    font-size: 12px;
-    padding: 1px 4px;
-    border-radius: 3px;
+/* 추가 */
+.thumbnailWrapper img.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 @media (max-width: 1280px){

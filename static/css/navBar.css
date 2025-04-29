@@ -56,6 +56,10 @@ section {
     padding: 10px 0;
   }
 
+    .navBar::-webkit-scrollbar {
+        display: none;
+    }
+
   .navItem {
     display: flex;
     flex-direction: column !important;
