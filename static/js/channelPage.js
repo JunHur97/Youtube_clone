@@ -3,6 +3,7 @@ function getChannelId(urlSearch){
     return hos[0].split('=')[1];
 }
 
+// 채널 정보 요청 api
 async function getChannel(chId) {
     if (!/^[0-9]+$/.test(chId)) {
         console.error('Invalid channelId');
@@ -17,6 +18,7 @@ async function getChannel(chId) {
     }
 }
 
+//채널 영상 목록 요청 ㅁpi
 async function getChannelVideos(chId) {
     if (!/^[0-9]+$/.test(chId)) {
         console.error('Invalid channelId');
@@ -31,6 +33,7 @@ async function getChannelVideos(chId) {
     }
 }
 
+//채널 정보 표시
 function setChannelInfo(chInfo) {
     if (!chInfo) return;
 
@@ -61,11 +64,11 @@ function setMainVideo(video) {
     videoSection.innerHTML = html;
 }
 
-//섹션 3 플레이리스트
+//섹션 3 플레이리스트 구성 각각 5개 영상
 function setChannelVideos(chVideos, chName) {
     if (!chVideos || chVideos.length === 0) return;
 
-    const videos1 = chVideos.slice(0, 5);   // 플레이리스트 2
+    const videos1 = chVideos.slice(0, 5);   // 플레이리스트 1
     const videos2 = chVideos.slice(5, 10);  // 플레이리스트 2
 
     const renderVideos = (videoList, containerSelector) => {
@@ -95,6 +98,7 @@ function setChannelVideos(chVideos, chName) {
     renderVideos(videos2, '.playlist2-videos');
 }
 
+// 페이지 로딩시 채널 정보 및 영상 데이터 불러오는 세팅
 async function setChannelPage() {
     const chId = getChannelId(window.location.search);
 
