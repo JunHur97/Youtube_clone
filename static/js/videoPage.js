@@ -105,7 +105,7 @@ async function setVideoMain(){
         setVideoKeyControl();
         setSubBtnOnClick();
     }catch (e){
-        console.error(e);
+        axiosErrorHandler(e);
     }
 }
 
@@ -135,7 +135,7 @@ async function setVideoNav(){
             $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
         });
     }catch (e){
-        console.error(e);
+        axiosErrorHandler(e);
     }
 }
 
