@@ -1,4 +1,4 @@
-async function getUser(videoId){
+async function getVideo(videoId){
     if (!/^[0-9]+$/.test(videoId)){
         console.error('Invalid videoId');
         return;
@@ -37,7 +37,9 @@ function setVideoInfo(videoInfo){
 
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
+    $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+    $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
 };
 
@@ -61,7 +63,7 @@ async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getUser(videoId);
+        const { data: res } = await getVideo(videoId);
         const { data: channelRes } = await getChannel(res.channel_id);
 
         setVideoInfo(res);
