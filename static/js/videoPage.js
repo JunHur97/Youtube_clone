@@ -4,6 +4,9 @@ async function getVideo(videoId){
         return;
     }
 
+    // const cachedData = getDataFromCache(`video_${videoId}`);
+    // if (!!cachedData) return { data: JSON.parse(cachedData) };
+
     return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
 }
 
@@ -63,7 +66,7 @@ function setVideoKeyControl(){
 }
 
 function setSubBtn(chId){
-    const subList = JSON.parse(localStorage.getItem('subList'));
+    const subList = JSON.parse(sessionStorage.getItem('subList'));
 
     if (subList.includes(chId)){
         const uploaderBtn = $('.videoUploader > button')[0];
