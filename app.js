@@ -34,10 +34,10 @@ app.get('/channels', (req, res) => {
     res.render('channels/channelpage');
 });
 
-// 검색어 기능
+// 검색 페이지 연결
 app.get('/search', (req, res) => {
   const searchQuery = req.query.query;
-  res.render('searchResult', { searchQuery });
+  res.render('searchPage', { searchQuery });
 });
 
 // 서버 시작
