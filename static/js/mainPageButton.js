@@ -51,7 +51,7 @@ async function addTags() {
     
                 div.onclick = () => {
                     filterVideosByTag(tag);
-                    // updataActiveTag(div);
+                    // updateActiveTag(div);
                 }
             }
         });
@@ -61,7 +61,7 @@ async function addTags() {
     }
 
     // 클릭된 태그 활성화 표시
-    // updataActiveTag()
+    // updateActiveTag()
 
 }
 
