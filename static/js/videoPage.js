@@ -75,7 +75,7 @@ function setVideoKeyControl(){
 }
 
 function setSubBtn(chId){
-    const subList = JSON.parse(sessionStorage.getItem('subList'));
+    const subList = JSON.parse(getDataFromCache('subList'));
 
     if (subList.includes(chId)){
         const uploaderBtn = $('.videoUploader > button')[0];

@@ -9,7 +9,13 @@ async function getChannel(chId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
+    const cachedData = getDataFromCache(`channel_${chId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
+    if (!!data) insertDataInCache(`channel_${chId}`, JSON.stringify(data));
+
+    return data;
 }
 
 async function getChannelVideos(chId){
@@ -45,14 +51,34 @@ function setChannelVideos(chVideos, chName){
     });
 }
 
+function setSubBtn(chId){
+    const subBtn = $('.channel-title > button.subscribe-button')[0];
+    const subList = JSON.parse(getDataFromCache('subList'));
+
+    subBtn.setAttribute('chId', chId);
+    if (subList.includes(parseInt(chId, 10))){
+        subBtn.setAttribute('subscribed', '');
+        subBtn.innerText = 'SUBSCRIBED';
+    }
+}
+
+function setSubBtnOnClick(){
+    const subBtn = $('.channel-title > button.subscribe-button')[0];
+
+    // subscribe.js/onSubBtnClick()
+    subBtn.addEventListener('click', onSubBtnClick);
+}
+
 async function setChannelPage(){
     const chId = getChannelId(window.location.search);
 
     try {
-        const { data: res } = await getChannel(chId);
+        const res = await getChannel(chId);
         const { data: videosRes } = await getChannelVideos(chId);
 
         setChannelInfo(res);
+        setSubBtn(chId);
+        setSubBtnOnClick();
         // 일단 playlist에 5개만 보여주기 위함
         setChannelVideos(videosRes.slice(0, 5), res.channel_name);
     }catch (e){
