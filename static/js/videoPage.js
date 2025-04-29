@@ -38,9 +38,12 @@ function setVideoInfo(videoInfo){
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
     $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
+    $('.videoUploader > button')[0].setAttribute('chId', channelInfo.id);
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
     $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
+
+    setSubBtn(channelInfo.id);
 };
 
 function setDocumentTitle(title){
@@ -59,6 +62,24 @@ function setVideoKeyControl(){
     });
 }
 
+function setSubBtn(chId){
+    const subList = JSON.parse(localStorage.getItem('subList'));
+
+    if (subList.includes(chId)){
+        const uploaderBtn = $('.videoUploader > button')[0];
+
+        uploaderBtn.setAttribute('subscribed', '');
+        uploaderBtn.innerText = 'SUBSCRIBED';
+    }
+}
+
+function setSubBtnOnClick(){
+    const subBtn = $('.videoUploader > button')[0];
+
+    // subscribe.js/onSubBtnClick()
+    subBtn.addEventListener('click', onSubBtnClick);
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
@@ -70,6 +91,7 @@ async function setVideoMain(){
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
         setVideoKeyControl();
+        setSubBtnOnClick();
     }catch (e){
         console.error(e);
     }
@@ -90,7 +112,7 @@ async function setVideoNav(){
                 </a>
                 <div class="rVideoInfo">
                     <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
-                    <a class="rVideoUploader" href="#">${chRes.channel_name}</a>
+                    <a class="rVideoUploader" href="/channels?ch_id=${v.channel_id}">${chRes.channel_name}</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>
                         <p>${moment(v.created_dt).fromNow()}</p>
