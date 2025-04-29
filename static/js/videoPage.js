@@ -4,7 +4,13 @@ async function getVideo(videoId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    const cachedData = getDataFromCache(`video_${videoId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    if (!!data) insertDataInCache(`video_${videoId}`, JSON.stringify(data));
+
+    return data;
 }
 
 async function getChannel(channelId){
@@ -13,7 +19,13 @@ async function getChannel(channelId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    const cachedData = getDataFromCache(`channel_${channelId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    if (!!data) insertDataInCache(`channel_${channelId}`, JSON.stringify(data));
+
+    return data;
 }
 
 function getVideoId(urlSearch){
@@ -63,7 +75,7 @@ function setVideoKeyControl(){
 }
 
 function setSubBtn(chId){
-    const subList = JSON.parse(localStorage.getItem('subList'));
+    const subList = JSON.parse(sessionStorage.getItem('subList'));
 
     if (subList.includes(chId)){
         const uploaderBtn = $('.videoUploader > button')[0];
@@ -84,8 +96,8 @@ async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getVideo(videoId);
-        const { data: channelRes } = await getChannel(res.channel_id);
+        const res = await getVideo(videoId);
+        const channelRes = await getChannel(res.channel_id);
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
@@ -104,7 +116,7 @@ async function setVideoNav(){
         res.forEach(async (v) => {
             if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
 
-            const { data: chRes } = await getChannel(v.channel_id);
+            const chRes = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
                 <a href="/videos?video_id=${v.id}">
