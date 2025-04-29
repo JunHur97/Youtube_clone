@@ -4,7 +4,13 @@ async function getVideo(videoId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    const cachedData = getDataFromCache(`video_${videoId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
+    if (!!data) insertDataInCache(`video_${videoId}`, JSON.stringify(data));
+
+    return data;
 }
 
 async function getChannel(channelId){
@@ -13,7 +19,13 @@ async function getChannel(channelId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    const cachedData = getDataFromCache(`channel_${channelId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
+    if (!!data) insertDataInCache(`channel_${channelId}`, JSON.stringify(data));
+
+    return data;
 }
 
 function getVideoId(urlSearch){
@@ -37,39 +49,27 @@ function setVideoInfo(videoInfo){
 
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
-    $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
     $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
+
+    setSubBtn(channelInfo.id);
 };
 
 function setDocumentTitle(title){
     document.title = title;
 }
 
-function setVideoKeyControl(){
-    $(document).keypress((e) => {
-        e.preventDefault();
-
-        if (e.key === ' '){
-            const video = $('.videoMain > .videoPlayer')[0];
-
-            video.paused ? video.play() : video.pause();
-        }
-    });
-}
-
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getVideo(videoId);
+        const { data: res } = await getUser(videoId);
         const { data: channelRes } = await getChannel(res.channel_id);
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
-        setVideoKeyControl();
     }catch (e){
         console.error(e);
     }
@@ -80,8 +80,6 @@ async function setVideoNav(){
         const { data: res } = await getVideos();
 
         res.forEach(async (v) => {
-            if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
-
             const { data: chRes } = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
@@ -89,7 +87,7 @@ async function setVideoNav(){
                     <img src="${v.thumbnail}">
                 </a>
                 <div class="rVideoInfo">
-                    <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
+                    <a class="rVideoTitle" href="/video?video_id=${v.id}">${v.title}</a>
                     <a class="rVideoUploader" href="#">${chRes.channel_name}</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>

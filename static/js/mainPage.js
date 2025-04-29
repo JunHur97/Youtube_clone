@@ -31,7 +31,7 @@
       if (channelLink) {
         e.preventDefault();
         const channelId = channelLink.dataset.channelId;
-        window.location.href = `/channel?channel_id=${channelId}`;
+        window.location.href = `/channels?ch_id=${channelId}`;
       }
       });
   }
@@ -58,6 +58,41 @@
       video.addEventListener("mouseleave", () => handleMouseLeave(video));
     });
   }
+  
+  // tag별로 영상 보기
+  function filterVideosByTag(tag) {
+    const videos = document.querySelectorAll(".video-grid");
+
+    videos.forEach((video) => {
+      const tags = video.dataset.tags.split(",").map(t => t.trim()); // 공백 제거
+
+      if(tag === "All" || tags.includes(tag)) {
+        video.style.display = "block";
+      } else {
+        video.style.display = "none";
+      }
+    });
+  }
+  
+  // 재생시간타임형식 구하기
+  function formatDuration (duration) {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // 재생시간 설정
+  function setRunningTime(videos) {
+    videos.forEach((video) => {
+      video.addEventListener("loadedmetadata", () => {
+        const runningTimeSpan = video.parentElement.querySelector(".running-time");
+
+        if(runningTimeSpan) {
+          runningTimeSpan.textContent  = formatDuration(video.duration);
+        }
+      })
+    })
+  }
 
   // 실제 video 데이터 처리
   (async () => {
@@ -72,12 +107,12 @@
         const { data: channelRes } = await getChannelInfo(video.channel_id);
 
         const html = `
-          <article class="video-grid">
-            <a class="move-video" href="#" data-video-id="${video.id} ">
+          <article class="video-grid" data-tags="${video.tags.join(",")}">
+            <a class="move-video" href="#" data-video-id="${video.id}">
                 <div class="video-content">
                   <div class="video-box">
                     <video class="video-player" src="https://storage.googleapis.com/youtube-clone-video/${video.id}.mp4" muted preload="metadata" poster="${video.thumbnail}" ></video>
-                    <span class="running-time">23:45</span>
+                    <span class="running-time">00:00</span>
                   </div>
             </a>
               <div class="video-details">
@@ -104,10 +139,15 @@
         section.insertAdjacentHTML("beforeend", html);
       };
 
-        registerHoverEvents();
-        moveTargetLink();
+      const videos = document.querySelectorAll(".video-player");
+
+      setRunningTime(videos);
+      registerHoverEvents();
+      moveTargetLink();
         
     } catch (error) {
       console.error("영상 목록을 불러오는 데 실패했습니다:", error);
     }
   })();
+
+  export { getVideoList, filterVideosByTag };
