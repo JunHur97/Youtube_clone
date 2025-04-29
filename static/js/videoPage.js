@@ -1,4 +1,4 @@
-async function getUser(videoId){
+async function getVideo(videoId){
     if (!/^[0-9]+$/.test(videoId)){
         console.error('Invalid videoId');
         return;
@@ -32,11 +32,14 @@ function setVideoInfo(videoInfo){
     $('.videoMetadata .views')[0].textContent = `${nFormatter(videoInfo.views, 1)} views`;
     $('.videoMetadata .dislikes p')[0].innerText = nFormatter(videoInfo.dislikes, 1);
     $('.videoMetadata .likes p')[0].innerText = nFormatter(videoInfo.likes, 1);
+    $('.videoDescription .videoDescText')[0].innerText = videoInfo.description;
 };
 
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
+    $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
+    $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
 };
 
@@ -44,16 +47,29 @@ function setDocumentTitle(title){
     document.title = title;
 }
 
+function setVideoKeyControl(){
+    $(document).keypress((e) => {
+        e.preventDefault();
+
+        if (e.key === ' '){
+            const video = $('.videoMain > .videoPlayer')[0];
+
+            video.paused ? video.play() : video.pause();
+        }
+    });
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getUser(videoId);
+        const { data: res } = await getVideo(videoId);
         const { data: channelRes } = await getChannel(res.channel_id);
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
+        setVideoKeyControl();
     }catch (e){
         console.error(e);
     }
@@ -64,14 +80,16 @@ async function setVideoNav(){
         const { data: res } = await getVideos();
 
         res.forEach(async (v) => {
+            if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
+
             const { data: chRes } = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
-                <a href="/video?video_id=${v.id}">
+                <a href="/videos?video_id=${v.id}">
                     <img src="${v.thumbnail}">
                 </a>
                 <div class="rVideoInfo">
-                    <a class="rVideoTitle" href="/video?video_id=${v.id}">${v.title}</a>
+                    <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
                     <a class="rVideoUploader" href="#">${chRes.channel_name}</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>
@@ -79,9 +97,20 @@ async function setVideoNav(){
                     </div>
                 </div>
             </div>`;
+
             $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
         });
     }catch (e){
         console.error(e);
     }
+}
+
+function setVideoPageTopbar(){
+    window.addEventListener('load', (e) => {
+        $('.navBar')[0].style.display = 'none';
+
+        $('button[aria-label="Menu"]').click((e) => {
+            $('.navBar').animate({ width: 'toggle' }, 200);
+        })
+    });
 }

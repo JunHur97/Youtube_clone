@@ -1,21 +1,25 @@
+<script>
+    (async () => {
+        await setChannelPage();
+    })()
+</script>
 
 <main class="channel">
   <div class="content-wrapper">
-   <!-- 섹션 1 -->
     <section class="channel-banner">
       <div class="channel-cover">
-        <img src="/public/img/channel/banner.svg" alt="Channel Banner">
+        <img src="" alt="Channel Banner">
       </div>
 
       <div class="channel-title">
-        <img class="channel-profile" src="/public/img/channel/propic.svg" alt="Channel Profile">
+        <img class="channel-profile" src="" alt="Channel Profile">
         <div class="channel-details">
-          <h1 class="channel-name">Marcus Levin</h1>
-          <p class="channel-subscribers">1.2M subscribers</p>
+          <h1 class="channel-name"></h1>
+          <p class="channel-subscribers"></p>
         </div>
         <button class="subscribe-button">Subscribes</button>
       </div>
-      <!-- 채널 버튼들 -->
+
       <div class="channel-toolbar">
         <div class="toolbar-menu">
           <a href="" class="active">HOME</a>
@@ -28,9 +32,8 @@
         </div>       
       </div>
     </section>
-      <!-- 섹션 2 메인 비디오 -->  
-    
-      <section class="smal-video">
+
+    <section class="smal-video">
       <div class="video-img">
         <img src="/public/img/channel/video1.svg" alt="video thumbnail" class="video-thumbnail">
         <div class="videotitle">
@@ -38,7 +41,6 @@
         </div>
         <img src="/public/img/channel/video controls.svg" alt="Video Controls" class="video-controls">
         </div>
-      <!-- <video controls src="../assets/video/sample.mp4"></video> -->
       <div class="video-description">
         <div class="video-title">Blind Woodturner: Turning passion into fine art</div>
         <div class="video-meta">567,969 views · 3 weeks ago</div>
@@ -51,10 +53,8 @@
         </div>
       </div>
     </section>
-      <!-- 섹션 3  -->
-    
-      <section class="play-lists"> 
-      <!-- playlist 1  -->
+
+    <section class="play-lists">
       <div class="playlist">
         <div class="playlist-header">
           <h3 class="playlist-date">Search on '21</h3>          
@@ -63,20 +63,8 @@
             <span class="play-button-text">PLAY ALL</span>
           </button>
         </div>
-        <div class="playlist-videos">
-          <% for(let i=0; i < 5; i++) { %>
-            <div class="video-card">
-              <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
-              <div class="video-info">
-                <h3 class="video-title">Lorem Ipsum dolar sit amet, consecte...</h3>
-                <p class="channel-name">Marcus Levin</p>
-                <p class="video-meta">320k views · 1 month ago </p>
-              </div>
-            </div>
-          <%} %>
-        </div>
-        </div>
-        <!-- playlist 2  -->
+        <div class="playlist-videos"></div>
+      </div>
       <div class="playlist">
         <div class="playlist-header">
           <h3 class="playlist-date">Search on '21</h3>          
@@ -87,14 +75,14 @@
         </div>
         <div class="playlist-videos">
           <% for(let i =5; i < 10; i++) { %>
-           <div class="video-card">
-            <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
-            <div class="video-info">
-              <h3 class="video-title">Lorem ipsum dolar sit amet, consecte...</h3>
-              <p class="channel-name">Marcus Levin</p>
-              <p class="video-meta">320K views · 1 month ago</p>
+            <div class="video-card">
+              <img src="/public/img/channel/Thumbnail <%= i %>.svg" alt="Video Thumbnail">
+              <div class="video-info">
+                <h3 class="video-title">Lorem ipsum dolar sit amet, consecte...</h3>
+                <p class="channel-name">Marcus Levin</p>
+                <p class="video-meta">320K views · 1 month ago</p>
+              </div>
             </div>
-           </div>
           <%} %>
         </div>
       </div>

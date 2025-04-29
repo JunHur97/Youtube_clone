@@ -1,12 +1,18 @@
-<link rel="stylesheet" href="/public/css/videoNav.css">
+<link rel="stylesheet" href="/public/css/yeeunkim7/videoNav.css">
 
 <div class="videoNav">
     <div class="recommendFilter">
-        <div class="filterOpt" selected>All</div>
+        <div class="filterOpt selected">All</div>
         <div class="filterOpt">From Marcus Levin</div>
     </div>
-    <%
-        const rVideos = [{
+    <div class="recommendList">
+    </div>
+</div>
+
+<script>
+    // rVideos 배열
+    const rVideos = [
+        {
             thumbnailSrc: '/public/img/videoPage/rVideo1.png',
             videoTitle: 'EP 6: Living to Serve | SEARCH ON',
             uploaderName: 'James Gouse',
@@ -62,19 +68,32 @@
             videoViews: '1M views',
             createdAt: '3 years ago',
             duration : '23:45',
-        }];
+        },
+    ];
 
-        rVideos.forEach((v) => {
-    %>
-    <%- include('recommendedVideo', {
-        thumbnailSrc: v.thumbnailSrc,
-        videoTitle: v.videoTitle,
-        uploaderName: v.uploaderName,
-        videoViews: v.videoViews,
-        createdAt: v.createdAt,
-        duration: v.duration,
-    }) %>
-    <%
+    // 추천 영상 세팅 함수
+    const setVideoNav = () => {
+        const recommendList = document.querySelector('.recommendList');
+
+        rVideos.forEach(video => {
+            const videoItem = document.createElement('div');
+            videoItem.className = 'rVideo';
+
+            videoItem.innerHTML = `
+            <div class="thumbnailWrapper">
+                <img src="${video.thumbnailSrc}" alt="thumbnail" class="thumbnail">
+            </div>
+            <div class="rVideoInfo">
+            <div class="rVideoTitle">${video.videoTitle}</div>
+            <div class="rVideoUploader">${video.uploaderName}</div>
+            <div class="rVideoBottom">${video.videoViews} • ${video.createdAt}</div>
+            </div>
+`;
+            recommendList.appendChild(videoItem);
         });
-    %>
-</div>
+    };
+
+    (async () => {
+        await setVideoNav();
+    })();
+</script>

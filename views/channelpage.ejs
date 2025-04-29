@@ -5,30 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Channel Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-    }
-      .main-layout {
-        display: flex;
-        width: 100%;
-        height: calc(100vh - 69px);
-        background-color: black;
-      }
-       
-    </style>
+    <link rel="stylesheet" href="/public/css/channel.css">
 </head>
 <body>
-    <%- include('topBar.ejs') %>
-    <main>
-        <div class="main-layout">
-        <%- include('navBar.ejs') %>
-        <%- include('channel.ejs') %>
-        </div>
-    </main>
+    <%- include('template.ejs') %>
+    <%- include('channel.ejs') %>
 </body>
 </html>

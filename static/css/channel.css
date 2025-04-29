@@ -1,12 +1,14 @@
-
     html, body {
         margin: 0;
         padding: 0;
-        height: 100%;
         width: 100%;
+        height: 100%;
         background-color: black;
         color: white;
         font-family: 'Roboto', sans-serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
     }
 
     .channel {
@@ -21,9 +23,29 @@
         scrollbar-color: gray #181818;
     }
     
+     /*.navBar {
+         position: fixed;
+        top: 69px; 
+        left: 0;
+        width: 240px;
+        bottom: 0;
+        background-color: #222;
+        z-index: 1; 
+    */
+   
+    .topBar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 69px;
+        background-color: #111;
+        z-index: 20;
+    }
+    
     .content-wrapper {
         flex-grow: 1;
-        overflow-y: auto;
+        margin-left: 240px;
         background-color: black;
     }
 
@@ -72,6 +94,8 @@
     }
     
     .subscribe-button {
+        width: 116px;
+        height: 36px;
         background-color: red;
         color: white;
         padding: 10px 20px;
@@ -83,28 +107,29 @@
     
     .channel-toolbar {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 20px;
         padding: 10px 30px;
-        max-width: 1070px;
         margin-top: 10px;
-        justify-content: flex-start;
     }
     
     .toolbar-menu {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    
+    .toolbar-menu a {
+        color: #aaa;
+        text-decoration: none;
         font-size: 14px;
-        color: #aaaaaa;
-        padding: 10px 15px;
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-        transition: 0.3s;
     }
-
-    .toolbar-menu:hover {
+    
+    .active:hover { 
         color: white;
-        border-bottom: 2px solid #333;
+        font-weight: bold;
     }
-  
+    
     .smal-video {
         background-color: black;
         display: flex;
@@ -260,17 +285,6 @@
         max-height: 118px;
         object-fit: cover;
     }
-
-    .running-time {
-        position: absolute;
-        bottom: 5px;
-        right: 3px;
-        background-color: black;
-        color: white;
-        padding: 2px 5px;
-        font-size: 10px;        
-    }
-
     .video-info {
         padding: 5px;
       }
@@ -291,20 +305,20 @@
       
       @media (max-width: 1260px) {
        .content-wrapper {
-        width: 100%;
-        max-width: calc(100% - 72px);
+
+        flex-grow: 1;
         margin-left: 72px;
     }
       
         .video-description {
-          display: block;
-          width: 400px;
-          height: 238px;
+          display: none;
+          width: 0;
+          height: 0;
         }
       
         .playlist-videos {
           grid-template-columns: repeat(4, 1fr);
-          min-width: 0px;
+          min-width: 0;
         }
       }
       
@@ -319,16 +333,9 @@
             flex-direction: column;
             align-items: center;
         }
-        .video-img, .video-description {
-            width: 100%;
-            max-width: 100%;
-            flex: none;
-        }
       }
-
       @media (max-width: 600px) {
         .content-wrapper {
-          width: 100%;
           margin-left: 0;
           padding: 10px;
         }
@@ -337,6 +344,3 @@
           grid-template-columns: repeat(2, 1fr);
         }
       }
-        .video-thumbnail {
-            margin-left: 0;
-        }
