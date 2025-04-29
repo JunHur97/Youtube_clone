@@ -50,8 +50,7 @@ async function addTags() {
                 div.dataset.tag = tag;
     
                 div.onclick = () => {
-                    filterVideosByTag(tag);
-                    // updateActiveTag(div);
+                    updateActiveTag(div);
                 }
             }
         });
@@ -61,7 +60,23 @@ async function addTags() {
     }
 
     // 클릭된 태그 활성화 표시
-    // updateActiveTag()
+    function updateActiveTag(activeDiv) {
+        const allDivs = document.querySelectorAll("#category-scroll .content div");
+        const isActive = false; 
+
+        // 모든 div에서 active 제거
+        allDivs.forEach((div) => div.classList.remove("active"));
+
+        // 클락한 div에 active 추가
+        activeDiv.classList.add("active");
+
+
+        // 클릭한 div의 tag로 필터링
+        filterVideosByTag(activeDiv.dataset.tag);
+
+
+        
+    }
 
 }
 
