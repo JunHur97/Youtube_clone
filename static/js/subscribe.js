@@ -41,10 +41,12 @@ function onSubBtnClick(e){
 $(document).ready(() => {
     if (!sessionStorage.getItem('subList')){
         // sessionStorage.clear();
-        sessionStorage.setItem('subList', JSON.stringify([]));
-    
-        subscribe(1);
-        // subscribe(2);
-        subscribe(3);
+
+        const subList = [];
+
+        subList.push(1);
+        subList.push(3);
+
+        insertDataInCache('subList', JSON.stringify(subList));
     }
 })
