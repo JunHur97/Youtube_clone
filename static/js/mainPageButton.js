@@ -62,7 +62,6 @@ async function addTags() {
     // 클릭된 태그 활성화 표시
     function updateActiveTag(activeDiv) {
         const allDivs = document.querySelectorAll("#category-scroll .content div");
-        const isActive = false; 
 
         // 모든 div에서 active 제거
         allDivs.forEach((div) => div.classList.remove("active"));
