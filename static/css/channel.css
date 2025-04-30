@@ -1,346 +1,330 @@
-    html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        color: white;
-        font-family: 'Roboto', sans-serif;
-        font-optical-sizing: auto;
-        font-style: normal;
-        font-variation-settings: "wdth" 100;
-    }
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+/* 전체 내용 묶음 영역 */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 240px;
+    background-color: black;
+    overflow-y: scroll;
+}
 
-    .channel {
-        display: flex;
-        flex-direction: column;
-        /* min-height: 100vh; */
-        width: 100%;
-        height: calc(100vh - 69px);
-        position: absolute;
-        top: 69px;
-        overflow-y: scroll;
-        scrollbar-color: gray #181818;
-    }
-    
-     /*.navBar {
-         position: fixed;
-        top: 69px; 
-        left: 0;
-        width: 240px;
-        bottom: 0;
-        background-color: #222;
-        z-index: 1; 
-    */
-   
-    .topBar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 69px;
-        background-color: #111;
-        z-index: 20;
-    }
-    
-    .content-wrapper {
-        flex-grow: 1;
-        margin-left: 240px;
-        background-color: black;
-    }
+.channel-banner {
+    background-color: #181818;
+}
 
-    .channel-banner {
-        background-color: #181818;
-    }
-    
-    .channel-banner, .smal-video, .play-lists {
-        width: 100%;
-        max-width: 1200px;
-    }
-    
-    .channel-cover img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-    
-    .channel-title {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        padding: 20px 30px 10px;
-    }
-    
-    .channel-profile {
-        width: 104px;
-        height: 80px;
-        border-radius: 50%;
-    }
-    
-    .channel-details {
-        flex-grow: 1;
-    }
-   
-    .channel-name {
-        font-size: 24px;
-        font-weight: bold;
-        margin: 0;
-    }
-    
-    .channel-subscribers {
-        font-size: 14px;
-        color: #aaa;
-        margin-top: 5px;
-    }
-    
-    .subscribe-button {
-        width: 116px;
-        height: 36px;
-        background-color: red;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        font-size: 14px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-    
-    .channel-toolbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 30px;
-        margin-top: 10px;
-    }
-    
-    .toolbar-menu {
-        display: flex;
-        gap: 30px;
-        flex-wrap: wrap;
-    }
-    
-    .toolbar-menu a {
-        color: #aaa;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    
-    .active:hover { 
-        color: white;
-        font-weight: bold;
-    }
-    
-    .smal-video {
-        background-color: black;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 30px 45px;
-        border-bottom: 1px solid #333;
-        gap: 20px;
-    }
-    /*.smal-video video {
-        width: 424px;
-        height: 238px;
-        background-color: black;
-    }*/
+.channel-banner, .smal-video, .play-lists {
+    width: 100%;
+    max-width: 1200px;
+}
 
-    .video-img {
-        flex: 1;
-        position: relative;
-        width: 100%;
-        max-width: 448px;
-        height: auto;
-    }
+.channel-cover img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
-    .video-thumbnail {
-        width: 100%;
-        height: auto;
-        display: block;
-        object-fit: cover;
-        margin-left: 12px;
-    }
-    .videotitle {
-        position: absolute;
-        top: 0;
-        left: 14px;
-        width: 356px;
-        height: 27px;
-        padding: 10px 12px;
-        color: white;
-        font-size: 14px;
-    }
+.channel-title {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 30px 10px;
+}
 
-    .video-controls {
-        position: absolute;
-        bottom: 0;
-        left: 14px;
-        width: 408.02px;
-        height: 31px;
-    }
+.channel-profile {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+}
 
-    .video-description {
-        width: 400px;
-        height: 238px;
-        flex: 1;
-    }
-    .video-title {
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .video-meta {
-        font-size: 14px;
-        color: #aaa;
-        margin-bottom: 15px;
-    }
-    .description {
-        font-size: 14px;
-        color: #ccc;
-    }
-    .play-lists {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-    }
+.channel-details {
+    flex-grow: 1;
+}
 
-    .playlist {
-        background: black;
-        width: 100%;
-        max-width: 1200px;
-        padding: 10px;
-        border-bottom: 1px solid #555;
-    }
+.channel-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
 
-    .playlist:last-child {
-        border-bottom: none; 
-    }
+.channel-subscribers {
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 5px;
+}
 
-    .playlist-header {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        max-width: 1070px;
-        margin: 0 auto;
-    }
+.subscribe-button {
+    width: 116px;
+    height: 36px;
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .playlist-date {
-        font-size: 16px;
-        font-weight: bold;
-    }
+.channel-toolbar {
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    margin-top: 10px;
+    max-width: 1070px;
+}
 
-    .play-button {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0 20px;
-        padding: 10px;
-        background-color: black;
-        border: none;
-        cursor: pointer;
-    }
+.toolbar-menu {
+    font-size: 14px;
+    color: #aaaaaa;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-    .play-button-icon {
-        width: 24px;
-        height: 24px;
-    }
+.toolbar-menu:hover {
+    color: white;
+    border-bottom: 2px solid #333;
+}
 
-    .play-button-text {
-        font-size: 16px;
-        font-weight: bold;
-        color: #555;
-    }
+/* 섹션 2 */
+.smal-video {
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px 45px;
+    border-bottom: 1px solid #333;
+    gap: 20px;
+}
 
-    .play-button:hover {
-        transition: 0.7s;
-        background-color: #333;
-        color: #555;
-        border-radius: 6px;
-    }
+.smal-video .mainvideo-player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    transform: none !important;
+    transition: none !important;
+}
 
-    .playlist-videos {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        width: 100%;
-        max-width: 1070px;
-        gap: 2px;
-        margin: 10px auto;
-        min-width: 0;
-    } 
-    .video-card {
-        overflow: hidden;
-        background-color: black;
-        transition: transform 0.3s;
-        cursor: pointer;
-        min-width: 0;
-    }
-   
-    .video-card:hover {
-        transform: scale(1.03);
-    }
-    .video-card img {
-        width: 100%;
-        max-width: 210px;
-        height: auto;
-        max-height: 118px;
-        object-fit: cover;
-    }
-    .video-info {
-        padding: 5px;
-      }
-      
-      .video-info .video-title {
-        font-size: 14px;
-        font-weight: bold;
-        margin: 5px 0;
-      }
-      
-      .video-info .channel-name,
-      .video-info .video-meta {
-        font-size: 12px;
-        color: #aaa;
-        background-color: black;
-        margin: 2px 0; 
-      }
-      
-      @media (max-width: 1260px) {
-       .content-wrapper {
+.video-box {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
 
-        flex-grow: 1;
-        margin-left: 72px;
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* 영상 길이 표시*/
+.running-time {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background-color: black;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    z-index: 2;
+}
+
+.videotitle {
+    position: absolute;
+    top: 0;
+    left: 14px;
+    width: 356px;
+    height: 27px;
+    padding: 10px 12px;
+    color: white;
+    font-size: 14px;
+}
+/*
+.video-controls {
+    position: absolute;
+    bottom: 0;
+    left: 14px;
+    width: 408.02px;
+    height: 31px;
+} */
+
+.video-description {
+    width: 400px;
+    height: 238px;
+    flex: 1;
+}
+.video-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.video-meta {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+.description {
+    font-size: 14px;
+    color: #ccc;
+}
+/* 섹션 3 재생목록*/
+.play-lists {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.playlist {
+    background: black;
+    width: 100%;
+    max-width: 1200px;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.playlist:last-child {
+    border-bottom: none; 
+}
+
+.playlist-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1070px;
+    margin: 0 auto;
+}
+
+.playlist-date {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.play-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.play-button-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.play-button-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+}
+
+.play-button:hover {
+    transition: 0.7s;
+    background-color: #333;
+    color: #555;
+    border-radius: 6px;
+}
+
+.playlist1-videos,
+.playlist2-videos {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin: 10px 45px;
+} 
+
+.video-card {
+    overflow: hidden;
+    background-color: black;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.video-card:hover {
+    transform: scale(1.03);
+}
+
+.video-card video
+.video-card img   {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    background-color: black;
+    transition: transform 0.2s ease;
+}
+
+.video-card video:hover {
+    transform: scale(1.02);
+}
+
+.video-preview {
+    width: 100%;
+    border-radius: 8px;
+    background-color: #000;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.video-preview:hover {
+    transform: scale(1.03);
+}
+
+.video-info {
+    padding: 7px;
+  }
+  
+  .video-info .video-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+  
+  .video-info .channel-name,
+  .video-info .video-meta {
+    font-size: 12px;
+    color: #aaa;
+    background-color: black;
+    margin: 2px 0; 
+  }
+  
+  @media (max-width: 1260px) {
+    .playlist1-videos,
+    .playlist2-videos {
+      grid-template-columns: repeat(4, 1fr);
     }
-      
-        .video-description {
-          display: none;
-          width: 0;
-          height: 0;
-        }
-      
-        .playlist-videos {
-          grid-template-columns: repeat(4, 1fr);
-          min-width: 0;
-        }
-      }
-      
-      @media (max-width: 1000px) {
-        .playlist-videos {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-      
-      @media (max-width: 768px) {
-        .smal-video {
-            flex-direction: column;
-            align-items: center;
-        }
-      }
-      @media (max-width: 600px) {
-        .content-wrapper {
-          margin-left: 0;
-          padding: 10px;
-        }
-      
-        .playlist-videos {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
+  }
+  
+  @media (max-width: 1000px) {
+    .playlist1-videos,
+    .playlist2-videos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .playlist1-videos,
+    .playlist2-videos {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .playlist1-videos,
+    .playlist2-videos {
+      grid-template-columns: 1fr;
+    }
+  }
