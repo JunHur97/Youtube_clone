@@ -1,3 +1,5 @@
+import { getDataFromCache, insertDataInCache } from './localCache.js';
+
 function subscribe(chId){
     const subList = JSON.parse(getDataFromCache('subList'));
     if (subList.includes(chId)) return unsubscribe(chId);
@@ -5,8 +7,8 @@ function subscribe(chId){
     subList.push(chId);
     insertDataInCache('subList', JSON.stringify(subList));
 
-    // navBar.js/insertNavbarSub()
-    insertNavbarSub(chId);
+    const subEvent = new CustomEvent('subscribe', { detail: { chId, } });
+    $('section.subscription')[0].dispatchEvent(subEvent);
 }
 
 function unsubscribe(chId){
@@ -16,8 +18,8 @@ function unsubscribe(chId){
     subList = subList.filter(v => v !== chId);
     insertDataInCache('subList', JSON.stringify(subList));
 
-    // navBar.js/removeNavbarSub()
-    removeNavbarSub(chId);
+    const unsubEvent = new CustomEvent('unsubscribe', { detail: { chId, } });
+    $('section.subscription')[0].dispatchEvent(unsubEvent);
 }
 
 function onSubBtnClick(e){
@@ -49,4 +51,6 @@ $(document).ready(() => {
 
         insertDataInCache('subList', JSON.stringify(subList));
     }
-})
+});
+
+export { onSubBtnClick, };

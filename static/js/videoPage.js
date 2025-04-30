@@ -1,40 +1,10 @@
-async function getVideo(videoId){
-    if (!/^[0-9]+$/.test(videoId)){
-        console.error('Invalid videoId');
-        return;
-    }
-
-    const cachedData = getDataFromCache(`video_${videoId}`);
-    if (!!cachedData) return JSON.parse(cachedData);
-
-    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getVideoInfo?video_id=${parseInt(videoId, 10)}`);
-    if (!!data) insertDataInCache(`video_${videoId}`, JSON.stringify(data));
-
-    return data;
-}
-
-async function getChannel(channelId){
-    if (!/^[0-9]+$/.test(channelId)){
-        console.error('Invalid channelId');
-        return;
-    }
-
-    const cachedData = getDataFromCache(`channel_${channelId}`);
-    if (!!cachedData) return JSON.parse(cachedData);
-
-    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
-    if (!!data) insertDataInCache(`channel_${channelId}`, JSON.stringify(data));
-
-    return data;
-}
+import { getVideo, getChannel, getVideos } from './modules/axiosReq.js';
+import { onSubBtnClick } from './subscribe.js';
+import { getDataFromCache } from './localCache.js';
 
 function getVideoId(urlSearch){
     const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('video_id'));
     return hos[0].split('=')[1];
-}
-
-async function getVideos(){
-    return await axios.get('http://techfree-oreumi-api.kro.kr:5000/video/getVideoList');
 }
 
 function setVideoInfo(videoInfo){
@@ -60,6 +30,38 @@ function setDocumentTitle(title){
     document.title = title;
 }
 
+function setVideoKeyControl(){
+    $(document).keypress((e) => {
+        e.preventDefault();
+
+        if (e.key === ' '){
+            const video = $('.videoMain > .videoPlayer')[0];
+
+            video.paused ? video.play() : video.pause();
+        }
+    });
+}
+
+function setSubBtn(chId){
+    const subList = JSON.parse(getDataFromCache('subList'));
+
+    if (!subList) return;
+
+    if (subList.includes(chId)){
+        const uploaderBtn = $('.videoUploader > button')[0];
+
+        uploaderBtn.setAttribute('subscribed', '');
+        uploaderBtn.innerText = 'SUBSCRIBED';
+    }
+}
+
+function setSubBtnOnClick(){
+    const subBtn = $('.videoUploader > button')[0];
+
+    // subscribe.js/onSubBtnClick()
+    subBtn.addEventListener('click', onSubBtnClick);
+}
+
 async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
@@ -71,13 +73,13 @@ async function setVideoMain(){
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
     }catch (e){
-        console.error(e);
+        axiosErrorHandler(e);
     }
 }
 
 async function setVideoNav(){
     try {
-        const { data: res } = await getVideos();
+        const res = await getVideos();
 
         res.forEach(async (v) => {
             const { data: chRes } = await getChannel(v.channel_id);
@@ -99,7 +101,7 @@ async function setVideoNav(){
             $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
         });
     }catch (e){
-        console.error(e);
+        axiosErrorHandler(e);
     }
 }
 
@@ -112,3 +114,9 @@ function setVideoPageTopbar(){
         })
     });
 }
+
+$(document).ready(async () => {
+    setVideoPageTopbar();
+    await setVideoMain();
+    await setVideoNav();
+});

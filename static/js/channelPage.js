@@ -1,46 +1,17 @@
+import { getChannel, getChannelVideos } from './modules/axiosReq.js';
+import { onSubBtnClick } from './subscribe.js';
+import { getDataFromCache } from './localCache.js';
+
 function getChannelId(urlSearch){
     const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('ch_id'));
     return hos[0].split('=')[1];
 }
 
-// 채널 정보 요청 api
-async function getChannel(chId) {
-    if (!/^[0-9]+$/.test(chId)) {
-        console.error('Invalid channelId');
-        return;
-    }
-
-    try {
-        const response = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
-        return response.data;
-    } catch (error) {
-        console.error('Failed to fetch channel info:', error);
-    }
-}
-
-//채널 영상 목록 요청 ㅁpi
-async function getChannelVideos(chId) {
-    if (!/^[0-9]+$/.test(chId)) {
-        console.error('Invalid channelId');
-        return;
-    }
-
-    try {
-        const response = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getChannelVideoList?channel_id=${parseInt(chId, 10)}`);
-        return response.data;
-    } catch (error) {
-        console.error('Failed to fetch channel videos:', error);
-    }
-}
-
-//채널 정보 표시
-function setChannelInfo(chInfo) {
-    if (!chInfo) return;
-
-    $('.channel-cover img').attr('src', chInfo.channel_banner);
-    $('.channel-name').text(chInfo.channel_name);
-    $('.channel-profile').attr('src', chInfo.channel_profile);
-    $('.channel-subscribers').text(`${nFormatter(chInfo.subscribers, 1)} subscribers`);
+function setChannelInfo(chInfo){
+    $('.channel-cover img')[0].src = chInfo.channel_banner;
+    $('.channel-name')[0].innerText = chInfo.channel_name;
+    $('.channel-profile')[0].src = chInfo.channel_profile;
+    $('.channel-subscribers')[0].innerText = `${nFormatter(chInfo.subscribers, 1)} subscribers`;
 }
 
 //메인 비디오 섹션 2
@@ -108,17 +79,19 @@ async function setChannelPage() {
     }
 
     try {
-        const channelInfo = await getChannel(chId);
-        const channelVideos = await getChannelVideos(chId);
+        const res = await getChannel(chId);
+        const videosRes = await getChannelVideos(chId);
 
-        setChannelInfo(channelInfo);
-
-        if (channelVideos.length > 0) {
-            setMainVideo(channelVideos[0]);
-        }
-        
-        setChannelVideos(channelVideos, channelInfo.channel_name);
-    } catch (error) {
-        console.error('Error setting channel page:', error);
+        setChannelInfo(res);
+        setSubBtn(chId);
+        setSubBtnOnClick();
+        // 일단 playlist에 5개만 보여주기 위함
+        setChannelVideos(videosRes.slice(0, 5), res.channel_name);
+    }catch (e){
+        axiosErrorHandler(e);
     }
 }
+
+$(document).ready(async () => {
+    await setChannelPage();
+});
