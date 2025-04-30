@@ -44,6 +44,15 @@ section {
   background-color: gray;
 }
 
+section.subscription > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navItem[chId] > img {
+    border-radius: 50%;
+}
+
 .navBar img {
   width: 20px;
   height: auto;
