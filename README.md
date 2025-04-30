@@ -22,6 +22,8 @@
 |2025-04-23|video 페이지 개발중 (views/yeeunkim7/*)|video page 개발중 (views/videos/*)|main page 개발중 (main/mainContent.ejs)|channel page 개발중(channel/channelpage.ejs)|
 |2025-04-24|video 페이지 개발중 (views/yeeunkim7/*)|video page 개발중 (static/js/\[utils/videoPage\].js)|main page 개발중 (main/mainContent.ejs)|channel page 개발중(channel/channelpage.ejs)|
 |2025-04-25|video 페이지 개발중 (views/yeeunkim7/*)|video page 개발중 (views/videos/*, static/js/[utils/videoPage].js)|main page 개발중 (views/main/*, static/js/mainPage.js)|channel page 개발중(views/[channel/channelpage].ejs)|
+|2025-04-28|video 페이지, 검색 기능 개발중|videoPage 내 navBar toggle 기능 /  스페이스바로 영상 재생 및 정지 기능 개발, channels 페이지 개발중|mainPage의 videoCard에 hover 시 영상 미리보기|.|
+|2025-04-29|검색 기능 개발중|videoPage/channelsPage 내 구독 기능 추가, local cache 기능 추가|mainPage의 videoCard를 태그에 따라 필터링|channelPage 개발중|
 
 ## 실행
 

@@ -13,3 +13,8 @@ function nFormatter(num, digits){
     const item = lookup.slice().reverse().find(item => num >= item.value);
     return item ? (num / item.value).toFixed(digits).replace(regexp, "").concat(item.symbol) : "0";
 }
+
+function axiosErrorHandler(e){
+    if (e.status < 500) alert(e.message);
+    history.back();
+}
