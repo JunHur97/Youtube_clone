@@ -19,6 +19,8 @@ function setVideoInfo(videoInfo){
 
 function setChannelInfo(channelInfo){
     $('.videoUploader img')[0].src = channelInfo.channel_profile;
+    $('.videoUploader > a')[0].href = `/channels?ch_id=${channelInfo.id}`;
+    $('.videoUploader > button')[0].setAttribute('chId', channelInfo.id);
     $('.uploaderInfo .uploaderName')[0].innerText = channelInfo.channel_name;
     $('.uploaderInfo .uploaderName')[0].href = `/channels?ch_id=${channelInfo.id}`;
     $('.uploaderInfo .uploaderSubscribers')[0].innerText = `${nFormatter(channelInfo.subscribers, 1)} subscribers`;
@@ -66,12 +68,14 @@ async function setVideoMain(){
     const videoId = getVideoId(window.location.search);
 
     try {
-        const { data: res } = await getUser(videoId);
-        const { data: channelRes } = await getChannel(res.channel_id);
+        const res = await getVideo(videoId);
+        const channelRes = await getChannel(res.channel_id);
 
         setVideoInfo(res);
         setChannelInfo(channelRes);
         setDocumentTitle(res.title);
+        setVideoKeyControl();
+        setSubBtnOnClick();
     }catch (e){
         axiosErrorHandler(e);
     }
@@ -82,15 +86,17 @@ async function setVideoNav(){
         const res = await getVideos();
 
         res.forEach(async (v) => {
-            const { data: chRes } = await getChannel(v.channel_id);
+            if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
+
+            const chRes = await getChannel(v.channel_id);
             const comment = `
             <div class="rVideo">
                 <a href="/videos?video_id=${v.id}">
                     <img src="${v.thumbnail}">
                 </a>
                 <div class="rVideoInfo">
-                    <a class="rVideoTitle" href="/video?video_id=${v.id}">${v.title}</a>
-                    <a class="rVideoUploader" href="#">${chRes.channel_name}</a>
+                    <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
+                    <a class="rVideoUploader" href="/channels?ch_id=${v.channel_id}">${chRes.channel_name}</a>
                     <div class="rVideoBottom">
                         <p>${nFormatter(v.views, 1)} views</p>
                         <p>${moment(v.created_dt).fromNow()}</p>
