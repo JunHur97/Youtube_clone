@@ -10,10 +10,17 @@ $(document).ready(function () {
       .then(data => {
         console.log('받아온 비디오 데이터:', data);
         allVideos = data;
+        console.log('allVideos 내부 데이터:', allVideos);
         filteredVideos = [...allVideos];
 
+        console.log('샘플 타이틀과 태그 확인');
+        allVideos.slice(0, 5).forEach(v => {
+          console.log('제목:', v.title);
+          console.log('태그:', v.tags);
+        });
+
         const urlParams = new URLSearchParams(window.location.search);
-        const query = urlParams.get('query');
+        const query = urlParams.get('search');
         if (query) {
           performSearch(query);
         } else {
@@ -34,8 +41,9 @@ $(document).ready(function () {
         const tagList = Array.isArray(video.tags)
           ? video.tags
           : (typeof video.tags === 'string' ? video.tags.split(',') : []);
-        const tagMatch = tagList.some(tag => tag.trim().toLowerCase().includes(lowerTerm));
-        return titleMatch || tagMatch;
+          const tagMatch = tagList.some(tag => tag.toLowerCase().includes(lowerTerm));
+
+          return titleMatch || tagMatch;
       });
     }
 
@@ -96,9 +104,9 @@ $(document).ready(function () {
 
   fetchAndStoreVideos();
 
-  $('#SearchForm').submit(function (e) {
+  $('#searchForm').submit(function (e) {
     e.preventDefault();
-    const searchTerm = $('#Search').val().trim();
+    const searchTerm = $('#search').val().trim();
     const url = new URL(window.location.href);
     if (searchTerm) {
       url.searchParams.set('query', searchTerm);

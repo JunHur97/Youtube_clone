@@ -11,14 +11,16 @@
   <%- include('template.ejs') %>
   <main>
     <section class="content-area">
-      <section class="video-section" id="Video-Container"></section>
+      <section id="Video-Container" class="video-section"></section>
     </section>
   </main>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" ></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   
+  <script type="module" src="/public/js/subscribe.js"></script>
   <script src="/public/js/func.js" defer></script>
-  <script src="/public/js/subscribe.js" defer></script>
   <script src="/public/js/searchPage.js" defer></script>
+</body>
 </body>
 </html>
