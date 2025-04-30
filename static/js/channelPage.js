@@ -85,8 +85,7 @@ async function setChannelPage(){
         setSubBtnOnClick();
         // 일단 playlist에 5개만 보여주기 위함
         setChannelVideos(videosRes.slice(0, 5), res.channel_name);
-        setChannelVideoLink();
     }catch (e){
-        console.error(e);
+        axiosErrorHandler(e);
     }
 }
