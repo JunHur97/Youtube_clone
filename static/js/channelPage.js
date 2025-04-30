@@ -1,30 +1,10 @@
+import { getChannel, getChannelVideos } from './modules/axiosReq.js';
+import { onSubBtnClick } from './subscribe.js';
+import { getDataFromCache } from './localCache.js';
+
 function getChannelId(urlSearch){
     const hos = urlSearch.slice(1).split('&').filter(v => v.startsWith('ch_id'));
     return hos[0].split('=')[1];
-}
-
-async function getChannel(chId){
-    if (!/^[0-9]+$/.test(chId)){
-        console.error('Invalid channelId');
-        return;
-    }
-
-    const cachedData = getDataFromCache(`channel_${chId}`);
-    if (!!cachedData) return JSON.parse(cachedData);
-
-    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
-    if (!!data) insertDataInCache(`channel_${chId}`, JSON.stringify(data));
-
-    return data;
-}
-
-async function getChannelVideos(chId){
-    if (!/^[0-9]+$/.test(chId)){
-        console.error('Invalid channelId');
-        return;
-    }
-
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/video/getChannelVideoList?channel_id=${parseInt(chId, 10)}`);
 }
 
 function setChannelInfo(chInfo){
@@ -78,7 +58,7 @@ async function setChannelPage(){
 
     try {
         const res = await getChannel(chId);
-        const { data: videosRes } = await getChannelVideos(chId);
+        const videosRes = await getChannelVideos(chId);
 
         setChannelInfo(res);
         setSubBtn(chId);
@@ -89,3 +69,7 @@ async function setChannelPage(){
         axiosErrorHandler(e);
     }
 }
+
+$(document).ready(async () => {
+    await setChannelPage();
+});
