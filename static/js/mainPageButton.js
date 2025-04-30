@@ -66,26 +66,27 @@ async function addTags() {
         console.error("태그 생성 실패:", error);
     }
 
-    // 클릭된 태그 활성화 표시
-    function updateActiveTag(activeDiv) {
-        const allDivs = document.querySelectorAll("#category-scroll .content div");
+    
+}
 
-        // 모든 div에서 active 제거
-        allDivs.forEach((div) => div.classList.remove("active"));
+// 클릭된 태그 활성화 표시
+function updateActiveTag(activeDiv) {
+    const allDivs = document.querySelectorAll("#category-scroll .content div");
+    const isActive = activeDiv.classList.contains("active");
 
-        // 클락한 div에 active 추가
+    // 모든 div에서 active 제거
+    allDivs.forEach((div) => div.classList.remove("active"));
+
+    if(!isActive) {
+        // 클릭한 div에 active 추가
         activeDiv.classList.add("active");
-
 
         // 클릭한 div의 tag로 필터링
         filterVideosByTag(activeDiv.dataset.tag);
-
-
-        
+    } else {
+        filterVideosByTag("All");
     }
-
 }
-
 
 addTags();
 clickAllowButton();
