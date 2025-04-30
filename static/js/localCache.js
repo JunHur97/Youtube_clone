@@ -16,3 +16,5 @@ function insertDataInCache(key, value){
 
     sessionStorage.setItem(key, value);
 }
+
+export { getDataFromCache, insertDataInCache, };

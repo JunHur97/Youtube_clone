@@ -1,12 +1,5 @@
 <link rel="stylesheet" href="/public/css/navBar.css">
-<script src="/public/js/subscribe.js"></script>
-<script src="/public/js/navBar.js"></script>
-<script>
-    $(document).ready(() => {
-        // navBar.js/insertNavbarSub()
-        JSON.parse(sessionStorage.getItem('subList')).forEach(v => { insertNavbarSub(v) });
-    });
-</script>
+<script type="module" src="/public/js/navBar.js"></script>
 
 <nav class="navBar">
   <section>
