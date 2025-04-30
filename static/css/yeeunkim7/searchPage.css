@@ -8,10 +8,68 @@ body {
   background-color: #212121;
 }
 
-/* 🔻 아래부터는 mainPage 전용 - 검색페이지에는 필요 없음 */
 html,
 body {
   height: 100%;
+}
+
+/* 검색 폼 영역 */
+.search-form {
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 5px;
+  background-color: #121212;
+  border: 1px solid #333;
+  border-radius: 4px;
+}
+
+/* 검색 입력창 */
+.search-form input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+/* 검색 버튼 */
+.search-form button[type="submit"] {
+  padding: 10px 15px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-form button[type="submit"]:hover {
+  background-color: #555;
+}
+
+/* 카테고리 버튼 영역 */
+#category-buttons {
+  margin: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* 각 카테고리 버튼 */
+#category-buttons button {
+  background-color: #303030;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#category-buttons button:hover {
+  background-color: #444;
 }
 
 .content-area {
@@ -207,6 +265,15 @@ body {
 }
 .video-meta .time-ago::before { content: "ㆍ"; }
 
+/* 검색 결과 없음 메시지 */
+#Video-Container:empty::before {
+  content: "검색 결과가 없습니다.";
+  display: block;
+  text-align: center;
+  color: #aaa;
+  margin-top: 40px;
+  font-size: 18px;
+}
 
 @media (max-width: 1260px) {
   .video-section {

@@ -15,7 +15,7 @@
 
   <div class="nav-center">
     <form class="search-form" id="searchForm"> <!--검색 기능 추가-->
-      <input id="Search" name="search" type="text" placeholder="Search" />
+      <input id="search" name="search" type="text" placeholder="search" />
       <button type="submit">
         <img src="/public/img/header/search.svg" alt="searchIcon" />
       </button>
@@ -46,7 +46,7 @@
 <script> // 검색 기능 관련 자바스크립트 추가
   document.getElementById('searchForm').addEventListener('submit', function (e) {
     e.preventDefault(); // 기본 동작 중단
-    const input = document.getElementById('Search');
+    const input = document.getElementById('search');
     const query = input.value.trim();
 
     if (query) {
