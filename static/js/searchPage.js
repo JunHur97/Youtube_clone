@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   console.log('Search Page Loaded');
 
   let allVideos = [];
@@ -28,10 +28,15 @@ $(document).ready(function() {
       filteredVideos = [...allVideos];
     } else {
       const lowerTerm = searchTerm.toLowerCase();
-      filteredVideos = allVideos.filter(video =>
-        (video.title && video.title.toLowerCase().includes(lowerTerm)) ||
-        (video.tags && video.tags.some(tag => tag.toLowerCase().includes(lowerTerm)))
-      );
+
+      filteredVideos = allVideos.filter(video => {
+        const titleMatch = video.title?.toLowerCase().includes(lowerTerm);
+        const tagList = Array.isArray(video.tags)
+          ? video.tags
+          : (typeof video.tags === 'string' ? video.tags.split(',') : []);
+        const tagMatch = tagList.some(tag => tag.trim().toLowerCase().includes(lowerTerm));
+        return titleMatch || tagMatch;
+      });
     }
 
     console.log(`검색 결과: ${filteredVideos.length}개`);
@@ -48,40 +53,58 @@ $(document).ready(function() {
     }
 
     results.forEach(video => {
-      const safeTags = Array.isArray(video.tags) ? video.tags.join(', ') : '';  // 추가
-      // const videoItem = $(`
-      //   <div style="margin-bottom: 20px; color: white;">
-      //     <img src="${video.thumbnail}" alt="썸네일" style="width: 300px;">
-      //     <h3>${video.title}</h3>
-      //     <p>${video.views} views</p>
-      //     <p>Tags: ${tags}</p>
-      //   </div>
-      // `);
+      const safeTags = Array.isArray(video.tags) ? video.tags.join(', ') : '';
+      const hasChannelImg = video.channelThumbnail ? `<img src="${video.channelThumbnail}" alt="채널 썸네일">` : '';
+
       const videoItem = $(`
-        <div style="margin-bottom: 20px; color: white;">
-          <img src="${video.thumbnail}" alt="썸네일" style="width: 300px;">
-          <h3>${video.title}</h3>
-          <p>${video.views} views</p>
-          <p>Tags: ${safeTags}</p>
+        <div class="video-grid" data-tags="${safeTags}">
+          <div class="video-content">
+            <div class="video-box">
+              <img class="video-player" src="${video.thumbnail}" alt="썸네일">
+              <span class="running-time">${video.runningTime || '00:00'}</span>
+            </div>
+            <div class="video-details">
+              ${hasChannelImg}
+              <div class="video-meta">
+                <div class="video-title">${video.title}</div>
+                <div class="channel-name">${video.channelName || '알 수 없음'}</div>
+                <div class="video-info">
+                  <div>${video.views} views</div>
+                  <div class="time-ago">${video.uploadDate || ''}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       `);
+
       videoList.append(videoItem);
     });
   }
 
+  window.filterVideosByTag = function (tag) {
+    const videoItems = $('#Video-Container').children('div');
+    videoItems.each(function () {
+      const tags = $(this).data('tags') ? $(this).data('tags').split(',').map(t => t.trim()) : [];
+      if (tag === 'All' || tags.includes(tag)) {
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    });
+  };
+
   fetchAndStoreVideos();
 
-  $('#SearchForm').submit(function(e) {
+  $('#SearchForm').submit(function (e) {
     e.preventDefault();
     const searchTerm = $('#Search').val().trim();
     const url = new URL(window.location.href);
-
     if (searchTerm) {
       url.searchParams.set('query', searchTerm);
     } else {
       url.searchParams.delete('query');
     }
-
     window.history.pushState({}, '', url);
     performSearch(searchTerm);
   });
