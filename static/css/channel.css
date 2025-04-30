@@ -7,7 +7,7 @@ html, body {
     color: white;
     font-family: 'Roboto', sans-serif;
 }
-
+/* 전체 내용 묶음 영역 */
 .content-wrapper {
     display: flex;
     flex-direction: column;
@@ -94,6 +94,7 @@ html, body {
     border-bottom: 2px solid #333;
 }
 
+/* 섹션 2 */
 .smal-video {
     background-color: black;
     display: flex;
@@ -102,37 +103,32 @@ html, body {
     border-bottom: 1px solid #333;
     gap: 20px;
 }
-/*.smal-video video {
-    width: 424px;
-    height: 238px;
-    background-color: black;
-}*/
 
-.video-img {
-    flex: 1;
-    position: relative;
+.smal-video .mainvideo-player {
     width: 100%;
-    max-width: 448px;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    transform: none !important;
+    transition: none !important;
 }
 
 .video-box {
     position: relative;
     width: 100%;
-}
-  
-.running-time {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background-color: black;
-    color: #fff;
-    font-size: 12px;
-    padding: 2px 4px;
-    border-radius: 3px;
+    overflow: hidden;
 }
 
-.video-box .running-time {
+.video-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* 영상 길이 표시*/
+.running-time {
     position: absolute;
     bottom: 6px;
     right: 6px;
@@ -144,13 +140,6 @@ html, body {
     z-index: 2;
 }
 
-.video-thumbnail {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    margin-left: 12px;
-}
 .videotitle {
     position: absolute;
     top: 0;
@@ -161,14 +150,14 @@ html, body {
     color: white;
     font-size: 14px;
 }
-
+/*
 .video-controls {
     position: absolute;
     bottom: 0;
     left: 14px;
     width: 408.02px;
     height: 31px;
-}
+} */
 
 .video-description {
     width: 400px;
@@ -189,6 +178,7 @@ html, body {
     font-size: 14px;
     color: #ccc;
 }
+/* 섹션 3 재생목록*/
 .play-lists {
     display: flex;
     width: 100%;
@@ -225,8 +215,7 @@ html, body {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0 20px;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: black;
     border: none;
     cursor: pointer;
@@ -257,6 +246,7 @@ html, body {
     gap: 2px;
     margin: 10px 45px;
 } 
+
 .video-card {
     overflow: hidden;
     background-color: black;
@@ -268,7 +258,8 @@ html, body {
     transform: scale(1.03);
 }
 
-.video-card video {
+.video-card video
+.video-card img   {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -287,15 +278,11 @@ html, body {
     object-fit: cover;
     transition: transform 0.3s ease;
 }
+
 .video-preview:hover {
     transform: scale(1.03);
 }
 
-.video-card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
 .video-info {
     padding: 7px;
   }

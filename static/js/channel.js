@@ -54,11 +54,11 @@ function setMainVideo(video) {
                src="https://storage.googleapis.com/youtube-clone-video/${video.id}.mp4"
                poster="${video.thumbnail}"
                muted
-               preload="metadata"></video>
+               preload="metadata">
+               </video>
         <span class="running-time">00:00</span>
       </div>
             <div class="videotitle">${video.title}</div>
-            <img src="/public/img/channel/video controls.svg" alt="Video Controls" class="video-controls">
         </div>
 
         <div class="video-description">
@@ -122,11 +122,12 @@ function setChannelVideos(chVideos, chName) {
                            muted
                            preload="metadata"></video>
                     <span class="running-time">00:00</span>
-                    <div class="video-info">
+                  </div>
+                  <div class="video-info">
                         <h3 class="video-title">${video.title}</h3>
                         <p class="channel-name">${chName}</p>
                         <p class="video-meta">${nFormatter(video.views, 1)} views · ${moment(video.created_dt).fromNow()}</p>
-                    </div>
+                  </div>
                 </div>`;
             container.insertAdjacentHTML('beforeend', videoHTML);
         });
