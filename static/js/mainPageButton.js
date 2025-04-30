@@ -1,14 +1,21 @@
 import { getVideoList, filterVideosByTag } from "./mainPage.js";
 
 function scrollCategory(direction) {
-    const container = document.getElementById("category-scroll");
+    const category = document.getElementById("category-scroll");
     const scrollAmount = 300; // 한 번에 스크롤할 px
 
     if (direction === "right") {
-      container.scrollBy({ left: scrollAmount, behavior: "smooth"});
+        category.scrollBy({ left: scrollAmount, behavior: "smooth"});
     } else if (direction === "left") {
-      container.scrollBy({ left: -scrollAmount, behavior: "smooth"});
+        category.scrollBy({ left: -scrollAmount, behavior: "smooth"});
     }
+}
+
+function clickAllowButton() {
+    document.addEventListener("click", (e) => {
+        const direction = e.target.dataset.direction;
+        scrollCategory(direction);
+    });
 }
 
 async function addTags() {
@@ -79,5 +86,6 @@ async function addTags() {
 
 }
 
-addTags();
 
+addTags();
+clickAllowButton();
