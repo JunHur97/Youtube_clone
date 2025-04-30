@@ -84,7 +84,7 @@ header.top-nav {
   outline: none;
 }
 
-.search-form button[type="SearchBtn"] {
+.search-form button[type="submit"] {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,7 +174,7 @@ button[aria-label="Mic"]:active {
     visibility: hidden;
   }
 
-  .search-form button[type="SearchBtn"] {
+  .search-form button[type="submit"] {
     width: 45px;
     height: 45px;
     min-width: 45px;
