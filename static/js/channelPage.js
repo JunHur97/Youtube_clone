@@ -9,7 +9,13 @@ async function getChannel(chId){
         return;
     }
 
-    return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
+    const cachedData = getDataFromCache(`channel_${chId}`);
+    if (!!cachedData) return JSON.parse(cachedData);
+
+    const { data } = await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(chId, 10)}`);
+    if (!!data) insertDataInCache(`channel_${chId}`, JSON.stringify(data));
+
+    return data;
 }
 
 async function getChannelVideos(chId){
@@ -25,16 +31,20 @@ function setChannelInfo(chInfo){
     $('.channel-cover img')[0].src = chInfo.channel_banner;
     $('.channel-name')[0].innerText = chInfo.channel_name;
     $('.channel-profile')[0].src = chInfo.channel_profile;
-    $('.channel-subscribers')[0].innerText = `${nFormatter(chInfo.subscribers, 1)} views`;
+    $('.channel-subscribers')[0].innerText = `${nFormatter(chInfo.subscribers, 1)} subscribers`;
 }
 
 function setChannelVideos(chVideos, chName){
     chVideos.forEach((v) => {
         const video = `
             <div class="video-card">
-                <img src="${v.thumbnail}" alt="Video Thumbnail">
+                <a href="/videos?video_id=${v.id}">
+                    <img src="${v.thumbnail}" alt="Video Thumbnail">
+                </a>
                 <div class="video-info">
-                    <h3 class="video-title">${v.title}</h3>
+                    <a href="/videos?video_id=${v.id}">
+                        <h3 class="video-title">${v.title}</h3>
+                    </a>
                     <p class="channel-name">${chName}</p>
                     <p class="video-meta">${nFormatter(v.views, 1)} views · ${moment(v.created_dt).fromNow()}</p>
                 </div>
@@ -45,17 +55,37 @@ function setChannelVideos(chVideos, chName){
     });
 }
 
+function setSubBtn(chId){
+    const subBtn = $('.channel-title > button.subscribe-button')[0];
+    const subList = JSON.parse(getDataFromCache('subList'));
+
+    subBtn.setAttribute('chId', chId);
+    if (subList.includes(parseInt(chId, 10))){
+        subBtn.setAttribute('subscribed', '');
+        subBtn.innerText = 'SUBSCRIBED';
+    }
+}
+
+function setSubBtnOnClick(){
+    const subBtn = $('.channel-title > button.subscribe-button')[0];
+
+    // subscribe.js/onSubBtnClick()
+    subBtn.addEventListener('click', onSubBtnClick);
+}
+
 async function setChannelPage(){
     const chId = getChannelId(window.location.search);
 
     try {
-        const { data: res } = await getChannel(chId);
+        const res = await getChannel(chId);
         const { data: videosRes } = await getChannelVideos(chId);
 
         setChannelInfo(res);
+        setSubBtn(chId);
+        setSubBtnOnClick();
         // 일단 playlist에 5개만 보여주기 위함
         setChannelVideos(videosRes.slice(0, 5), res.channel_name);
     }catch (e){
-        console.error(e);
+        axiosErrorHandler(e);
     }
 }

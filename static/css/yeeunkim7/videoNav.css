@@ -1,0 +1,114 @@
+.videoNav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 40%;
+    padding: 10px;
+    color: #fff;
+}
+
+.videoNav > * {
+    width: 80%;
+}
+
+.videoNav > .recommendFilter {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.recommendFilter > .filterOpt {
+    padding: 5px 10px;
+    background-color: #333;
+    border: solid 1px #aaa;
+    border-radius: 10px;
+}
+
+.filterOpt[selected] {
+    background-color: #fff;
+    color: #000;
+}
+
+.rVideo {
+    display: flex;
+    flex-direction: row; /*추가_옆으로 배치*/
+    gap: 10px;
+    position: relative; /*추가*/
+    align-items: flex-start; /*추가*/
+}
+
+.rVideo img {
+    width: 200px;
+    height: 110px;
+    object-fit: cover;
+}
+
+.rVideoInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: calc(100% - 210px);
+}
+
+.rVideoInfo > a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+.rVideoInfo > a:hover {
+    color: #fff;
+    transition: .25s linear;
+}
+
+.rVideoInfo > .rVideoTitle {
+    max-height: 50px;
+    margin-bottom: 4px;
+    line-height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #fff;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+}
+
+.rVideoInfo > .rVideoTitle:hover {
+    color: #aaa;
+    transition: .25 linear;
+}
+
+.rVideoInfo > .rVideoUploader {
+    font-size: .8rem;
+}
+
+.rVideoBottom {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: #aaa;
+    font-size: .8rem;
+}
+/* 추가 */
+.thumbnailWrapper {
+    position: relative;
+    width: 168px;
+    height: 94px;
+    flex-shrink: 0;
+}
+
+/* 추가 */
+.thumbnailWrapper img.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+@media (max-width: 1280px){
+    .videoNav {
+        display: none;
+    }
+}
