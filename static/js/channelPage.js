@@ -14,47 +14,69 @@ function setChannelInfo(chInfo){
     $('.channel-subscribers')[0].innerText = `${nFormatter(chInfo.subscribers, 1)} subscribers`;
 }
 
-function setChannelVideos(chVideos, chName){
-    chVideos.forEach((v) => {
-        const video = `
-            <div class="video-card">
-                <a href="/videos?video_id=${v.id}">
-                    <img src="${v.thumbnail}" alt="Video Thumbnail">
-                </a>
-                <div class="video-info">
-                    <a href="/videos?video_id=${v.id}">
-                        <h3 class="video-title">${v.title}</h3>
-                    </a>
-                    <p class="channel-name">${chName}</p>
-                    <p class="video-meta">${nFormatter(v.views, 1)} views · ${moment(v.created_dt).fromNow()}</p>
-                </div>
-            </div>`;
+//메인 비디오 섹션 2
+function setMainVideo(video) {
+    const videoSection = document.querySelector('.smal-video');
 
-        // 현재 playlist 1, 2가 같은 className을 공유하고 있는데, 추후 기능에 따른 분류 필요
-        $('.playlist-videos')[0].insertAdjacentHTML('beforeend', video);
-    });
+    const html = `
+        <div class="video-img">
+            <img src="${video.thumbnail}" alt="video thumbnail" class="video-thumbnail">
+            <div class="videotitle">${video.title}</div>
+            <img src="/public/img/channel/video controls.svg" alt="Video Controls" class="video-controls">
+        </div>
+
+        <div class="video-description">
+            <div class="video-title">${video.title}</div>
+            <div class="video-meta">${nFormatter(video.views, 1)} views · ${moment(video.created_dt).fromNow()}</div>
+            <div class="description">${video.description}</div>
+        </div>
+    `;
+
+    videoSection.innerHTML = html;
 }
 
-function setSubBtn(chId){
-    const subBtn = $('.channel-title > button.subscribe-button')[0];
-    const subList = JSON.parse(getDataFromCache('subList'));
+//섹션 3 플레이리스트 구성 각각 5개 영상
+function setChannelVideos(chVideos, chName) {
+    if (!chVideos || chVideos.length === 0) return;
 
-    subBtn.setAttribute('chId', chId);
-    if (subList.includes(parseInt(chId, 10))){
-        subBtn.setAttribute('subscribed', '');
-        subBtn.innerText = 'SUBSCRIBED';
-    }
+    const videos1 = chVideos.slice(0, 5);   // 플레이리스트 1
+    const videos2 = chVideos.slice(5, 10);  // 플레이리스트 2
+
+    const renderVideos = (videoList, containerSelector) => {
+        const container = document.querySelector(containerSelector);
+        if (!container) {
+            console.error(`Container ${containerSelector} not found.`);
+            return;
+        }
+
+        container.innerHTML = ''; 
+
+        videoList.forEach(video => {
+            const videoHTML = `
+                <div class="video-card">
+                    <img src="${video.thumbnail}" alt="Video Thumbnail">
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="channel-name">${chName}</p>
+                        <p class="video-meta">${nFormatter(video.views, 1)} views · ${moment(video.created_dt).fromNow()}</p>
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', videoHTML);
+        });
+    };
+
+    renderVideos(videos1, '.playlist1-videos');
+    renderVideos(videos2, '.playlist2-videos');
 }
 
-function setSubBtnOnClick(){
-    const subBtn = $('.channel-title > button.subscribe-button')[0];
-
-    // subscribe.js/onSubBtnClick()
-    subBtn.addEventListener('click', onSubBtnClick);
-}
-
-async function setChannelPage(){
+// 페이지 로딩시 채널 정보 및 영상 데이터 불러오는 세팅
+async function setChannelPage() {
     const chId = getChannelId(window.location.search);
+
+    if (!chId) {
+        console.error('Channel Id not found in URL.');
+        return;
+    }
 
     try {
         const res = await getChannel(chId);
