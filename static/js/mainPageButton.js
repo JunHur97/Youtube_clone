@@ -64,9 +64,7 @@ async function addTags() {
 
     } catch (error) {
         console.error("태그 생성 실패:", error);
-    }
-
-    
+    }    
 }
 
 // 클릭된 태그 활성화 표시
