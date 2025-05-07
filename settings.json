@@ -1,0 +1,19 @@
+{
+    "workbench.colorTheme": "Default High Contrast",
+    "editor.fontSize": 18,
+    "editor.fontFamily": "MesloLGS NF",
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "workbench.iconTheme": "material-icon-theme",
+    "[html]": {
+        "editor.defaultFormatter": null
+    },
+    "editor.formatOnSave": true,
+    "apc.stylesheet": {
+        ".anysphere-chat-message .markdown, .anysphere-markdown-container-root": "font-size: 18px !important; line-height: 1.6 !important;",
+        ".aislash-editor-input, .aislash-editor-input textarea": "font-size: 18px !important; line-height: 1.6 !important;",
+        ".anysphere-chat-message .view-line": "font-size: 18px !important;"
+    },
+    "editor.mouseWheelZoom": true,
+    "terminal.integrated.mouseWheelZoom": true,
+    "terminal.integrated.fontSize": 19
+}
