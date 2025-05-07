@@ -4,7 +4,6 @@
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
-    "got": "^14.4.7",
     "mongoose": "^8.14.1"
   },
   "devDependencies": {
