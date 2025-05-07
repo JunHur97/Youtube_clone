@@ -3,6 +3,14 @@ const app = express();
 const cors = require('cors');
 const path = require('node:path');
 
+const connect = require('./connect');
+
+require('dotenv').config();
+
+(async () => {
+  await connect();
+})();
+
 app.set('view engine', 'ejs');
 
 // 정적 파일 경로 설정
