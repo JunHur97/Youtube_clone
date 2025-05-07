@@ -43,7 +43,7 @@
   }
 
   // 비디오 멈춤
-  function handleMouseLeave(video){
+  function handleMouseLeave(video) {
     video.pause();
     video.currentTime = 0; // 비디오 초기화
     video.removeAttribute("controls"); // 컨트롤러 감추기
@@ -54,7 +54,7 @@
     const videos = document.querySelectorAll(".video-player");
 
     videos.forEach((video) => {
-      video.addEventListener("mouseenter", ()=> handleMouseEnter(video));
+      video.addEventListener("mouseenter", () => handleMouseEnter(video));
       video.addEventListener("mouseleave", () => handleMouseLeave(video));
     });
   }
