@@ -169,11 +169,11 @@ body {
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 5%;
-  transition: .3s ease-in-out;
+  transition: transform .3s;
 }
 
 .video-content .video-player:hover {
-  transform: transition ;
+  transform: scale(1.01);
   border-radius: 0;
   cursor: pointer;
 }
