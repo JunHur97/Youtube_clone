@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('node:path');
 
 const connect = require('./connect');
+const distanceRouter = require('./routes/distanceRouter');
 
 require('dotenv').config();
 
@@ -18,6 +19,8 @@ app.use('/public', express.static(path.join(__dirname, 'static')));
 
 // CORS 허용
 app.use(cors());
+
+app.use('/distances', distanceRouter);
 
 // 메인 페이지
 app.get("/", (req, res) => {

@@ -13,6 +13,6 @@ const tagPairSchema = new Schema({
     type: Number,
     required: true,
   }
-});
+}, { versionKey: false });
 
 module.exports = model('TagPair', tagPairSchema);
