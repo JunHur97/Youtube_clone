@@ -1,7 +1,5 @@
 function normalize_for_search(str) {
   return str
-    .normalize("NFD")
-    .replace(/\s+/g, " ")
     .toLowerCase()
     .trim()
     .replace(/[\u0300-\u036f]/g, "");
@@ -97,7 +95,15 @@ class SearchPage {
     this.videoContainer.empty();
 
     if (!results.length) {
-      this.videoContainer.text("No videos found.");
+      const noResultMessage = $("<p>")
+      .text("검색 결과가 없습니다.")
+      .css({
+        color: "white",
+        fontSize: "1.5rem",
+        textAlign: "center",
+        marginTop: "40px"
+      });
+      this.videoContainer.append(noResultMessage);
       return;
     }
 
