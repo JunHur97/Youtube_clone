@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>검색 결과</title>
 
-  <!-- CSS -->
   <link rel="stylesheet" href="/public/css/yeeunkim7/searchPage.css" />
   <style>
     #Video-Container {
@@ -22,9 +21,9 @@
 
   <%- include('template.ejs') %>
 
-  <form class="SearchBox" id="SearchForm">
-    <input id="Search" type="text" placeholder="검색어를 입력하세요" />
-    <button id="SearchBtn" type="submit">검색</button>
+  <form class="searchBox" id="searchForm">
+    <input id="search" type="text" placeholder="검색어를 입력하세요"  value="<%= searchQuery || '' %>" />
+    <button id="searchBtn" type="submit">검색</button>
   </form>
 
   <!--  검색 결과 영역 -->
