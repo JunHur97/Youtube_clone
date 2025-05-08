@@ -1,18 +1,6 @@
+import { getVideos, getChannel } from "./modules/axiosReq.js";
+
 dayjs.extend(dayjs_plugin_relativeTime); // 경과시간 계산을 위한 플러그인 활성화
-
-const getVideoList = async () => {
-  return await axios.get("http://techfree-oreumi-api.kro.kr:5000/video/getVideoList");
-}
-
-const getChannelInfo = async (channelId) => {
-  // channelId 유효성 검사
-  if (!/^[0-9]+$/.test(channelId)) {
-    console.error('Invalid channelId');
-    return;
-  }
-
-  return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
-}
 
 function moveTargetLink() {
   document.addEventListener("click", (e) => {
@@ -73,7 +61,7 @@ function filterVideosByTag(tag) {
   });
 }
 
-// 재생시간타임형식 구하기
+// 재생시간 형식 구하기
 function formatDuration (duration) {
   const minutes = Math.floor(duration / 60);
   const seconds = Math.floor(duration % 60);
@@ -100,60 +88,73 @@ function setRunningTime(videos) {
   });
 }
 
-// 실제 video 데이터 처리
-(async () => {
+// 메인 페이지 비디오 로드 함수
+async function loadMainPageVideos() {
   try {
-    const { data: res } = await getVideoList();
+    // 비디오 데이터 가져오기
+    const videos  = await getVideos();
     const section = document.querySelector(".video-section");
-
-    section.innerHTML = ""; // section 태그 초기화
-
-    for (const video of res) {
+    
+    // 섹션 초기화
+    section.innerHTML = "";
+    
+    // 각 비디오에 대한 HTML 생성 및 추가
+    for (const video of videos) {
       const timeAgo = dayjs(video.created_dt).fromNow();
-      const { data: channelRes } = await getChannelInfo(video.channel_id);
-
-      const html = `
-        <article class="video-grid" data-tags="${video.tags.join(",")}">
-          <a class="move-video" href="#" data-video-id="${video.id}">
-              <div class="video-content">
-                <div class="video-box">
-                  <video class="video-player" src="https://storage.googleapis.com/youtube-clone-video/${video.id}.mp4" muted preload="metadata" poster="${video.thumbnail}" ></video>
-                  <span class="running-time">00:00</span>
-                </div>
-          </a>
-            <div class="video-details">
-            <a class="move-channel" href="#" data-channel-id=${video.channel_id}>
-              <img class="channel_profile " src="${channelRes.channel_profile}" alt="userProfile" />
-            </a>
-              <div class="video-meta">
-                <a class="move-video" href="#" data-video-id="${video.id}">
-                  <h3 class="video-title">${video.title}</h3>
-                </a>
-                <a class="move-channel" href="#" data-channel-id=${video.channel_id}>
-                  <div class="channel-name ">${channelRes.channel_name}</div>
-                </a>
-                <div class="video-info">
-                  <div class="views">${nFormatter(video.views, 1)} views </div>
-                  <div class="time-ago"> ${timeAgo} </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </article>
-        `;
-      section.insertAdjacentHTML("beforeend", html);
-    };
-
-    const videos = document.querySelectorAll(".video-player");
-
-    setRunningTime(videos);
+      const channel  = await getChannel(video.channel_id);
+      
+      // HTML 템플릿 생성
+      const videoHTML = createVideoHTML(video, channel, timeAgo);
+      section.insertAdjacentHTML("beforeend", videoHTML);
+    }
+    
+    // 비디오 요소에 이벤트 및 기능 추가
+    const videoPlayers = document.querySelectorAll(".video-player");
+    setRunningTime(videoPlayers);
     registerHoverEvents();
     moveTargetLink();
       
   } catch (error) {
     console.error("영상 목록을 불러오는 데 실패했습니다:", error);
   }
-})();
+}
 
-export { getVideoList, filterVideosByTag };
+/**
+ * 비디오 카드의 HTML을 생성하는 함수
+ */
+function createVideoHTML(video, channel, timeAgo) {
+  return `
+    <article class="video-grid" data-tags="${video.tags.join(",")}">
+      <a class="move-video" href="#" data-video-id="${video.id}">
+        <div class="video-content">
+          <div class="video-box">
+            <video class="video-player" src="https://storage.googleapis.com/youtube-clone-video/${video.id}.mp4" muted preload="metadata" poster="${video.thumbnail}" ></video>
+            <span class="running-time">00:00</span>
+          </div>
+      </a>
+        <div class="video-details">
+          <a class="move-channel" href="#" data-channel-id=${channel.channel_id}>
+            <img class="channel_profile " src="${channel.channel_profile}" alt="userProfile" />
+          </a>
+          <div class="video-meta">
+            <a class="move-video" href="#" data-video-id="${video.id}">
+              <h3 class="video-title">${video.title}</h3>
+            </a>
+            <a class="move-channel" href="#" data-channel-id=${channel.channel_id}>
+              <div class="channel-name ">${channel.channel_name}</div>
+            </a>
+            <div class="video-info">
+              <div class="views">${nFormatter(video.views, 1)} views </div>
+              <div class="time-ago"> ${timeAgo} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+// 페이지 로드 시 비디오 로드 함수 실행
+loadMainPageVideos();
+
+export { getVideos, filterVideosByTag };
