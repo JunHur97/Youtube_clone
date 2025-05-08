@@ -5,29 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>검색 결과</title>
 
-  <link rel="stylesheet" href="/public/css/yeeunkim7/searchPage.css" />
-  <style>
-    #Video-Container {
-      padding: 20px;
-      color: white;
-    }
-    body {
-      background-color: #181818;
-    }
-  </style>
+ <!-- <link rel="stylesheet" href="/public/css/yeeunkim7/searchPage.css" /> -->
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <%- include('template.ejs') %>
-
-  <form class="searchBox" id="searchForm">
-    <input id="search" type="text" placeholder="검색어를 입력하세요"  value="<%= searchQuery || '' %>" />
-    <button id="searchBtn" type="submit">검색</button>
-  </form>
+  <%- include('main.ejs') %>
 
   <!--  검색 결과 영역 -->
-  <div id="Video-Container"></div>
+  <section id="Video-Container"></section>
 
   <script src="/public/js/searchPage.js"></script>
 </body>

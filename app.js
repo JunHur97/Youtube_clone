@@ -47,8 +47,8 @@ app.get('/channels', (req, res) => {
 
 // 검색 페이지 연결
 app.get('/search', (req, res) => {
-  const searchQuery = req.query.search;
-  res.render('searchPage', { searchQuery });
+  const searchQuery = req.query.search || '';
+  res.render('searchPage', { searchQuery }); // 검색어 파라미터도 같이 넘겨줌
 });
 
 // 서버 시작
