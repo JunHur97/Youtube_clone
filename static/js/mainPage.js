@@ -61,7 +61,7 @@ function filterVideosByTag(tag) {
   });
 }
 
-// 재생시간타임형식 구하기
+// 재생시간 형식 구하기
 function formatDuration (duration) {
   const minutes = Math.floor(duration / 60);
   const seconds = Math.floor(duration % 60);
