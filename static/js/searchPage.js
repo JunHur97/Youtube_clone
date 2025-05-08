@@ -1,10 +1,10 @@
 function normalize_for_search(str) {
   return str
-  .normalize("NFD")
-  .replace(/\s+/g, " ") 
-  .toLowerCase()
-  .trim()
-  .replace(/[\u0300-\u036f]/g, "");
+    .normalize("NFD")
+    .replace(/\s+/g, " ")
+    .toLowerCase()
+    .trim()
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 class SearchPage {
@@ -30,12 +30,15 @@ class SearchPage {
       console.log("검색어 확인:", searchTerm);
 
       const url = new URL(window.location.href);
+      url.pathname = "/search";
       if (searchTerm) {
         url.searchParams.set("search", searchTerm);
       } else {
         url.searchParams.delete("search");
       }
-      window.history.pushState({}, "", url);
+      history.pushState({}, "", url);
+
+    // 필터링 바로 실행
       this.performSearch(searchTerm);
     });
   }
@@ -50,11 +53,13 @@ class SearchPage {
         this.filteredVideos = [...this.allVideos];
 
         const urlParams = new URLSearchParams(window.location.search);
-        const query = decodeURIComponent(urlParams.get("search"));
-        if (query) {
-          this.performSearch(query);
+        const raw = urlParams.get("search");
+        const query = raw ? decodeURIComponent(raw) : "";
+        
+        if (query && query.trim()) {
+          this.performSearch(query); // 검색어 있으면 검색 실행
         } else {
-          this.drawList(this.filteredVideos);
+          this.drawList(this.allVideos); // 검색어 없으면 전체 영상 표시
         }
       })
       .catch((error) => console.error("비디오 로드 실패:", error));
@@ -67,18 +72,8 @@ class SearchPage {
     } else {
       const lowerTerm = normalize_for_search(searchTerm);
 
-      this.allVideos.forEach((video) => {
-        const normTitle = normalize_for_search(video.title);
-        const normTags = Array.isArray(video.tags)
-        ? video.tags.map(tag => normalize_for_search(tag))
-        : [];
-        console.log("영상 제목:", video.title);
-        console.log("영상 태그:", video.tags);
-      });
-
       this.filteredVideos = this.allVideos.filter((video) => {
         const titleMatch = normalize_for_search(video.title)?.includes(lowerTerm);
-
         const tagList = Array.isArray(video.tags)
           ? video.tags
           : typeof video.tags === "string"
@@ -97,7 +92,7 @@ class SearchPage {
     this.drawList(this.filteredVideos);
   }
 
-  // ✅ 검색 결과 렌더링
+  // 검색 결과 렌더링
   drawList(results) {
     this.videoContainer.empty();
 
@@ -107,18 +102,16 @@ class SearchPage {
     }
 
     results.forEach((video) => {
-      const safeTags = Array.isArray(video.tags)
-        ? video.tags.join(", ")
-        : "";
+      const safeTags = Array.isArray(video.tags) ? video.tags.join(", ") : "";
       const hasChannelImg = video.channelThumbnail
-        ? `<img src="${video.channelThumbnail}" alt="채널 썸네일">`
+        ? `<img class="channel_profile" src="${video.channelThumbnail}" alt="채널 썸네일">`
         : "";
 
       const videoItem = $(`
         <div class="video-grid" data-tags="${safeTags}">
           <div class="video-content">
             <div class="video-box">
-              <img class="video-player" src="${video.thumbnail}" alt="썸네일">
+              <img class="video-player" src="${video.thumbnail}" alt="썸네일" />
               <span class="running-time">${video.runningTime || "00:00"}</span>
             </div>
             <div class="video-details">
@@ -140,14 +133,11 @@ class SearchPage {
     });
   }
 
-  // 태그로 필터링 (외부에서 호출 가능)
+  // 태그 필터링
   filterVideosByTag(tag) {
-    const videoItems = this.videoContainer.children("div");
+    const videoItems = this.videoContainer.children(".video-grid");
     videoItems.each(function () {
-      const tags = $(this)
-        .data("tags")
-        ?.split(",")
-        .map((t) => t.trim()) || [];
+      const tags = $(this).data("tags")?.split(",").map((t) => t.trim()) || [];
       if (tag === "All" || tags.includes(tag)) {
         $(this).show();
       } else {
@@ -159,11 +149,10 @@ class SearchPage {
 
 // 페이지 로드 시 실행
 $(document).ready(() => {
-  alert("jQuery DOM 준비됨"); //추가
   const searchPage = new SearchPage("#Video-Container", "#searchForm");
   searchPage.init();
 
-  // 전역 함수로 태그 필터링
+  // 외부 호출을 위한 전역 등록
   window.filterVideosByTag = function (tag) {
     searchPage.filterVideosByTag(tag);
   };
