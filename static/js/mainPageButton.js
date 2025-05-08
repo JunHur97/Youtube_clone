@@ -1,4 +1,4 @@
-import { getVideoList, filterVideosByTag } from "./mainPage.js";
+import { getVideos, filterVideosByTag } from "./mainPage.js";
 
 function scrollCategory(direction) {
     const category = document.getElementById("category-scroll");
@@ -20,7 +20,7 @@ function clickAllowButton() {
 
 async function addTags() {
     try{
-        const {data: res} = await getVideoList();
+        const res = await getVideos();
         const container = document.getElementById("category-scroll");
     
         const tagSet = new Set();

@@ -1,18 +1,6 @@
+import { getVideos, getChannel } from "./modules/axiosReq.js";
+
 dayjs.extend(dayjs_plugin_relativeTime); // 경과시간 계산을 위한 플러그인 활성화
-
-const getVideoList = async () => {
-  return await axios.get("http://techfree-oreumi-api.kro.kr:5000/video/getVideoList");
-}
-
-const getChannelInfo = async (channelId) => {
-  // channelId 유효성 검사
-  if (!/^[0-9]+$/.test(channelId)) {
-    console.error('Invalid channelId');
-    return;
-  }
-
-  return await axios.get(`http://techfree-oreumi-api.kro.kr:5000/channel/getChannelInfo?id=${parseInt(channelId, 10)}`);
-}
 
 function moveTargetLink() {
   document.addEventListener("click", (e) => {
@@ -104,7 +92,7 @@ function setRunningTime(videos) {
 async function loadMainPageVideos() {
   try {
     // 비디오 데이터 가져오기
-    const { data: videos } = await getVideoList();
+    const videos  = await getVideos();
     const section = document.querySelector(".video-section");
     
     // 섹션 초기화
@@ -113,7 +101,7 @@ async function loadMainPageVideos() {
     // 각 비디오에 대한 HTML 생성 및 추가
     for (const video of videos) {
       const timeAgo = dayjs(video.created_dt).fromNow();
-      const { data: channel } = await getChannelInfo(video.channel_id);
+      const channel  = await getChannel(video.channel_id);
       
       // HTML 템플릿 생성
       const videoHTML = createVideoHTML(video, channel, timeAgo);
@@ -169,4 +157,4 @@ function createVideoHTML(video, channel, timeAgo) {
 // 페이지 로드 시 비디오 로드 함수 실행
 loadMainPageVideos();
 
-export { getVideoList, filterVideosByTag };
+export { getVideos, filterVideosByTag };
