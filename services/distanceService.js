@@ -19,6 +19,8 @@ module.exports = {
 
     if (!checkValidTags([tag1, tag2])) return;
 
+    const result = [];
+
     const tagPairs = await TagPair.find({
       $or: [{
         $and: [
@@ -32,6 +34,12 @@ module.exports = {
       ],
     }, { _id: 0, __v: 0 }).lean();
 
-    return tagPairs;
+    for (let tag of tag1){
+      if (tag2.includes(tag)){
+        result.push({ srcWord: tag, destWord: tag, distance: 1, });
+      }
+    }
+
+    return [...result, ...tagPairs];
   },
 };
