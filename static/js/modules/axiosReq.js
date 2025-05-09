@@ -64,4 +64,15 @@ async function getChannelVideos(chId){
   return data;
 }
 
-export { getVideo, getChannel, getVideos, getChannelVideos, };
+async function getSimilarity(tags){
+  const [ tag1, tag2 ] = tags;
+
+  if (!Array.isArray(tag1) || tag1.length === 0) return;
+  if (!Array.isArray(tag2) || tag2.length === 0) return;
+
+  const { data } = await axios.get(`http://localhost:3000/distances?tags1=${JSON.stringify(tag1)}&tags2=${JSON.stringify(tag2)}`);
+
+  return data;
+}
+
+export { getVideo, getChannel, getVideos, getChannelVideos, getSimilarity, };
