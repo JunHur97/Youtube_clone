@@ -93,11 +93,13 @@ const getDistance = async (pair) => {
     return;
   }
 
-  const { Distance } = body.return_object['WWN WordRelInfo'].WordRelInfo;
+  // 기존에는 body.return_object['WWN WordRelInfo'].WordRelInfo.Distance를 사용했으나, root를 공통부모로 하는 경우가 distance가 더 짧게 나오는 경우가 있어 변경함
+  // const { Distance } = body.return_object['WWN WordRelInfo'].WordRelInfo;
+  const similarity = body.return_object['WWN WordRelInfo'].WordRelInfo.Similarity[0].SimScore;
 
-  await createTagPair([...pair, Distance]);
+  await createTagPair([...pair, similarity]);
 
-  return Distance;
+  return similarity;
 };
 
 const createTagPair = async (tagPair) => {

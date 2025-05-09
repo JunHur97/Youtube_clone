@@ -1,4 +1,4 @@
-import { getVideo, getChannel, getVideos } from './modules/axiosReq.js';
+import { getVideo, getChannel, getVideos, getSimilarity } from './modules/axiosReq.js';
 import { onSubBtnClick } from './subscribe.js';
 import { getDataFromCache } from './localCache.js';
 
@@ -46,6 +46,7 @@ function setVideoKeyControl(){
     e.preventDefault();
 
     if (e.key === ' '){
+      if (e.target.getAttribute('class') === 'videoPlayer') return;
       const video = $('.videoMain > .videoPlayer')[0];
 
       video.paused ? video.play() : video.pause();
@@ -95,31 +96,84 @@ async function setVideoMain(){
   }
 }
 
+function getSimilarityAvg(similarity, length){
+  let sum = 0;
+
+  similarity.tagPairs.forEach((d) => {
+    sum += d.distance;
+  });
+
+  return sum / length;
+}
+
+function renderRVideo(rVideo){
+  const video = `
+  <div class="rVideo">
+    <a href="/videos?video_id=${rVideo.id}">
+      <img src="${rVideo.thumbnail}">
+    </a>
+    <div class="rVideoInfo">
+      <a class="rVideoTitle" href="/videos?video_id=${rVideo.id}">${rVideo.title}</a>
+      <a class="rVideoUploader" href="/channels?ch_id=${rVideo.channel_id}">${rVideo.chRes.channel_name}</a>
+      <div class="rVideoBottom">
+        <p>${nFormatter(rVideo.views, 1)} views</p>
+        <p>${moment(rVideo.created_dt).fromNow()}</p>
+      </div>
+    </div>
+  </div>`;
+
+  $('.videoNav')[0].insertAdjacentHTML('beforeend', video);
+}
+
+/**
+ * 
+ * @param {Array<object>} rVideos 
+ * @returns 
+ */
+function sortRVideos(rVideos){
+  return rVideos.sort(function (a, b){
+    if (a.simAvg < b.simAvg) return 1;
+    if (a.simAvg > b.simAvg) return -1;
+    return 0;
+  });
+}
+
+async function getSortedRVideos(videos, selfTags){
+  const result = [];
+
+  // https://constructionsite.tistory.com/43
+  // Array.forEach()는 Promises를 기다리지 않음
+  // 기존에 forEach를 통해 videos를 순회하며 result 배열을 채워넣을 생각이었지만, 상기한 forEach의 특성으로 잘 동작하지 않음
+  const hos = videos.map(async (v) => {
+    if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
+
+    const similarity = await getSimilarity([selfTags, v.tags]);
+    const simAvg = getSimilarityAvg(similarity, selfTags.length*v.tags.length);
+
+    const chRes = await getChannel(v.channel_id);
+
+    result.push({ ...v, chRes, simAvg });
+  });
+
+  await Promise.all(hos);
+
+  return sortRVideos(result);
+}
+
 async function setVideoNav(){
+  const videoId = getVideoId(window.location.search);
+
   try {
+    const video = await getVideo(videoId);
     const res = await getVideos();
 
-    res.forEach(async (v) => {
-      if (v.id === parseInt(getVideoId(window.location.search), 10)) return;
+    if (!Array.isArray(res) || res.length < 8){ console.error('videoPage.js/setVideoNav error'); return; }
 
-      const chRes = await getChannel(v.channel_id);
-      const comment = `
-      <div class="rVideo">
-        <a href="/videos?video_id=${v.id}">
-          <img src="${v.thumbnail}">
-        </a>
-        <div class="rVideoInfo">
-          <a class="rVideoTitle" href="/videos?video_id=${v.id}">${v.title}</a>
-          <a class="rVideoUploader" href="/channels?ch_id=${v.channel_id}">${chRes.channel_name}</a>
-          <div class="rVideoBottom">
-            <p>${nFormatter(v.views, 1)} views</p>
-            <p>${moment(v.created_dt).fromNow()}</p>
-          </div>
-        </div>
-      </div>`;
+    const sortedRVideos = await getSortedRVideos(res.slice(0, 10), video.tags);
 
-      $('.videoNav')[0].insertAdjacentHTML('beforeend', comment);
-    });
+    for (let rVideo of sortedRVideos){
+      renderRVideo(rVideo);
+    }
   }catch (e){
     axiosErrorHandler(e);
   }
