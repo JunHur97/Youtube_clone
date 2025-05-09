@@ -22,13 +22,13 @@ function clickAllowButton() {
 
 async function addTags() {
     try{
-        const res = await getVideos();
+        const videos = await getVideos();
         const container = document.getElementById("category-scroll");
     
         const tagSet = new Set();
     
         // 중복 제거
-        res.forEach(video => {
+        videos.forEach(video => {
             video.tags.forEach(tag => tagSet.add(tag.trim()));
         });
 
