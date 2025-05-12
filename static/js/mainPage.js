@@ -133,14 +133,14 @@ function createVideoHTML(video, channel, timeAgo) {
           </div>
       </a>
         <div class="video-details">
-          <a class="move-channel" href="#" data-channel-id=${channel.channel_id}>
+          <a class="move-channel" href="#" data-channel-id=${channel.id}>
             <img class="channel_profile " src="${channel.channel_profile}" alt="userProfile" />
           </a>
           <div class="video-meta">
             <a class="move-video" href="#" data-video-id="${video.id}">
               <h3 class="video-title">${video.title}</h3>
             </a>
-            <a class="move-channel" href="#" data-channel-id=${channel.channel_id}>
+            <a class="move-channel" href="#" data-channel-id=${channel.id}>
               <div class="channel-name ">${channel.channel_name}</div>
             </a>
             <div class="video-info">
