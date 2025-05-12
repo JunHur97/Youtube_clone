@@ -5,7 +5,8 @@ import connect from '../connect.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const baseUrl = `http://techfree-oreumi-api.kro.kr:5000`;
+// const baseUrl = `http://techfree-oreumi-api.kro.kr:5000`;
+const baseUrl = 'https://www.techfree-oreumi-api.ai.kr';
 
 /**
  * 
