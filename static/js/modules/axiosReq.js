@@ -1,6 +1,6 @@
 import { getDataFromCache, insertDataInCache } from '../localCache.js';
 
-const baseUrl = 'http://techfree-oreumi-api.kro.kr:5000';
+const baseUrl = 'https://www.techfree-oreumi-api.ai.kr:5000';
 
 /**
  * 
