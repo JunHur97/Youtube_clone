@@ -29,7 +29,6 @@ body {
   z-index: 10;
   width: inherit;
   height: 56px;
-  padding-inline: 16px;
   position: fixed;
   background-color: #212121;
 }
@@ -81,7 +80,7 @@ body {
   color: #000;
   font-weight: bold;
   border-radius: 50px;
-  padding: 6px 16px;
+  padding: 6px;
 }
 
 .content div:hover {
