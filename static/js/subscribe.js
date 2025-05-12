@@ -61,8 +61,8 @@ $(document).ready(() => {
 
     const subList = [];
 
-    subList.push(1);
-    subList.push(3);
+    // subList.push(1);
+    // subList.push(3);
 
     insertDataInCache('subList', JSON.stringify(subList));
   }

@@ -1,6 +1,6 @@
 import { getVideo, getChannel, getVideos, getSimilarity } from './modules/axiosReq.js';
 import { onSubBtnClick } from './subscribe.js';
-import { getDataFromCache } from './localCache.js';
+import { getDataFromCache, insertDataInCache } from './localCache.js';
 
 /**
  * 
@@ -43,6 +43,8 @@ function setDocumentTitle(title){
 
 function setVideoKeyControl(){
   $(document).keypress((e) => {
+    if (e.target.getAttribute('type') === 'text') return;
+
     e.preventDefault();
 
     if (e.key === ' '){
@@ -79,6 +81,108 @@ function setSubBtnOnClick(){
   subBtn.addEventListener('click', onSubBtnClick);
 }
 
+function addCommentIntoCache(vId, comment){
+  const comments = JSON.parse(getDataFromCache(`comments_${vId}`));
+
+  // comment.uid는 1부터 시작
+  if (!Array.isArray(comments)){
+    insertDataInCache(`comments_${vId}`, JSON.stringify([comment]));
+    return;
+  }
+
+  comments.push(comment);
+  insertDataInCache(`comments_${vId}`, JSON.stringify(comments));
+}
+
+function addComment(comment){
+  const vId = getVideoId(window.location.search);
+  const commentObject = {
+    comment,
+    createdAt: Date.now(),
+    uid: Math.floor(Math.random()*7+1),
+  };
+
+  addCommentIntoCache(vId, commentObject);
+  renderCommentOne(commentObject);
+  const comments = JSON.parse(getDataFromCache(`comments_${vId}`));
+  $('.commentInfo > p')[0].innerText = `${comments.length} comments`;
+}
+
+function setCommentKeyControl(){
+  $('.commentInput input').keypress((e) => {
+    if (e.key === 'Enter'){
+      const input = $('.commentInput input')[0].value;
+
+      $('.commentInput input')[0].value = '';
+
+      if (input.trim() === '') return;
+
+      addComment(input);
+    }
+  });
+}
+
+function renderCommentOne(comment){
+  const userName = [
+    '',
+    'James Gouse',
+    'Alan Cooper',
+    'Marcus Levin',
+    'Alexis Sears',
+    'Jesica Lambert',
+    'Anna White',
+    'Skylar Dias',
+  ];
+
+  const commentHtml = `
+    <div class="comment">
+      <img src="/public/img/navBar/subUserIcon${comment.uid}.svg" >
+      <div class="commentTop">
+          <div class="commentInfo">
+              <div class="commentAuthor">${userName[comment.uid]}</div>
+              <div class="commentCreatedAt">${moment(comment.createdAt).fromNow()}</div>
+          </div>
+          <div class="commentContent">${comment.comment}</div>
+      </div>
+      <div class="commentBottom">
+          <div class="commentLike">
+              <img src="/public/img/videoPage/likeIcon.svg" alt="">
+              <p>3</p>
+          </div>
+          <div class="commentDislike">
+              <img src="/public/img/videoPage/dislikeIcon.svg" alt="">
+              <p></p>
+          </div>
+          <div class="commentReply">
+              REPLY
+          </div>
+      </div>
+    </div>`;
+
+  $('.comments')[0].insertAdjacentHTML('beforeend', commentHtml);
+}
+
+function renderComments(comments){
+  $('.commentInfo > p')[0].innerText = `${comments.length} comments`;
+
+  for (let comment of comments){
+    renderCommentOne(comment);
+  }
+}
+
+function setComments(){
+  const vId = getVideoId(window.location.search);
+  const comments = JSON.parse(getDataFromCache(`comments_${vId}`));
+
+  if (!Array.isArray(comments) || comments.length === 0){
+    $('.commentInfo > p')[0].innerText = '0 comments';
+
+    return;
+  }
+
+  renderComments(comments);
+}
+
 async function setVideoMain(){
   const videoId = getVideoId(window.location.search);
 
@@ -91,6 +195,8 @@ async function setVideoMain(){
     setDocumentTitle(res.title);
     setVideoKeyControl();
     setSubBtnOnClick();
+    setCommentKeyControl();
+    setComments();
   }catch (e){
     axiosErrorHandler(e);
   }
