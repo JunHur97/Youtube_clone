@@ -1,4 +1,4 @@
-import { getVideoList, filterVideosByTag } from "./mainPage.js";
+import { getVideos, filterVideosByTag } from "./mainPage.js";
 
 function scrollCategory(direction) {
     const category = document.getElementById("category-scroll");
@@ -14,19 +14,21 @@ function scrollCategory(direction) {
 function clickAllowButton() {
     document.addEventListener("click", (e) => {
         const direction = e.target.dataset.direction;
-        scrollCategory(direction);
+        if (direction) {
+            scrollCategory(direction);
+        }
     });
 }
 
 async function addTags() {
     try{
-        const {data: res} = await getVideoList();
+        const videos = await getVideos();
         const container = document.getElementById("category-scroll");
     
         const tagSet = new Set();
     
         // 중복 제거
-        res.forEach(video => {
+        videos.forEach(video => {
             video.tags.forEach(tag => tagSet.add(tag.trim()));
         });
 
@@ -59,6 +61,13 @@ async function addTags() {
                 div.onclick = () => {
                     updateActiveTag(div);
                 }
+                
+                // All 태그인 경우 기본적으로 active 클래스 추가
+                if(tag === "All") {
+                    div.classList.add("active");
+                    // 초기 필터링 적용
+                    filterVideosByTag("All");
+                }
             }
         });
 
@@ -82,9 +91,15 @@ function updateActiveTag(activeDiv) {
         // 클릭한 div의 tag로 필터링
         filterVideosByTag(activeDiv.dataset.tag);
     } else {
-        filterVideosByTag("All");
+        // All 태그로 필터링
+        const allTag = document.querySelector('#category-scroll .content div[data-tag="All"]');
+        if (allTag) {
+            allTag.classList.add("active");
+            filterVideosByTag("All");
+        }
     }
 }
 
+// 초기화 및 실행
 addTags();
 clickAllowButton();

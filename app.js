@@ -3,6 +3,15 @@ const app = express();
 const cors = require('cors');
 const path = require('node:path');
 
+const connect = require('./connect');
+const distanceRouter = require('./routes/distanceRouter');
+
+require('dotenv').config();
+
+(async () => {
+  await connect();
+})();
+
 app.set('view engine', 'ejs');
 
 // 정적 파일 경로 설정
@@ -10,6 +19,8 @@ app.use('/public', express.static(path.join(__dirname, 'static')));
 
 // CORS 허용
 app.use(cors());
+
+app.use('/distances', distanceRouter);
 
 // 메인 페이지
 app.get("/", (req, res) => {
@@ -36,8 +47,8 @@ app.get('/channels', (req, res) => {
 
 // 검색 페이지 연결
 app.get('/search', (req, res) => {
-  const searchQuery = req.query.query;
-  res.render('searchPage', { searchQuery });
+  const searchQuery = req.query.search || '';
+  res.render('searchPage', { searchQuery }); // 검색어 파라미터도 같이 넘겨줌
 });
 
 // 서버 시작
