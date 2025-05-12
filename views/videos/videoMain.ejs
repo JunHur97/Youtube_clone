@@ -53,39 +53,9 @@
                 <p>SORT BY</p>
             </div>
         </div>
-        <%
-            const comments = [{
-                commenterImg: '/public/img/navBar/subUserIcon1.svg',
-                authorName: 'James Gouse',
-                createdAt: '8 hours ago',
-                comment: 'Wow, world is full of different skills',
-            }, {
-                commenterImg: '/public/img/navBar/subUserIcon2.svg',
-                authorName: 'Alan Cooper',
-                createdAt: '4 days ago',
-                comment: 'Can you provide?',
-            }, {
-                commenterImg: '/public/img/navBar/subUserIcon3.svg',
-                authorName: 'Heroes of the Storm',
-                createdAt: '8 hours ago',
-                comment: 'HotS still alive',
-            }, {
-                commenterImg: '/public/img/navBar/subUserIcon4.svg',
-                authorName: 'Kim Kimkim',
-                createdAt: '8 days ago',
-                comment: 'asdf',
-            }];
-
-            comments.map((v) => {
-        %>
-        <%- include('videoComment', {
-            commenterImg: v.commenterImg,
-            authorName: v.authorName,
-            createdAt: v.createdAt,
-            comment: v.comment,
-        }) %>
-        <%
-            });
-        %>
+        <div class="commentInput">
+            <img src="/public/img/navBar/subUserIcon1.svg">
+            <input type="text" placeholder="Press Enter to Comment">
+        </div>
     </div>
 </div>
