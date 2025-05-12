@@ -2,6 +2,7 @@ function normalize_for_search(str) {
   return str
     .toLowerCase()
     .trim()
+    .replace(/\s+/g, "")
     .replace(/[\u0300-\u036f]/g, "");
 }
 
@@ -43,7 +44,7 @@ class SearchPage {
 
   // API에서 비디오 데이터 가져오기
   fetchAndStoreVideos() {
-    fetch("http://techfree-oreumi-api.kro.kr:5000/video/getVideoList")
+    fetch("https://www.techfree-oreumi-api.ai.kr/video/getVideoList")
       .then((res) => res.json())
       .then((data) => {
         console.log("받아온 비디오 데이터:", data);
@@ -72,11 +73,12 @@ class SearchPage {
 
       this.filteredVideos = this.allVideos.filter((video) => {
         const titleMatch = normalize_for_search(video.title)?.includes(lowerTerm);
-        const tagList = Array.isArray(video.tags)
-          ? video.tags
+
+          const tagList = Array.isArray(video.tags)
+          ? video.tags.map(t => t.trim())
           : typeof video.tags === "string"
-          ? video.tags.split(",")
-          : [];
+          ? video.tags.split(",").map(t => t.trim())
+        : [];
 
         const tagMatch = tagList.some((tag) =>
           normalize_for_search(tag).includes(lowerTerm)

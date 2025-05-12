@@ -5,6 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>검색 결과</title>
 
+  <style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .video-section {
+    margin-top: 60px;     /* 상단바 높이만큼 */
+    margin-left: 240px;   /* 사이드바 너비만큼 */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .video-grid {
+    background-color: #202020;
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    gap: 16px;
+  }
+
+  .video-box img {
+    width: 240px;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .video-details {
+    display: flex;
+    gap: 12px;
+    color: white;
+  }
+
+  .channel_profile {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+</style>
+
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body style="background-color: #181818; color: white;">
