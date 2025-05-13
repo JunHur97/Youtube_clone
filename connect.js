@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const connect = async () => {
   const DBOpt = {
     autoIndex: false,
+    authSource: 'admin',
+    user: process.env.DB_USER,
+    pass: process.env.DB_PW
   };
 
   mongoose.connection.once('open', () => {
