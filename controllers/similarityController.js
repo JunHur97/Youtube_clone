@@ -1,11 +1,11 @@
-const distanceService = require('../services/distanceService');
+const similarityService = require('../services/similarityService');
 
 module.exports = {
   readAll: async (req, res, next) => {
     const { tags1, tags2 } = req.query;
 
     try {
-      const tagPairs = await distanceService.readAll([tags1, tags2]);
+      const tagPairs = await similarityService.readAll([tags1, tags2]);
 
       res.status(200).json({
         tagPairs,

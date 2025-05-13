@@ -1,6 +1,5 @@
 import { getDataFromCache, insertDataInCache } from '../localCache.js';
 
-// const baseUrl = 'https://techfree-oreumi-api.kro.kr:5000';
 const baseUrl = 'https://www.techfree-oreumi-api.ai.kr';
 
 /**
@@ -71,8 +70,7 @@ async function getSimilarity(tags){
   if (!Array.isArray(tag1) || tag1.length === 0) return;
   if (!Array.isArray(tag2) || tag2.length === 0) return;
 
-  // const { data } = await axios.get(`http://localhost:3000/distances?tags1=${JSON.stringify(tag1)}&tags2=${JSON.stringify(tag2)}`);
-  const { data } = await axios.get(`/distances?tags1=${JSON.stringify(tag1)}&tags2=${JSON.stringify(tag2)}`);
+  const { data } = await axios.get(`/similarities?tags1=${JSON.stringify(tag1)}&tags2=${JSON.stringify(tag2)}`);
 
   return data;
 }

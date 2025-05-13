@@ -5,7 +5,6 @@ import connect from '../connect.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// const baseUrl = `http://techfree-oreumi-api.kro.kr:5000`;
 const baseUrl = 'https://www.techfree-oreumi-api.ai.kr';
 
 /**
@@ -56,13 +55,13 @@ const getPair = (tagSet) => {
  * Push distance between srcWord and destWord into pairs
  * @param {Array<Array<string, string>>} pairs 
  */
-const getPairsDistance = async (pairs) => {
+const getPairsSimilarity = async (pairs) => {
   const result = new Array();
 
   for (let pair of pairs){
-    const pairDistance = await getDistance(pair);
+    const pairSimilarity = await getSimilarity(pair);
 
-    result.push([...pair, pairDistance]);
+    result.push([...pair, pairSimilarity]);
   }
 
   return result;
@@ -73,7 +72,7 @@ const getPairsDistance = async (pairs) => {
  * @param {Array<string, string>} pair 
  * @returns {number}
  */
-const getDistance = async (pair) => {
+const getSimilarity = async (pair) => {
   const res = await TagPair.findOne({
     $or: [{
       srcWord: pair[0],
@@ -86,7 +85,7 @@ const getDistance = async (pair) => {
 
   if (!!res) return res.distance;
 
-  const response = await requestPairDistance(pair);
+  const response = await requestPairSimilarity(pair);
   const body = JSON.parse(response.body);
 
   if (body.result !== 0){
@@ -95,7 +94,6 @@ const getDistance = async (pair) => {
   }
 
   // 기존에는 body.return_object['WWN WordRelInfo'].WordRelInfo.Distance를 사용했으나, root를 공통부모로 하는 경우가 distance가 더 짧게 나오는 경우가 있어 변경함
-  // const { Distance } = body.return_object['WWN WordRelInfo'].WordRelInfo;
   const similarity = body.return_object['WWN WordRelInfo'].WordRelInfo.Similarity[0].SimScore;
 
   await createTagPair([...pair, similarity]);
@@ -116,7 +114,7 @@ const createTagPair = async (tagPair) => {
  * @param {Array<string, string>} pair 
  * @returns {number}
  */
-const requestPairDistance = async (pair) => {
+const requestPairSimilarity = async (pair) => {
   const url = 'http://aiopen.etri.re.kr:8000/WiseWWN/WordRel';
   const opt = {
     headers: {
@@ -148,7 +146,7 @@ const init = async () => {
     tagSet = getTagSet(videos);
 
   const pairs = getPair(tagSet);
-  const result = await getPairsDistance(pairs);
+  const result = await getPairsSimilarity(pairs);
 
   console.log(result);
 };
