@@ -10,6 +10,14 @@ header button {
 }
 
 header.top-nav {
+
+  position: fixed;               /* ✅ 화면 상단 고정 */
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;                  /* ✅ 고정 높이 설정 (실제 디자인에 따라 조절 가능) */
+  z-index: 1000;                 /* ✅ 다른 요소 위에 뜨게 */
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
