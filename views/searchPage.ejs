@@ -6,60 +6,77 @@
   <title>검색 결과</title>
 
   <style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .video-section {
-    margin-top: 60px;     /* 상단바 높이만큼 */
-    margin-left: 240px;   /* 사이드바 너비만큼 */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
+    body {
+      background-color: #181818;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
 
-  .video-grid {
-    background-color: #202020;
-    padding: 16px;
-    border-radius: 8px;
-    display: flex;
-    gap: 16px;
-  }
+    header.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #212121;
+      z-index: 1000;
 
-  .video-box img {
-    width: 240px;
-    height: 135px;
-    object-fit: cover;
-    border-radius: 4px;
-  }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+    }
 
-  .video-details {
-    display: flex;
-    gap: 12px;
-    color: white;
-  }
+   .video-section {
+      padding-top: 60px;       /* 🔥 상단바 + 상단 마진 충분히 */
+      margin-left: 240px;       /* 🔥 사이드바 공간 확보 */
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1100px;
+   }
+    .video-grid {
+      background-color: #202020;
+      padding: 16px;
+      border-radius: 8px;
+      display: flex;
+      gap: 16px;
+    }
 
-  .channel_profile {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-  }
-</style>
+    .video-box img {
+      width: 240px;
+      height: 135px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
 
+    .video-details {
+      display: flex;
+      gap: 12px;
+      color: white;
+    }
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    .channel_profile {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 </head>
-<body style="background-color: #181818; color: white;">
 
+<body>
   <!-- 공통 상단바 / 사이드바 include -->
   <%- include('topBar.ejs') %>
   <%- include('navBar.ejs') %>
- 
 
   <!-- 검색 결과 렌더링 영역 -->
   <section id="Video-Container" class="video-section"></section>
