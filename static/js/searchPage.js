@@ -2,7 +2,7 @@ function normalize_for_search(str) {
   return str
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, "")
+   //.replace(/\s+/g, "")
     .replace(/[\u0300-\u036f]/g, "");
 }
 
@@ -65,32 +65,36 @@ class SearchPage {
   }
 
   // 검색 실행
-  performSearch(searchTerm) {
-    if (!searchTerm) {
-      this.filteredVideos = [...this.allVideos];
-    } else {
-      const lowerTerm = normalize_for_search(searchTerm);
+performSearch(searchTerm) {
+  if (!searchTerm) {
+    this.filteredVideos = [...this.allVideos];
+  } else {
+    const lowerTerm = normalize_for_search(searchTerm);
 
-      this.filteredVideos = this.allVideos.filter((video) => {
-        const titleMatch = normalize_for_search(video.title)?.includes(lowerTerm);
+    this.filteredVideos = this.allVideos.filter((video) => {
+      // ✅ title 일치를 includes → === 로 변경
+      const titleMatch = normalize_for_search(video.title) === lowerTerm;
 
-          const tagList = Array.isArray(video.tags)
-          ? video.tags.map(t => t.trim())
-          : typeof video.tags === "string"
+      // ✅ tagList 정제는 기존 유지
+      const tagList = Array.isArray(video.tags)
+        ? video.tags.map(t => t.trim())
+        : typeof video.tags === "string"
           ? video.tags.split(",").map(t => t.trim())
-        : [];
+          : [];
 
-        const tagMatch = tagList.some((tag) =>
-          normalize_for_search(tag).includes(lowerTerm)
-        );
+      // ✅ tag 비교도 includes → === 로 변경
+      const tagMatch = tagList.some((tag) =>
+        normalize_for_search(tag) === lowerTerm
+      );
 
-        return titleMatch || tagMatch;
-      });
-    }
-
-    console.log(`검색 결과: ${this.filteredVideos.length}개`);
-    this.drawList(this.filteredVideos);
+      return titleMatch || tagMatch;
+    });
   }
+
+  console.log(`검색 결과: ${this.filteredVideos.length}개`);
+  this.drawList(this.filteredVideos);
+}
+
 
   // 검색 결과 렌더링
   drawList(results) {
