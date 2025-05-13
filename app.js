@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('node:path');
 
 const connect = require('./connect');
-const distanceRouter = require('./routes/distanceRouter');
+const similarityRouter = require('./routes/similarityRouter');
 
 require('dotenv').config();
 
@@ -20,7 +20,7 @@ app.use('/public', express.static(path.join(__dirname, 'static')));
 // CORS 허용
 app.use(cors());
 
-app.use('/distances', distanceRouter);
+app.use('/similarities', similarityRouter);
 
 // 메인 페이지
 app.get("/", (req, res) => {
@@ -42,7 +42,7 @@ app.get('/channel', (req, res) => {
 });
 
 app.get('/channels', (req, res) => {
-    res.render('channels/channelpage');
+    res.render('channels/channelPage');
 });
 
 // 검색 페이지 연결
